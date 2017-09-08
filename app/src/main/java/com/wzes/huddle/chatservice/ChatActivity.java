@@ -40,7 +40,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class ChatActivity extends AppCompatActivity implements OnClickListener {
-    private static final String TAG = "TTTT";
     public static List<Message> list;
     public static MessageAdapter messageAdapter;
     public static RecyclerView recyclerView;
@@ -49,13 +48,13 @@ public class ChatActivity extends AppCompatActivity implements OnClickListener {
     private static String to_img;
     private static String to_name;
     private static String user_id = Preferences.getUserAccount();
-    @BindView(2131624065)
+    @BindView(R.id.chat_back)
     public ImageButton backBtn;
-    @BindView(2131624071)
+    @BindView(R.id.chat_send)
     public ImageButton sendBtn;
-    @BindView(2131624070)
+    @BindView(R.id.chat_text)
     public TextInputEditText textTxt;
-    @BindView(2131624066)
+    @BindView(R.id.msg_title)
     public TextView titleTxt;
 
     public static class UserReceiver extends BroadcastReceiver {
@@ -74,10 +73,10 @@ public class ChatActivity extends AppCompatActivity implements OnClickListener {
                 ChatActivity.list = new ArrayList();
             }
             if (ChatActivity.list.size() > 0) {
-                if (((Message) ChatActivity.list.get(0)).getTo_id().equals(Preferences.getUserAccount())) {
-                    ChatActivity.to_img = ((Message) ChatActivity.list.get(0)).getFrom_img();
+                if ((ChatActivity.list.get(0)).getTo_id().equals(Preferences.getUserAccount())) {
+                    ChatActivity.to_img = (list.get(0)).getFrom_img();
                 } else {
-                    ChatActivity.to_img = ((Message) ChatActivity.list.get(0)).getTo_img();
+                    ChatActivity.to_img = (list.get(0)).getTo_img();
                 }
             }
             ChatActivity.messageAdapter = new MessageAdapter(ChatActivity.this, ChatActivity.list);
@@ -112,7 +111,9 @@ public class ChatActivity extends AppCompatActivity implements OnClickListener {
         sendBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
         titleTxt.setText(to_name);
-        new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).getMessageListByID(Preferences.getUserAccount(), to_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C08961());
+        new Builder().baseUrl("http://59.110.136.134/")
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class).getMessageListByID(Preferences.getUserAccount(), to_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C08961());
     }
 
     public static void refreshData(String msg) {
@@ -139,10 +140,10 @@ public class ChatActivity extends AppCompatActivity implements OnClickListener {
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.chat_back /*2131624065*/:
+            case R.id.chat_back:
                 finish();
                 return;
-            case R.id.chat_send /*2131624071*/:
+            case R.id.chat_send:
                 text = this.textTxt.getText().toString();
                 if (text.length() != 0) {
                     if (list == null) {

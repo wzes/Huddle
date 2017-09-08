@@ -1,7 +1,6 @@
 package com.wzes.huddle.util;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 import java.util.Iterator;
 import java.util.Stack;
@@ -28,11 +27,11 @@ public class AppManager {
     }
 
     public Activity currentActivity() {
-        return (Activity) activityStack.lastElement();
+        return activityStack.lastElement();
     }
 
     public void finishActivity() {
-        finishActivity((Activity) activityStack.lastElement());
+        finishActivity(activityStack.lastElement());
     }
 
     public void finishActivity(Activity activity) {
@@ -56,7 +55,7 @@ public class AppManager {
         int size = activityStack.size();
         for (int i = 0; i < size; i++) {
             if (activityStack.get(i) != null) {
-                ((Activity) activityStack.get(i)).finish();
+                activityStack.get(i).finish();
             }
         }
         activityStack.clear();
@@ -65,7 +64,6 @@ public class AppManager {
     public void AppExit(Context context) {
         try {
             finishAllActivity();
-            ((ActivityManager) context.getSystemService("activity")).restartPackage(context.getPackageName());
             System.exit(0);
         } catch (Exception e) {
             e.printStackTrace();

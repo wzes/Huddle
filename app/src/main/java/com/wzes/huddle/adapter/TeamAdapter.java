@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.team.TeamHotFragment;
 import com.wzes.huddle.team.TeamNearFragment;
 import com.wzes.huddle.team.TeamNewFragment;
@@ -41,7 +41,7 @@ public class TeamAdapter extends FragmentPagerAdapter {
         this.teamNearFragment = teamNearFragment;
         this.teamNewFragment = teamNewFragment;
         this.teamRecFragment = teamRecFragment;
-        this.titles = new String[]{context.getResources().getString(C0479R.string.team_new), context.getResources().getString(C0479R.string.team_rec), context.getResources().getString(C0479R.string.team_hot), context.getResources().getString(C0479R.string.team_near)};
+        this.titles = new String[]{context.getResources().getString(R.string.team_new), context.getResources().getString(R.string.team_rec), context.getResources().getString(R.string.team_hot), context.getResources().getString(R.string.team_near)};
     }
 
     public Fragment getItem(int position) {

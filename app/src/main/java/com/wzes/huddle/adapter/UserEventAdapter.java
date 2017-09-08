@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.event_info.EventInfoActivity;
 import com.wzes.huddle.myinterface.OnRecyclerViewOnClickListener;
@@ -41,15 +41,15 @@ public class UserEventAdapter extends Adapter<ViewHolder> {
 
         public NormalViewHolder(View itemView, OnRecyclerViewOnClickListener listener) {
             super(itemView);
-            this.Img = (ImageView) itemView.findViewById(C0479R.id.event_item_image);
-            this.Title = (TextView) itemView.findViewById(C0479R.id.event_item_title);
-            this.Sign = (TextView) itemView.findViewById(C0479R.id.event_item_signtime);
-            this.Rice = (TextView) itemView.findViewById(C0479R.id.event_item_ricetime);
-            this.Host = (TextView) itemView.findViewById(C0479R.id.event_item_host);
-            this.View = (TextView) itemView.findViewById(C0479R.id.event_item_view);
-            this.Follow = (TextView) itemView.findViewById(C0479R.id.event_item_follow);
-            this.Level = (TextView) itemView.findViewById(C0479R.id.event_item_level);
-            this.Divider = itemView.findViewById(C0479R.id.event_divider);
+            this.Img = (ImageView) itemView.findViewById(R.id.event_item_image);
+            this.Title = (TextView) itemView.findViewById(R.id.event_item_title);
+            this.Sign = (TextView) itemView.findViewById(R.id.event_item_signtime);
+            this.Rice = (TextView) itemView.findViewById(R.id.event_item_ricetime);
+            this.Host = (TextView) itemView.findViewById(R.id.event_item_host);
+            this.View = (TextView) itemView.findViewById(R.id.event_item_view);
+            this.Follow = (TextView) itemView.findViewById(R.id.event_item_follow);
+            this.Level = (TextView) itemView.findViewById(R.id.event_item_level);
+            this.Divider = itemView.findViewById(R.id.event_divider);
             this.listener = listener;
             itemView.setOnClickListener(this);
         }
@@ -68,13 +68,13 @@ public class UserEventAdapter extends Adapter<ViewHolder> {
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new NormalViewHolder(this.inflater.inflate(C0479R.layout.event_item_normal, parent, false), this.listener);
+        return new NormalViewHolder(this.inflater.inflate(R.layout.event_item_normal, parent, false), this.listener);
     }
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder instanceof NormalViewHolder) {
             Event item = (Event) this.list.get(position);
-            Glide.with(this.context).load(item.getImage()).centerCrop().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(((NormalViewHolder) holder).Img);
+            Glide.with(this.context).load(item.getImage()).into(((NormalViewHolder) holder).Img);
             ((NormalViewHolder) holder).Title.setText(item.getTitle());
             ((NormalViewHolder) holder).Sign.setText("报名时间 " + item.getEnrool_start_date() + " - " + item.getEnrool_end_date());
             ((NormalViewHolder) holder).Rice.setText("开始时间 " + item.getMatch_start_date() + " - " + item.getMatch_end_date());

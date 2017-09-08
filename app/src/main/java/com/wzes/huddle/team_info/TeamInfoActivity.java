@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import com.baidu.mapapi.UIMsg.m_AppUI;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Image;
 import com.wzes.huddle.bean.Team;
@@ -30,7 +30,6 @@ import com.wzes.huddle.user_info.UserInfoActivity;
 import com.wzes.huddle.util.AppManager;
 import com.wzes.huddle.util.GlideImageLoader;
 import com.youth.banner.Banner;
-import com.youth.banner.listener.OnBannerListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,48 +41,50 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class TeamInfoActivity extends AppCompatActivity {
-    private static final String TAG = "TTTT";
-    @BindView(2131624116)
+    @BindView(R.id.team_info_banner)
     public Banner banner;
-    @BindView(2131624121)
+    @BindView(R.id.team_info_category)
     public TextView categoryTxt;
-    @BindView(2131624127)
+    @BindView(R.id.team_info_user_img)
     public CircleImageView circleImageView;
-    @BindView(2131624115)
+    @BindView(R.id.team_info_collapsing)
     public CollapsingToolbarLayout collapsing;
-    @BindView(2131624119)
+    @BindView(R.id.team_info_content)
     public TextView contentTxt;
-    @BindView(2131624130)
+    @BindView(R.id.team_info_follow)
     public Button followBtn;
-    @BindView(2131624131)
+    @BindView(R.id.team_info_user_follow)
     public TextView followTxt;
-    @BindView(2131624132)
+    @BindView(R.id.team_info_user_info)
     public TextView infoTxt;
-    @BindView(2131624123)
+    @BindView(R.id.team_info_location_back)
     public TextView locationBtn;
-    @BindView(2131624122)
+    @BindView(R.id.team_info_locationname)
     public TextView locationTxt;
-    @BindView(2131624129)
+    @BindView(R.id.team_info_user_major)
     public TextView majorTxt;
+
     private Team myTeam;
-    @BindView(2131624128)
+    @BindView(R.id.team_info_user_name)
     public TextView nameTxt;
-    @BindView(2131624124)
+
+    @BindView(R.id.team_info_people)
     public TextView peopleTxt;
-    @BindView(2131624125)
+
+    @BindView(R.id.team_info_user_recyclerView)
     public RecyclerView recyclerView;
-    @BindView(2131624134)
+    @BindView(R.id.team_info_user_save)
     public LinearLayout saveBtn;
-    @BindView(2131624135)
+    @BindView(R.id.team_info_user_sign)
     public Button signBtn;
-    @BindView(2131624133)
+    @BindView(R.id.team_info_user_talk)
     public LinearLayout talkBtn;
     private String team_id;
-    @BindView(2131624120)
+    @BindView(R.id.team_info_start_time)
     public TextView timeTxt;
-    @BindView(2131624117)
+    @BindView(R.id.team_info_toolbar)
     public Toolbar toolBar;
-    @BindView(2131624126)
+    @BindView(R.id.team_info_user_layout)
     public LinearLayout userBtn;
 
     class C09261 implements Observer<Team> {
@@ -91,43 +92,37 @@ public class TeamInfoActivity extends AppCompatActivity {
         }
 
         public void onCompleted() {
-            TeamInfoActivity.this.collapsing.setTitle(TeamInfoActivity.this.myTeam.getTitle());
+            collapsing.setTitle(myTeam.getTitle());
             final List<String> images = new ArrayList();
-            for (Image img : TeamInfoActivity.this.myTeam.getImages()) {
+            for (Image img : myTeam.getImages()) {
                 images.add(img.getImage());
             }
-            Glide.with(TeamInfoActivity.this).load(TeamInfoActivity.this.myTeam.getImage()).into(TeamInfoActivity.this.circleImageView);
-            TeamInfoActivity.this.infoTxt.setText(TeamInfoActivity.this.myTeam.getInfo());
-            TeamInfoActivity.this.banner.setImages(images).setDelayTime(m_AppUI.MSG_APP_GPS).setIndicatorGravity(6).setImageLoader(new GlideImageLoader()).start();
-            TeamInfoActivity.this.banner.setOnBannerListener(new OnBannerListener() {
-                public void OnBannerClick(int position) {
-                    Intent intent = new Intent(TeamInfoActivity.this, ImageViewActivity.class);
-                    intent.putExtra("uri", (String) images.get(position));
-                    TeamInfoActivity.this.startActivity(intent);
-                }
+            Glide.with(TeamInfoActivity.this).load(myTeam.getImage()).into(circleImageView);
+            infoTxt.setText(myTeam.getInfo());
+            banner.setImages(images).setDelayTime(m_AppUI.MSG_APP_GPS).setIndicatorGravity(6).setImageLoader(new GlideImageLoader()).start();
+            banner.setOnBannerListener(position -> {
+                Intent intent = new Intent(TeamInfoActivity.this, ImageViewActivity.class);
+                intent.putExtra("uri", (String) images.get(position));
+                startActivity(intent);
             });
-            TeamInfoActivity.this.categoryTxt.setText("——" + TeamInfoActivity.this.myTeam.getCategory().toString());
-            TeamInfoActivity.this.nameTxt.setText(TeamInfoActivity.this.myTeam.getName());
-            TeamInfoActivity.this.contentTxt.setText("——" + TeamInfoActivity.this.myTeam.getContent());
-            TeamInfoActivity.this.timeTxt.setText("——" + TeamInfoActivity.this.myTeam.getStart_date());
-            TeamInfoActivity.this.peopleTxt.setText("组员" + TeamInfoActivity.this.myTeam.getJoin_people() + "人已报名(还差" + ((TeamInfoActivity.this.myTeam.getJoin_acount() - TeamInfoActivity.this.myTeam.getJoin_people()) - 1) + "人)");
-            TeamInfoActivity.this.userBtn.setOnClickListener(TeamInfoActivity$1$$Lambda$1.lambdaFactory$(this));
-            TeamInfoActivity.this.locationTxt.setText("——" + TeamInfoActivity.this.myTeam.getLocationname());
-            TeamInfoActivity.this.locationBtn.setOnClickListener(TeamInfoActivity$1$$Lambda$2.lambdaFactory$(this));
-        }
-
-        private /* synthetic */ void lambda$onCompleted$0(View v) {
-            Intent nIntent = new Intent(TeamInfoActivity.this, UserInfoActivity.class);
-            nIntent.putExtra("user_id", TeamInfoActivity.this.myTeam.getUser_id());
-            TeamInfoActivity.this.startActivity(nIntent);
-        }
-
-        private /* synthetic */ void lambda$onCompleted$1(View v) {
-            Intent nIntent = new Intent(TeamInfoActivity.this, TeamInfoLocationActivity.class);
-            nIntent.putExtra("title", TeamInfoActivity.this.myTeam.getLocationname());
-            nIntent.putExtra("longitude", TeamInfoActivity.this.myTeam.getLocationlongitude());
-            nIntent.putExtra("latitude", TeamInfoActivity.this.myTeam.getLocationlatitude());
-            TeamInfoActivity.this.startActivity(nIntent);
+            categoryTxt.setText("——" + myTeam.getCategory().toString());
+            nameTxt.setText(myTeam.getName());
+            contentTxt.setText("——" + myTeam.getContent());
+            timeTxt.setText("——" + myTeam.getStart_date());
+            peopleTxt.setText("组员" + myTeam.getJoin_people() + "人已报名(还差" + ((myTeam.getJoin_acount() - myTeam.getJoin_people()) - 1) + "人)");
+            userBtn.setOnClickListener(v -> {
+                Intent nIntent = new Intent(TeamInfoActivity.this, UserInfoActivity.class);
+                nIntent.putExtra("user_id", myTeam.getUser_id());
+                startActivity(nIntent);
+            });
+            locationTxt.setText("——" + myTeam.getLocationname());
+            locationBtn.setOnClickListener(v -> {
+                Intent nIntent = new Intent(TeamInfoActivity.this, TeamInfoLocationActivity.class);
+                nIntent.putExtra("title", myTeam.getLocationname());
+                nIntent.putExtra("longitude", myTeam.getLocationlongitude());
+                nIntent.putExtra("latitude", myTeam.getLocationlatitude());
+                startActivity(nIntent);
+            });
         }
 
         public void onError(Throwable e) {
@@ -135,51 +130,44 @@ public class TeamInfoActivity extends AppCompatActivity {
         }
 
         public void onNext(Team team) {
-            TeamInfoActivity.this.myTeam = team;
+            myTeam = team;
         }
     }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView((int) C0479R.layout.activity_team_info);
+        setContentView((int) R.layout.activity_team_info);
         AppManager.getAppManager().addActivity(this);
         this.team_id = getIntent().getStringExtra("team_id");
         if (this.team_id == null) {
             this.team_id = "1";
         }
-        ButterKnife.bind((Activity) this);
-        ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new Gson())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).getTeam(this.team_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09261());
+        ButterKnife.bind(this);
+        new Builder().baseUrl("http://59.110.136.134/")
+                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build().create(RetrofitService.class).getTeam(this.team_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new C09261());
         setSupportActionBar(this.toolBar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        this.signBtn.setOnClickListener(TeamInfoActivity$$Lambda$1.lambdaFactory$(this));
-        this.talkBtn.setOnClickListener(TeamInfoActivity$$Lambda$2.lambdaFactory$(this));
+        this.signBtn.setOnClickListener(view -> Toast.makeText(this, "报名成功", 0).show());
+        this.talkBtn.setOnClickListener(view -> {
+            if (this.myTeam.getUser_id().equals(Preferences.getUserAccount())) {
+                Toast.makeText(this, "不能和自己聊天哦！", 0).show();
+                return;
+            }
+            Intent intent1 = new Intent(this, ChatActivity.class);
+            intent1.putExtra("to_id", this.myTeam.getUser_id());
+            intent1.putExtra("to_name", this.myTeam.getName());
+            startActivity(intent1);
+        });
     }
+    
 
-    private /* synthetic */ void lambda$onCreate$0(View v) {
-        Toast.makeText(this, "报名成功", 0).show();
-    }
 
-    private /* synthetic */ void lambda$onCreate$1(View v) {
-        if (this.myTeam.getUser_id().equals(Preferences.getUserAccount())) {
-            Toast.makeText(this, "不能和自己聊天哦！", 0).show();
-            return;
-        }
-        Intent intent1 = new Intent(this, ChatActivity.class);
-        intent1.putExtra("to_id", this.myTeam.getUser_id());
-        intent1.putExtra(HttpPostBodyUtil.NAME, this.myTeam.getName());
-        startActivity(intent1);
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case 16908332:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }

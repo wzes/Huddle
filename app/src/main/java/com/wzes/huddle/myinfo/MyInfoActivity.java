@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.homepage.MyFragment;
 import com.wzes.huddle.service.RetrofitService;
@@ -95,7 +95,7 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
                 String s = (String) it.next();
                 Log.i(MyInfoActivity.TAG, s);
                 uploadImage(s);
-                Glide.with(MyInfoActivity.this).load(s).centerCrop().into(MyInfoActivity.this.imageView);
+                Glide.with(MyInfoActivity.this).load(s).into(MyInfoActivity.this.imageView);
             }
         }
 
@@ -122,19 +122,19 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView((int) C0479R.layout.activity_my_info);
-        this.backBtn = (ImageButton) findViewById(C0479R.id.my_info_back);
+        setContentView((int) R.layout.activity_my_info);
+        this.backBtn = (ImageButton) findViewById(R.id.my_info_back);
         this.backBtn.setOnClickListener(this);
-        this.usernameTxt = (TextView) findViewById(C0479R.id.my_info_username);
-        this.nameTxt = (TextView) findViewById(C0479R.id.my_info_name);
-        this.sexTxt = (TextView) findViewById(C0479R.id.my_info_sex);
-        this.gradeTxt = (TextView) findViewById(C0479R.id.my_info_grade);
-        this.majorTxt = (TextView) findViewById(C0479R.id.my_info_major);
-        this.birthTxt = (TextView) findViewById(C0479R.id.my_info_birth);
-        this.phoneTxt = (TextView) findViewById(C0479R.id.my_info_phone);
-        this.mottoTxt = (TextView) findViewById(C0479R.id.my_info_motto);
-        this.moreTxt = (TextView) findViewById(C0479R.id.my_info_more);
-        this.imageView = (ImageView) findViewById(C0479R.id.my_info_img);
+        this.usernameTxt = (TextView) findViewById(R.id.my_info_username);
+        this.nameTxt = (TextView) findViewById(R.id.my_info_name);
+        this.sexTxt = (TextView) findViewById(R.id.my_info_sex);
+        this.gradeTxt = (TextView) findViewById(R.id.my_info_grade);
+        this.majorTxt = (TextView) findViewById(R.id.my_info_major);
+        this.birthTxt = (TextView) findViewById(R.id.my_info_birth);
+        this.phoneTxt = (TextView) findViewById(R.id.my_info_phone);
+        this.mottoTxt = (TextView) findViewById(R.id.my_info_motto);
+        this.moreTxt = (TextView) findViewById(R.id.my_info_more);
+        this.imageView = (ImageView) findViewById(R.id.my_info_img);
         this.usernameTxt.setOnClickListener(this);
         this.nameTxt.setOnClickListener(this);
         this.sexTxt.setOnClickListener(this);
@@ -145,7 +145,7 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
         this.mottoTxt.setOnClickListener(this);
         this.moreTxt.setOnClickListener(this);
         this.imageView.setOnClickListener(this);
-        Glide.with((FragmentActivity) this).load(MyFragment.currentUser.getImage()).centerCrop().into(this.imageView);
+        Glide.with((FragmentActivity) this).load(MyFragment.currentUser.getImage()).into(this.imageView);
         this.usernameTxt.setText(MyFragment.currentUser.getUser_id());
         this.nameTxt.setText(MyFragment.currentUser.getName());
         this.sexTxt.setText(MyFragment.currentUser.getSex());
@@ -158,34 +158,34 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case C0479R.id.my_info_back /*2131624094*/:
+            case R.id.my_info_back /*2131624094*/:
                 finish();
                 return;
-            case C0479R.id.my_info_img /*2131624096*/:
+            case R.id.my_info_img /*2131624096*/:
                 requestPermission();
                 return;
-            case C0479R.id.my_info_name /*2131624099*/:
+            case R.id.my_info_name /*2131624099*/:
                 Intent name = new Intent(this, MyInfoSettingActivity.class);
                 name.putExtra("title", "姓名");
                 name.putExtra("content", this.nameTxt.getText());
                 name.putExtra("note", "请不要超过40个字符");
                 startActivity(name);
                 return;
-            case C0479R.id.my_info_sex /*2131624100*/:
+            case R.id.my_info_sex /*2131624100*/:
                 Intent sex = new Intent(this, MyInfoSettingActivity.class);
                 sex.putExtra("title", "姓别");
                 sex.putExtra("content", this.sexTxt.getText());
                 sex.putExtra("note", "请输入性别");
                 startActivity(sex);
                 return;
-            case C0479R.id.my_info_grade /*2131624101*/:
+            case R.id.my_info_grade /*2131624101*/:
                 Intent grade = new Intent(this, MyInfoSettingActivity.class);
                 grade.putExtra("title", "年级");
                 grade.putExtra("content", this.phoneTxt.getText());
                 grade.putExtra("note", "");
                 startActivity(grade);
                 return;
-            case C0479R.id.my_info_major /*2131624102*/:
+            case R.id.my_info_major /*2131624102*/:
                 Intent major = new Intent(this, MyInfoSettingActivity.class);
                 major.putExtra("title", "专业");
                 major.putExtra("content", MyFragment.currentUser.getMajor());
@@ -193,21 +193,21 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
                 major.putExtra("note", "请输入专业");
                 startActivity(major);
                 return;
-            case C0479R.id.my_info_birth /*2131624103*/:
+            case R.id.my_info_birth /*2131624103*/:
                 Intent birth = new Intent(this, MyInfoSettingActivity.class);
                 birth.putExtra("title", "生日");
                 birth.putExtra("content", this.birthTxt.getText());
                 birth.putExtra("note", "请选择日期");
                 startActivity(birth);
                 return;
-            case C0479R.id.my_info_phone /*2131624104*/:
+            case R.id.my_info_phone /*2131624104*/:
                 Intent phone = new Intent(this, MyInfoSettingActivity.class);
                 phone.putExtra("title", "电话");
                 phone.putExtra("content", this.phoneTxt.getText());
                 phone.putExtra("note", "请输入电话号码");
                 startActivity(phone);
                 return;
-            case C0479R.id.my_info_motto /*2131624105*/:
+            case R.id.my_info_motto /*2131624105*/:
                 Intent motto = new Intent(this, MyInfoSettingActivity.class);
                 motto.putExtra("title", "签名");
                 motto.putExtra("content", this.mottoTxt.getText());
@@ -215,7 +215,7 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
                 motto.putExtra("note", "不超过100个字符");
                 startActivity(motto);
                 return;
-            case C0479R.id.my_info_more /*2131624106*/:
+            case R.id.my_info_more /*2131624106*/:
                 Intent more = new Intent(this, MyInfoSettingActivity.class);
                 more.putExtra("title", "简介");
                 more.putExtra("content", MyFragment.currentUser.getInfo());
@@ -239,7 +239,8 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
     }
 
     private void openGallery() {
-        GalleryPick.getInstance().setGalleryConfig(new GalleryConfig.Builder().imageLoader(new GalleryGlideImageLoader()).iHandlerCallBack(this.iHandlerCallBack).provider("com.yancy.gallerypickdemo.fileprovider").pathList(new ArrayList()).multiSelect(false).maxSize(9).crop(true).isShowCamera(true).filePath("/Gallery/Pictures").build()).open(this);
+        GalleryPick.getInstance().setGalleryConfig(new GalleryConfig.Builder()
+                .imageLoader(new GalleryGlideImageLoader()).iHandlerCallBack(this.iHandlerCallBack).provider("com.yancy.gallerypickdemo.fileprovider").pathList(new ArrayList()).multiSelect(false).maxSize(9).crop(true).isShowCamera(true).filePath("/Gallery/Pictures").build()).open(this);
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

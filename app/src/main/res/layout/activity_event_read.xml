@@ -3,77 +3,77 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/event_read_appBar"
         android:fitsSystemWindows="true"
-        android:layout_width="fill_parent"
-        android:layout_height="250.0dip">
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
         <android.support.design.widget.CollapsingToolbarLayout
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:id="@+id/event_read_collapsing"
             android:fitsSystemWindows="true"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_scrollFlags="exitUntilCollapsed|scroll"
             app:contentScrim="?colorPrimary">
             <ImageView android:id="@+id/event_read_image"
                 android:background="@drawable/background"
                 android:fitsSystemWindows="true"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
             <android.support.v7.widget.Toolbar
                 android:id="@+id/event_read_toolbar"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_collapseMode="pin" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
     <android.support.v4.widget.NestedScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <android.support.v7.widget.CardView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15.0dip"
-                android:layout_marginTop="30.0dip"
-                android:layout_marginRight="15.0dip"
-                android:layout_marginBottom="15.0dip"
-                app:cardCornerRadius="4.0dip">
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                app:cardCornerRadius="4dp">
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10.0dip">
+                    android:layout_margin="10dp">
                     <TextView
-                        android:textSize="15.0dip"
-                        android:textColor="#ff000000"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
                         android:id="@+id/event_read_signTime"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5.0dip"
+                        android:layout_marginTop="5dp"
                         android:text="报名时间 2017.07.11 - 2017.07.25" />
                     <TextView
-                        android:textSize="15.0dip"
-                        android:textColor="#ff000000"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
                         android:id="@+id/event_read_riceTime"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="比赛时间 2017.07.11 - 2017.07.25" />
-                    <TextView android:textSize="18.0dip"
-                        android:textColor="#ff000000"
+                    <TextView android:textSize="18dp"
+                        android:textColor="@color/black"
                         android:id="@+id/event_read_content"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5.0dip"
+                        android:layout_marginTop="5dp"
                         android:text="编程之美挑战赛是微软面向学生开展的大型编程比赛，自2012年以来已成功举办了五届比赛，先后有来自国内外77000+高校学生参加过编程之美大赛。现已成为以解决挑战性问题为目标的优秀学生切磋交流及实现梦想的平台。今年，编程之美挑战赛2.0时代到来，它致力于帮助学生们了解、学习最新的技术理念，动手实践最热门的技术，玩转最酷炫的工具，并通过比赛加强他们在协作、沟通等方面的软实力，从而提高青年开发者的综合实践能力，成为能够解决当今热点问题，走在时代前沿的青年典范。  微软认为，在信息科技史上真正的第三个大时代是人工智能时代，而它的核心革命，就是“对话即平台” Conversation as a Platform的崛起。在对话即平台的时代，不管是一个App、一块屏幕、一个设备，还是一个眼镜、一盏台灯，甚至是一个桌子，都会有一个对话的“窗口”，所有的交互都通过对话来完成。起床，你用自然语言唤起梳妆台的镜子显示今日的天气和新闻。家里的小娜（Cortana）提醒你今天因为限号4，9，根据历史的预测会提早堵车，需要提前20分钟出发。头疼得要紧，与手机里的医疗助力探讨后，他觉得你是因为劳累过度颈椎病犯了，建议你应该去挂骨科看颈椎。旅游途中，看到一座不知名的古城，你向你的的太阳眼镜询问这是哪里，是否好玩儿？它立刻告诉你古城的历史和现在的信息，建议你修改原来的行程，去古城里转转会有更好的收获。  怎么样才能实现“物物智能、智能众生”的构想呢？微软将微软亚洲研究院研究技术Bot Framework和Cognitive Services开放出来。不论是大公司还是小团队，又或者是独立开发者，都可以借助这智能的洪荒之力，一起来实现四海八荒智能对话的未来。  因此，编程之美挑战赛2017的主题应运而生，请同学们利用微软Bot Framework和Cognitive Services，为你所爱的学校打造一个最美Bot。 它是为学校提供信息咨询服务的智能Bot，让学校信息的获取变得简单有趣！ 它是服务老师和同学的智能助手，让你的才能用最酷的方式进行展现！ 它会成学校最炫的一张名片，让Everybody爱上你的学校！  2017编程之美挑战赛，智出乎争，等你来战！" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -83,7 +83,7 @@
         android:id="@+id/event_read_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16.0dip"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_favorite_border_black_24dp"
         app:layout_anchor="@+id/event_read_appBar"
         app:layout_anchorGravity="center|bottom|right" />

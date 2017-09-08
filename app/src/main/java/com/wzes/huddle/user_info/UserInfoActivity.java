@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.GsonBuilder;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.UserAdapter;
 import com.wzes.huddle.bean.User;
 import com.wzes.huddle.imageloader.ImageViewActivity;
@@ -35,28 +35,28 @@ import rx.schedulers.Schedulers;
 public class UserInfoActivity extends AppCompatActivity {
     private static boolean expend = false;
     private static String user_id;
-    @BindView(2131624140)
+    @BindView(R.id.user_info_back)
     public ImageButton backBtn;
     private User currentUser;
-    @BindView(2131624148)
+    @BindView(R.id.user_info_expend)
     public Button expendBtn;
-    @BindView(2131624143)
+    @BindView(R.id.user_info_image)
     public CircleImageView imageView;
-    @BindView(2131624147)
+    @BindView(R.id.user_info_info)
     public TextView infoTxt;
-    @BindView(2131624146)
+    @BindView(R.id.user_info_major)
     public TextView majorTxt;
-    @BindView(2131624142)
+    @BindView(R.id.user_info_more)
     public ImageButton moreBtn;
-    @BindView(2131624145)
+    @BindView(R.id.user_info_motto)
     public TextView mottoTxt;
-    @BindView(2131624144)
+    @BindView(R.id.user_info_name)
     public TextView nameTxt;
-    @BindView(2131624149)
+    @BindView(R.id.user_info_tabs)
     public TabLayout tabLayout;
-    @BindView(2131624141)
+    @BindView(R.id.user_info_title)
     public TextView titleTxt;
-    @BindView(2131624150)
+    @BindView(R.id.user_pager)
     public ViewPager viewPager;
 
     class C04941 implements OnClickListener {
@@ -64,7 +64,7 @@ public class UserInfoActivity extends AppCompatActivity {
         }
 
         public void onClick(View v) {
-            UserInfoActivity.this.finish();
+            finish();
         }
     }
 
@@ -74,7 +74,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
         public void onClick(View v) {
             BottomSheetDialog dialog = new BottomSheetDialog(UserInfoActivity.this);
-            dialog.setContentView(LayoutInflater.from(UserInfoActivity.this).inflate(C0479R.layout.user_info_bottom_sheet_dialog, null));
+            dialog.setContentView(LayoutInflater.from(UserInfoActivity.this).inflate(R.layout.user_info_bottom_sheet_dialog, null));
             dialog.show();
         }
     }
@@ -85,13 +85,13 @@ public class UserInfoActivity extends AppCompatActivity {
 
         public void onClick(View v) {
             if (UserInfoActivity.expend) {
-                UserInfoActivity.this.infoTxt.setText(UserInfoActivity.this.currentUser.getInfo().length() > 20 ? UserInfoActivity.this.currentUser.getInfo().substring(0, 20) + "..." : UserInfoActivity.this.currentUser.getInfo());
+                infoTxt.setText(currentUser.getInfo().length() > 20 ? currentUser.getInfo().substring(0, 20) + "..." : currentUser.getInfo());
                 UserInfoActivity.expend = false;
-                UserInfoActivity.this.expendBtn.setText("展开");
+                expendBtn.setText("展开");
                 return;
             }
-            UserInfoActivity.this.infoTxt.setText(UserInfoActivity.this.currentUser.getInfo());
-            UserInfoActivity.this.expendBtn.setText("收起");
+            infoTxt.setText(currentUser.getInfo());
+            expendBtn.setText("收起");
             UserInfoActivity.expend = true;
         }
     }
@@ -102,8 +102,8 @@ public class UserInfoActivity extends AppCompatActivity {
 
         public void onClick(View v) {
             Intent intentThree = new Intent(UserInfoActivity.this, ImageViewActivity.class);
-            intentThree.putExtra("uri", UserInfoActivity.this.currentUser.getImage());
-            UserInfoActivity.this.startActivity(intentThree);
+            intentThree.putExtra("uri", currentUser.getImage());
+            startActivity(intentThree);
         }
     }
 
@@ -112,13 +112,13 @@ public class UserInfoActivity extends AppCompatActivity {
         }
 
         public void onCompleted() {
-            if (UserInfoActivity.this.currentUser != null) {
-                Glide.with(UserInfoActivity.this).load(UserInfoActivity.this.currentUser.getImage()).centerCrop().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(UserInfoActivity.this.imageView);
-                UserInfoActivity.this.nameTxt.setText(UserInfoActivity.this.currentUser.getName());
-                UserInfoActivity.this.majorTxt.setText(UserInfoActivity.this.currentUser.getMajor());
-                UserInfoActivity.this.mottoTxt.setText(UserInfoActivity.this.currentUser.getMotto() == null ? "这家伙很懒，还没有写呢" : UserInfoActivity.this.currentUser.getMotto());
-                UserInfoActivity.this.titleTxt.setText(UserInfoActivity.this.currentUser.getName());
-                UserInfoActivity.this.infoTxt.setText((UserInfoActivity.this.currentUser.getInfo() == null ? "暂无简介" : UserInfoActivity.this.currentUser.getInfo()).length() > 20 ? UserInfoActivity.this.currentUser.getInfo().substring(0, 20) + "..." : UserInfoActivity.this.currentUser.getInfo());
+            if (currentUser != null) {
+                Glide.with(UserInfoActivity.this).load(currentUser.getImage()).into(imageView);
+                nameTxt.setText(currentUser.getName());
+                majorTxt.setText(currentUser.getMajor());
+                mottoTxt.setText(currentUser.getMotto() == null ? "这家伙很懒，还没有写呢" : currentUser.getMotto());
+                titleTxt.setText(currentUser.getName());
+                infoTxt.setText((currentUser.getInfo() == null ? "暂无简介" : currentUser.getInfo()).length() > 20 ? currentUser.getInfo().substring(0, 20) + "..." : currentUser.getInfo());
             }
         }
 
@@ -127,13 +127,13 @@ public class UserInfoActivity extends AppCompatActivity {
         }
 
         public void onNext(User user) {
-            UserInfoActivity.this.currentUser = user;
+            currentUser = user;
         }
     }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView((int) C0479R.layout.activity_user_info);
+        setContentView((int) R.layout.activity_user_info);
         ButterKnife.bind((Activity) this);
         AppManager.getAppManager().addActivity(this);
         user_id = getIntent().getStringExtra("user_id");

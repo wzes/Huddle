@@ -7,4 +7,5 @@
     <color name="colorPrimaryDark">#ff303f9f</color>
     <color name="divider">#ffeaeaea</color>
     <color name="white">#fff</color>
+    <color name="yellow">#ff0</color>
 </resources>

@@ -11,7 +11,7 @@
     <string name="bottom_sheet_behavior">android.support.design.widget.BottomSheetBehavior</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_username">This username is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="event_detail">编程之美挑战赛是微软面向学生开展的大型编程比赛，自2012年以来已成功举办了五届比赛，先后有来自国内外77000+高校学生参加过编程之美大赛。现已成为以解决挑战性问题为目标的优秀学生切磋交流及实现梦想的平台。今年，编程之美挑战赛2.0时代到来，它致力于帮助学生们了解、学习最新的技术理念，动手实践最热门的技术，玩转最酷炫的工具，并通过比赛加强他们在协作、沟通等方面的软实力，从而提高青年开发者的综合实践能力，成为能够解决当今热点问题，走在时代前沿的青年典范。 微软认为，在信息科技史上真正的第三个大时代是人工智能时代，而它的核心革命，就是“对话即平台” Conversation as a Platform的崛起。在对话即平台的时代，不管是一个App、一块屏幕、一个设备，还是一个眼镜、一盏台灯，甚至是一个桌子，都会有一个对话的“窗口”，所有的交互都通过对话来完成。起床，你用自然语言唤起梳妆台的镜子显示今日的天气和新闻。家里的小娜（Cortana）提醒你今天因为限号4，9，根据历史的预测会提早堵车，需要提前20分钟出发。头疼得要紧，与手机里的医疗助力探讨后，他觉得你是因为劳累过度颈椎病犯了，建议你应该去挂骨科看颈椎。旅游途中，看到一座不知名的古城，你向你的的太阳眼镜询问这是哪里，是否好玩儿？它立刻告诉你古城的历史和现在的信息，建议你修改原来的行程，去古城里转转会有更好的收获。 怎么样才能实现“物物智能、智能众生”的构想呢？微软将微软亚洲研究院研究技术Bot Framework和Cognitive Services开放出来。不论是大公司还是小团队，又或者是独立开发者，都可以借助这智能的洪荒之力，一起来实现四海八荒智能对话的未来。 因此，编程之美挑战赛2017的主题应运而生，请同学们利用微软Bot Framework和Cognitive Services，为你所爱的学校打造一个最美Bot。 它是为学校提供信息咨询服务的智能Bot，让学校信息的获取变得简单有趣！ 它是服务老师和同学的智能助手，让你的才能用最酷的方式进行展现！ 它会成学校最炫的一张名片，让Everybody爱上你的学校！ 2017编程之美挑战赛，智出乎争，等你来战！</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

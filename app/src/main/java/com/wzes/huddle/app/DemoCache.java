@@ -3,26 +3,26 @@ package com.wzes.huddle.app;
 import android.content.Context;
 
 public class DemoCache {
-    private static String account;
-    private static Context context;
+    private static String mAccount;
+    private static Context mContext;
 
     public static void clear() {
-        account = null;
+        mAccount = null;
     }
 
     public static String getAccount() {
-        return account;
+        return mAccount;
     }
 
     public static void setAccount(String account) {
-        account = account;
+        mAccount = account;
     }
 
     public static Context getContext() {
-        return context;
+        return mContext;
     }
 
     public static void setContext(Context context) {
-        context = context.getApplicationContext();
+        mContext = context.getApplicationContext();
     }
 }

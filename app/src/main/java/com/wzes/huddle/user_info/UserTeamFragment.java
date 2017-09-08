@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.google.gson.GsonBuilder;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.TeamInfoAdapter;
 import com.wzes.huddle.bean.Team;
 import com.wzes.huddle.service.RetrofitService;
@@ -33,7 +33,7 @@ public class UserTeamFragment extends Fragment {
         }
 
         public void run() {
-            UserTeamFragment.this.initData();
+            initData();
         }
     }
 
@@ -42,9 +42,9 @@ public class UserTeamFragment extends Fragment {
         }
 
         public void onCompleted() {
-            UserTeamFragment.this.recyclerView.setAdapter(new TeamInfoAdapter(UserTeamFragment.this, UserTeamFragment.this.list));
-            UserTeamFragment.this.recyclerView.setHasFixedSize(true);
-            UserTeamFragment.this.recyclerView.setLayoutManager(new LinearLayoutManager(UserTeamFragment.this.getActivity()));
+            recyclerView.setAdapter(new TeamInfoAdapter(UserTeamFragment.this, list));
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
 
         public void onError(Throwable e) {
@@ -52,7 +52,7 @@ public class UserTeamFragment extends Fragment {
         }
 
         public void onNext(List<Team> teams) {
-            UserTeamFragment.this.list = teams;
+            list = teams;
         }
     }
 
@@ -74,8 +74,8 @@ public class UserTeamFragment extends Fragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(C0479R.layout.fragment_user_team, container, false);
-        this.recyclerView = (RecyclerView) view.findViewById(C0479R.id.user_team_recyclerView);
+        View view = inflater.inflate(R.layout.fragment_user_team, container, false);
+        this.recyclerView = (RecyclerView) view.findViewById(R.id.user_team_recyclerView);
         new Thread(new C04981()).start();
         return view;
     }

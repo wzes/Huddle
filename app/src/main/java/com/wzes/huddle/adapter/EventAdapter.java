@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.baidu.mapapi.UIMsg.m_AppUI;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.wzes.huddle.R;
 import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.event_info.EventInfoActivity;
@@ -42,7 +41,7 @@ public class EventAdapter extends Adapter<ViewHolder> {
             super(itemView);
             this.banner = (Banner) itemView.findViewById(R.id.event_item_banner);
             itemView.setOnClickListener(this);
-            this.banner.setOnBannerListener(EventAdapter$HeaderViewHolder$$Lambda$1.lambdaFactory$(this));
+            //this.banner.setOnBannerListener();
         }
 
         private /* synthetic */ void lambda$new$0(int position) {
@@ -122,10 +121,12 @@ public class EventAdapter extends Adapter<ViewHolder> {
             String uri = item.getImage();
             Glide.with(this.context)
                     .load(item.getImage())
-                    .centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(((NormalViewHolder) holder).Img);
-            ((NormalViewHolder) holder).Img.setOnClickListener(EventAdapter$$Lambda$1.lambdaFactory$(this, uri));
+            ((NormalViewHolder) holder).Img.setOnClickListener(v -> {
+                Intent intent = new Intent(this.context.getContext(), ImageViewActivity.class);
+                intent.putExtra("uri", uri);
+                this.context.startActivity(intent);
+            });
             ((NormalViewHolder) holder).Title.setText(item.getTitle());
             ((NormalViewHolder) holder).Sign.setText("报名时间 " + item.getEnrool_start_date().split(" ")[0] + " - " + item.getEnrool_end_date().split(" ")[0]);
             ((NormalViewHolder) holder).Rice.setText("开始时间 " + item.getMatch_start_date().split(" ")[0] + " - " + item.getMatch_end_date().split(" ")[0]);

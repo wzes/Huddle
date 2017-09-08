@@ -10,15 +10,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.login.LoginActivity;
 import com.wzes.huddle.util.AppManager;
 
 public class SettingActivity extends AppCompatActivity {
-    @BindView(2131624112)
+    @BindView(R.id.setting_back)
     public ImageButton backBtn;
-    @BindView(2131624113)
+    @BindView(R.id.setting_login_out)
     public Button loginOut;
 
     class C04861 implements OnClickListener {
@@ -45,7 +45,7 @@ public class SettingActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView((int) C0479R.layout.activity_setting);
+        setContentView((int) R.layout.activity_setting);
         ButterKnife.bind((Activity) this);
         this.backBtn.setOnClickListener(new C04861());
         this.loginOut.setOnClickListener(new C04872());

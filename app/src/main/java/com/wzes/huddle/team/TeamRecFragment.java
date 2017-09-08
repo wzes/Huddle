@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.google.gson.GsonBuilder;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.TeamInfoAdapter;
 import com.wzes.huddle.bean.Team;
 import com.wzes.huddle.service.RetrofitService;
@@ -108,10 +108,10 @@ public class TeamRecFragment extends Fragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(C0479R.layout.fragment_team_item_rec, container, false);
-        this.recyclerView = (RecyclerView) view.findViewById(C0479R.id.team_rec_recyclerView);
-        this.refreshLayout = (SwipeRefreshLayout) view.findViewById(C0479R.id.team_rec_refreshLayout);
-        this.refreshLayout.setColorSchemeResources(C0479R.color.colorPrimary);
+        View view = inflater.inflate(R.layout.fragment_team_item_rec, container, false);
+        this.recyclerView = (RecyclerView) view.findViewById(R.id.team_rec_recyclerView);
+        this.refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.team_rec_refreshLayout);
+        this.refreshLayout.setColorSchemeResources(R.color.colorPrimary);
         this.refreshLayout.setOnRefreshListener(new C09221());
         if (list == null) {
             this.refreshLayout.setRefreshing(true);

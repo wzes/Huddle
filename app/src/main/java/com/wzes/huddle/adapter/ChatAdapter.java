@@ -1,7 +1,6 @@
 package com.wzes.huddle.adapter;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,13 +46,13 @@ public class ChatAdapter extends Adapter<android.support.v7.widget.RecyclerView.
 
         public void onClick(View view) {
             Intent intent = new Intent(ChatAdapter.this.context.getContext(), ChatActivity.class);
-            intent.putExtra("to_id", ( ChatAdapter.this.list.get(getLayoutPosition())).getUser_id());
-            intent.putExtra(HttpPostBodyUtil.NAME,  ChatAdapter.this.list.get(getLayoutPosition())).getName());
+            intent.putExtra("to_id", list.get(getLayoutPosition()).getUser_id());
+            intent.putExtra("to_name",  list.get(getLayoutPosition()).getName());
             ChatAdapter.this.context.startActivity(intent);
         }
     }
 
-    public ChatAdapter(@NonNull ChatFragment context, @NonNull List<Chat> list) {
+    public ChatAdapter(ChatFragment context, List<Chat> list) {
         this.context = context;
         this.inflater = LayoutInflater.from(context.getContext());
         this.list = list;
@@ -71,7 +70,7 @@ public class ChatAdapter extends Adapter<android.support.v7.widget.RecyclerView.
             ((ViewHolder) holder).Time.setText(item.getSend_date());
             ((ViewHolder) holder).Status.setVisibility(8);
             ((ViewHolder) holder).Content.setText(item.getContent());
-            Glide.with(this.context).load(item.getImage()).diskCacheStrategy(DiskCacheStrategy.ALL).into(((ViewHolder) holder).Img);
+            Glide.with(this.context).load(item.getImage()).into(((ViewHolder) holder).Img);
         }
     }
 

@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.google.gson.GsonBuilder;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.UserEventAdapter;
 import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.service.RetrofitService;
@@ -74,8 +74,8 @@ public class UserEventFragment extends Fragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(C0479R.layout.fragment_user_event, container, false);
-        this.recyclerView = (RecyclerView) view.findViewById(C0479R.id.user_event_recyclerView);
+        View view = inflater.inflate(R.layout.fragment_user_event, container, false);
+        this.recyclerView = (RecyclerView) view.findViewById(R.id.user_event_recyclerView);
         new Thread(new C04931()).start();
         return view;
     }

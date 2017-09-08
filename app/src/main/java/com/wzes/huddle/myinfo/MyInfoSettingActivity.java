@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 
 public class MyInfoSettingActivity extends AppCompatActivity {
     ImageButton backBtn;
@@ -42,21 +42,21 @@ public class MyInfoSettingActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView((int) C0479R.layout.activity_my_info_setting);
+        setContentView(R.layout.activity_my_info_setting);
         Intent intent = getIntent();
         this.title = intent.getStringExtra("title");
         this.content = intent.getStringExtra("content");
         this.note = intent.getStringExtra("note");
-        this.titleTxt = (TextView) findViewById(C0479R.id.my_info_setting_title);
+        this.titleTxt = (TextView) findViewById(R.id.my_info_setting_title);
         this.titleTxt.setText("修改" + this.title);
-        this.contentTxt = (EditText) findViewById(C0479R.id.my_info_setting_txt);
+        this.contentTxt = (EditText) findViewById(R.id.my_info_setting_txt);
         this.contentTxt.setText(this.content);
-        this.noteTxt = (TextView) findViewById(C0479R.id.my_info_setting_note);
+        this.noteTxt = (TextView) findViewById(R.id.my_info_setting_note);
         this.noteTxt.setText(this.note);
         this.contentTxt.setSelection(this.content.length());
-        this.backBtn = (ImageButton) findViewById(C0479R.id.my_info_setting_back);
+        this.backBtn = (ImageButton) findViewById(R.id.my_info_setting_back);
         this.backBtn.setOnClickListener(new C04841());
-        this.saveBtn = (Button) findViewById(C0479R.id.my_info_setting_save);
+        this.saveBtn = (Button) findViewById(R.id.my_info_setting_save);
         this.saveBtn.setOnClickListener(new C04852());
     }
 }

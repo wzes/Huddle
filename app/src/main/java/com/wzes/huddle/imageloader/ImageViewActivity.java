@@ -8,18 +8,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 
 public class ImageViewActivity extends AppCompatActivity {
     private static String TAG = "TTTT";
-    @BindView(2131624081)
+    @BindView(R.id.image_loader_back)
     public ImageButton backBtn;
-    @BindView(2131624080)
-    public ImageLoadView imageLoadView;
+    @BindView(R.id.image_loader_view)
+    public ImageView imageView;
     private String uri;
 
     class C04831 implements OnClickListener {
@@ -33,13 +35,13 @@ public class ImageViewActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView((int) C0479R.layout.activity_image_view);
+        setContentView((int) R.layout.activity_image_view);
         ButterKnife.bind((Activity) this);
         if (VERSION.SDK_INT >= 21) {
             getWindow().addFlags(67108864);
         }
         this.uri = getIntent().getStringExtra("uri");
-        Glide.with((FragmentActivity) this).load(this.uri).diskCacheStrategy(DiskCacheStrategy.ALL).into(this.imageLoadView);
+        Glide.with((FragmentActivity) this).load(this.uri).into(this.imageView);
         this.backBtn.setOnClickListener(new C04831());
     }
 }

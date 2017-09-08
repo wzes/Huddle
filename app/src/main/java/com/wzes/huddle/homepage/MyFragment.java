@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.GsonBuilder;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.User;
 import com.wzes.huddle.myinfo.MyInfoActivity;
@@ -51,7 +51,7 @@ public class MyFragment extends Fragment implements OnClickListener {
         }
 
         public void onCompleted() {
-            Glide.with(MyFragment.this.getContext()).load(MyFragment.currentUser.getImage()).centerCrop().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(MyFragment.this.imageView);
+            Glide.with(MyFragment.this.getContext()).load(MyFragment.currentUser.getImage()).into(MyFragment.this.imageView);
             MyFragment.this.nameTxt.setText(MyFragment.currentUser.getName());
             MyFragment.this.majorTxt.setText(MyFragment.currentUser.getMajor());
             MyFragment.this.mottoTxt.setText(MyFragment.currentUser.getMotto());
@@ -85,20 +85,20 @@ public class MyFragment extends Fragment implements OnClickListener {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(C0479R.layout.fragment_my, container, false);
-        this.myInfo = view.findViewById(C0479R.id.my_info);
+        View view = inflater.inflate(R.layout.fragment_my, container, false);
+        this.myInfo = view.findViewById(R.id.my_info);
         this.myInfo.setOnClickListener(this);
-        this.imageView = (ImageView) view.findViewById(C0479R.id.my_image);
-        this.nameTxt = (TextView) view.findViewById(C0479R.id.my_name);
-        this.majorTxt = (TextView) view.findViewById(C0479R.id.my_major);
-        this.mottoTxt = (TextView) view.findViewById(C0479R.id.my_motto);
-        this.signItem = view.findViewById(C0479R.id.my_sign_item);
-        this.teamItem = view.findViewById(C0479R.id.my_team_item);
-        this.eventItem = view.findViewById(C0479R.id.my_event_item);
-        this.followItem = view.findViewById(C0479R.id.my_follow_item);
-        this.msgItem = view.findViewById(C0479R.id.my_msg_item);
-        this.setItem = view.findViewById(C0479R.id.my_set_item);
-        this.feedbackItem = view.findViewById(C0479R.id.my_feedback_item);
+        this.imageView = (ImageView) view.findViewById(R.id.my_image);
+        this.nameTxt = (TextView) view.findViewById(R.id.my_name);
+        this.majorTxt = (TextView) view.findViewById(R.id.my_major);
+        this.mottoTxt = (TextView) view.findViewById(R.id.my_motto);
+        this.signItem = view.findViewById(R.id.my_sign_item);
+        this.teamItem = view.findViewById(R.id.my_team_item);
+        this.eventItem = view.findViewById(R.id.my_event_item);
+        this.followItem = view.findViewById(R.id.my_follow_item);
+        this.msgItem = view.findViewById(R.id.my_msg_item);
+        this.setItem = view.findViewById(R.id.my_set_item);
+        this.feedbackItem = view.findViewById(R.id.my_feedback_item);
         this.signItem.setOnClickListener(this);
         this.teamItem.setOnClickListener(this);
         this.eventItem.setOnClickListener(this);
@@ -107,10 +107,17 @@ public class MyFragment extends Fragment implements OnClickListener {
         this.setItem.setOnClickListener(this);
         this.feedbackItem.setOnClickListener(this);
         if (currentUser == null || !update) {
-            ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).getUserByUername(Preferences.getUserAccount()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09081());
+            ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/")
+                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .build()
+                    .create(RetrofitService.class))
+                    .getUserByUername(Preferences.getUserAccount())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe(new C09081());
             update = true;
         } else {
-            Glide.with(getContext()).load(currentUser.getImage()).centerCrop().into(this.imageView);
+            Glide.with(getContext()).load(currentUser.getImage()).into(this.imageView);
             this.nameTxt.setText(currentUser.getName());
             this.majorTxt.setText(currentUser.getMajor());
             this.mottoTxt.setText(currentUser.getMotto());
@@ -120,10 +127,10 @@ public class MyFragment extends Fragment implements OnClickListener {
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case C0479R.id.my_info /*2131624200*/:
+            case R.id.my_info /*2131624200*/:
                 startActivity(new Intent(getContext(), MyInfoActivity.class));
                 return;
-            case C0479R.id.my_set_item /*2131624214*/:
+            case R.id.my_set_item /*2131624214*/:
                 startActivity(new Intent(getContext(), SettingActivity.class));
                 return;
             default:

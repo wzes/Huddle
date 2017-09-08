@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.imageloader.ImageViewActivity;
@@ -34,20 +34,20 @@ public class EventInfoActivity extends AppCompatActivity implements OnClickListe
     private static Event myEvent;
     private RetrofitService Gsonservice;
     private RetrofitService Normalservice;
-    @BindView(2131624073)
+    @BindView(R.id.event_read_collapsing)
     public CollapsingToolbarLayout collapsing;
-    @BindView(2131624078)
+    @BindView(R.id.event_read_content)
     public TextView contentTxt;
-    @BindView(2131624079)
+    @BindView(R.id.event_read_create)
     public FloatingActionButton createTeam;
     private String event_id;
-    @BindView(2131624074)
+    @BindView(R.id.event_read_image)
     public ImageView imageView;
-    @BindView(2131624077)
+    @BindView(R.id.event_read_riceTime)
     public TextView riceTxt;
-    @BindView(2131624076)
+    @BindView(R.id.event_read_signTime)
     public TextView signTxt;
-    @BindView(2131624075)
+    @BindView(R.id.event_read_toolbar)
     public Toolbar toolBar;
 
     class C08971 implements Observer<ResponseBody> {
@@ -69,18 +69,18 @@ public class EventInfoActivity extends AppCompatActivity implements OnClickListe
         }
 
         public void onCompleted() {
-            Glide.with(EventInfoActivity.this.getApplicationContext()).load(EventInfoActivity.myEvent.getImage()).centerCrop().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(EventInfoActivity.this.imageView);
-            EventInfoActivity.this.collapsing.setTitle(EventInfoActivity.myEvent.getTitle() + "(" + EventInfoActivity.myEvent.getLevel() + ")");
-            EventInfoActivity.this.signTxt.setText("报名时间 " + EventInfoActivity.myEvent.getEnrool_start_date() + " - " + EventInfoActivity.myEvent.getEnrool_end_date());
-            EventInfoActivity.this.riceTxt.setText("比赛时间 " + EventInfoActivity.myEvent.getMatch_start_date() + " - " + EventInfoActivity.myEvent.getMatch_end_date());
-            EventInfoActivity.this.contentTxt.setText(EventInfoActivity.myEvent.getContent());
-            EventInfoActivity.this.imageView.setOnClickListener(EventInfoActivity$2$$Lambda$1.lambdaFactory$(this));
+            Glide.with(getApplicationContext()).load(EventInfoActivity.myEvent.getImage()).into(imageView);
+            collapsing.setTitle(EventInfoActivity.myEvent.getTitle() + "(" + EventInfoActivity.myEvent.getLevel() + ")");
+            signTxt.setText("报名时间 " + EventInfoActivity.myEvent.getEnrool_start_date() + " - " + EventInfoActivity.myEvent.getEnrool_end_date());
+            riceTxt.setText("比赛时间 " + EventInfoActivity.myEvent.getMatch_start_date() + " - " + EventInfoActivity.myEvent.getMatch_end_date());
+            contentTxt.setText(EventInfoActivity.myEvent.getContent());
+            imageView.setOnClickListener(EventInfoActivity.this);
         }
 
         private /* synthetic */ void lambda$onCompleted$0(View v) {
             Intent intent1 = new Intent(EventInfoActivity.this, ImageViewActivity.class);
             intent1.putExtra("uri", EventInfoActivity.myEvent.getImage());
-            EventInfoActivity.this.startActivity(intent1);
+            startActivity(intent1);
         }
 
         public void onError(Throwable e) {
@@ -109,7 +109,7 @@ public class EventInfoActivity extends AppCompatActivity implements OnClickListe
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView((int) C0479R.layout.activity_event_read);
+        setContentView((int) R.layout.activity_event_read);
         ButterKnife.bind((Activity) this);
         this.event_id = getIntent().getStringExtra("event_id");
         setSupportActionBar(this.toolBar);
@@ -137,7 +137,7 @@ public class EventInfoActivity extends AppCompatActivity implements OnClickListe
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case C0479R.id.event_read_create /*2131624079*/:
+            case R.id.event_read_create /*2131624079*/:
                 this.Normalservice = MyRetrofit.getNormalRetrofit();
                 this.Normalservice.addEventFollow(this.event_id, Preferences.getUserAccount()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C08993());
                 return;

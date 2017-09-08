@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.google.gson.GsonBuilder;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.ChatAdapter;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Chat;
@@ -124,10 +124,10 @@ public class ChatFragment extends Fragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(C0479R.layout.fragment_chat, container, false);
-        recyclerView = (RecyclerView) view.findViewById(C0479R.id.chat_recyclerView);
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(C0479R.id.chat_refreshLayout);
-        refreshLayout.setColorSchemeResources(C0479R.color.colorPrimary);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.chat_recyclerView);
+        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.chat_refreshLayout);
+        refreshLayout.setColorSchemeResources(R.color.colorPrimary);
         if (list == null || !Preferences.getLastUserAccount().equals(Preferences.getUserAccount())) {
             refreshLayout.setRefreshing(true);
             initData();
@@ -137,7 +137,9 @@ public class ChatFragment extends Fragment {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
-        refreshLayout.setOnRefreshListener(ChatFragment$$Lambda$1.lambdaFactory$(this));
+        refreshLayout.setOnRefreshListener(() -> {
+
+        });
         return view;
     }
 

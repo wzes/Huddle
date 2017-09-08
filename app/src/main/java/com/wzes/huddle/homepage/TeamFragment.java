@@ -13,7 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.TeamAdapter;
 import com.wzes.huddle.team.TeamHotFragment;
 import com.wzes.huddle.team.TeamNearFragment;
@@ -37,7 +37,7 @@ public class TeamFragment extends Fragment {
         }
 
         public boolean onMenuItemClick(MenuItem item) {
-            if (!(item.getItemId() == C0479R.id.team_add_study || item.getItemId() == C0479R.id.team_add_plan || item.getItemId() == C0479R.id.team_add_life || item.getItemId() != C0479R.id.team_add_journey)) {
+            if (!(item.getItemId() == R.id.team_add_study || item.getItemId() == R.id.team_add_plan || item.getItemId() == R.id.team_add_life || item.getItemId() != R.id.team_add_journey)) {
             }
             return true;
         }
@@ -62,22 +62,22 @@ public class TeamFragment extends Fragment {
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(C0479R.menu.team_add, menu);
+        inflater.inflate(R.menu.team_add, menu);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(C0479R.layout.fragment_team, container, false);
-        ViewPager pager = (ViewPager) view.findViewById(C0479R.id.team_pager);
+        View view = inflater.inflate(R.layout.fragment_team, container, false);
+        ViewPager pager = (ViewPager) view.findViewById(R.id.team_pager);
         this.teamHotFragment = new TeamHotFragment();
         this.teamNewFragment = new TeamNewFragment();
         this.teamRecFragment = new TeamRecFragment();
         this.teamNearFragment = new TeamNearFragment();
         this.teamAdapter = new TeamAdapter(getChildFragmentManager(), getContext(), this.teamNewFragment, this.teamRecFragment, this.teamHotFragment, this.teamNearFragment);
         pager.setAdapter(this.teamAdapter);
-        TabLayout tabLayout = (TabLayout) view.findViewById(C0479R.id.team_tabs);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.team_tabs);
         tabLayout.setupWithViewPager(pager);
         tabLayout.getTabAt(0).select();
-        this.toolbar = (Toolbar) view.findViewById(C0479R.id.team_toolbar);
+        this.toolbar = (Toolbar) view.findViewById(R.id.team_toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(this.toolbar);
         this.toolbar.setOnMenuItemClickListener(new C09091());
         setHasOptionsMenu(true);

@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 import com.google.gson.GsonBuilder;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.EventAdapter;
 import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.service.RetrofitService;
@@ -123,16 +123,20 @@ public class EventFragment extends Fragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(C0479R.layout.fragment_event, container, false);
-        this.searchView = (SearchView) view.findViewById(C0479R.id.event_searchview);
+        View view = inflater.inflate(R.layout.fragment_event, container, false);
+        this.searchView = (SearchView) view.findViewById(R.id.event_searchview);
         this.searchView.bringToFront();
-        this.recyclerView = (RecyclerView) view.findViewById(C0479R.id.event_recyclerView);
-        this.refreshLayout = (SwipeRefreshLayout) view.findViewById(C0479R.id.event_refreshLayout);
-        this.refreshLayout.setColorSchemeResources(C0479R.color.colorPrimary);
-        this.refreshLayout.setOnRefreshListener(EventFragment$$Lambda$1.lambdaFactory$(this));
+        this.recyclerView = (RecyclerView) view.findViewById(R.id.event_recyclerView);
+        this.refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.event_refreshLayout);
+        this.refreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        this.refreshLayout.setOnRefreshListener(() -> {
+
+        });
         if (FirstLoad) {
             this.refreshLayout.setRefreshing(true);
-            new Thread(EventFragment$$Lambda$2.lambdaFactory$(this)).start();
+            new Thread(() ->{
+
+            }).start();
             FirstLoad = false;
         } else {
             this.eventAdapter = new EventAdapter(this, list, hotList);

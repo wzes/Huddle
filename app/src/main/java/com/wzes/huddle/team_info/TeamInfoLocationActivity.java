@@ -18,17 +18,17 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.model.LatLng;
-import com.wzes.huddle.C0479R;
+import com.wzes.huddle.R;
 import com.wzes.huddle.util.AppManager;
 
 public class TeamInfoLocationActivity extends AppCompatActivity {
-    @BindView(2131624136)
+    @BindView(R.id.team_info_location_back)
     public ImageButton backBtn;
     private BaiduMap baiduMap;
     private String latitude;
     private String longtitude;
     private String title;
-    @BindView(2131624137)
+    @BindView(R.id.team_info_location_title)
     public TextView titleTxt;
 
     class C04921 implements OnClickListener {
@@ -48,16 +48,16 @@ public class TeamInfoLocationActivity extends AppCompatActivity {
         this.latitude = intent.getStringExtra("latitude");
         this.longtitude = intent.getStringExtra("longitude");
         SDKInitializer.initialize(getApplicationContext());
-        setContentView((int) C0479R.layout.activity_team_info_location);
+        setContentView((int) R.layout.activity_team_info_location);
         ButterKnife.bind((Activity) this);
         this.titleTxt.setText(this.title);
         this.backBtn.setOnClickListener(new C04921());
-        this.baiduMap = ((MapView) findViewById(C0479R.id.team_info_location_map)).getMap();
+        this.baiduMap = ((MapView) findViewById(R.id.team_info_location_map)).getMap();
         this.baiduMap.setMyLocationEnabled(true);
         LatLng ll = new LatLng(Double.parseDouble(this.latitude), Double.parseDouble(this.longtitude));
         Builder builder = new Builder();
         builder.target(ll).zoom(17.0f);
-        this.baiduMap.addOverlay(new MarkerOptions().position(ll).icon(BitmapDescriptorFactory.fromResource(C0479R.drawable.marker)));
+        this.baiduMap.addOverlay(new MarkerOptions().position(ll).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
         this.baiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
     }
 }
