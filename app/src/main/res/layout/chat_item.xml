@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" 
+    android:background="@drawable/select" 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content">
+    <RelativeLayout 
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" 
+        android:layout_margin="8dp">
+        <LinearLayout 
+            android:orientation="horizontal" 
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content">
+            <FrameLayout 
+                android:layout_width="60dp" 
+                android:layout_height="60dp">
+                <ImageView 
+                    android:id="@+id/chat_item_img" 
+                    android:layout_width="fill_parent" 
+                    android:layout_height="fill_parent" 
+                    android:layout_margin="2dp" 
+                    android:src="@drawable/photo" />
+                <ImageView 
+                    android:layout_gravity="right" 
+                    android:id="@+id/chat_item_new" 
+                    android:background="@drawable/chat_item"
+                    android:layout_width="10dp" 
+                    android:layout_height="10dp" 
+                    android:layout_margin="0dp" />
+            </FrameLayout>
+            <LinearLayout 
+                android:orientation="vertical" 
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content" 
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp">
+                <TextView android:textSize="18.0sp" 
+                    android:textColor="#ff000000" 
+                    android:id="@+id/chat_item_name"
+                    android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content" 
+                    android:text="侯主席" />
+                <TextView 
+                    android:textSize="14.0sp" 
+                    android:id="@+id/chat_item_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" 
+                    android:layout_marginTop="4dp" 
+                    android:text="项目做完了没" 
+                    android:maxLines="1" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView 
+            android:id="@+id/chat_item_time"
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="4dp" 
+            android:text="下午2:20" 
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <View 
+        android:id="@+id/chat_divider" 
+        android:background="@color/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp" />
+</LinearLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:icon="@drawable/ic_add_black_24dp" android:id="@+id/team_add_study" android:title="学术竞赛" />
+    <item android:icon="@drawable/ic_add_black_24dp" android:id="@+id/team_add_plan" android:title="励志计划" />
+    <item android:icon="@drawable/ic_add_black_24dp" android:id="@+id/team_add_life" android:title="生活拼单" />
+    <item android:icon="@drawable/ic_add_black_24dp" android:id="@+id/team_add_journey" android:title="拼团旅游" />
+</menu>

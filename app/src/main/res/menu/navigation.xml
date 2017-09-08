@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
-
-    <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
-
-    <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
-
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:icon="@drawable/ic_event_black_24dp" android:id="@+id/navigation_event" android:title="@string/title_event" />
+    <item android:icon="@drawable/ic_team_black_24dp" android:id="@+id/navigation_team" android:title="@string/title_team" />
+    <item android:icon="@drawable/ic_chat_black_24dp" android:id="@+id/navigation_chat" android:title="@string/title_chat" />
+    <item android:icon="@drawable/ic_my_black_24dp" android:id="@+id/navigation_my" android:title="@string/title_my" />
 </menu>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10.0dip">
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_marginLeft="16.0dip"
+            android:layout_marginRight="16.0dip"  />
+        <TextView
+            android:textSize="16.0dip"
+            android:textColor="#ff555555"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="关注" />
+    </LinearLayout>
+    <View
+        android:background="@color/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:layout_margin="10.0dip" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_marginLeft="16.0dip"
+            android:layout_marginRight="16.0dip"
+            android:src="@drawable/ic_star_black_24dp" />
+        <TextView
+            android:textSize="16.0dip"
+            android:textColor="#ff555555"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收藏" />
+    </LinearLayout>
+    <View
+        android:background="@color/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:layout_margin="10.0dip" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_marginLeft="16.0dip"
+            android:layout_marginRight="16.0dip"
+            android:src="@drawable/ic_send_black_24dp" />
+        <TextView
+            android:textSize="16.0dip"
+            android:textColor="#ff555555"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="在浏览器中打开" />
+    </LinearLayout>
+    <View
+        android:background="@color/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:layout_margin="10.0dip" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_marginLeft="16.0dip"
+            android:layout_marginRight="16.0dip"
+            android:src="@drawable/ic_send_black_24dp" />
+        <TextView
+            android:textSize="16.0dip"
+            android:textColor="#ff555555"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分享" />
+    </LinearLayout>
+    <View
+        android:background="@color/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:layout_margin="10.0dip" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10.0dip">
+        <ImageView
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_marginLeft="16.0dip"
+            android:layout_marginRight="16.0dip"
+            android:src="@drawable/ic_star_black_24dp" />
+        <TextView
+            android:textSize="16.0dip"
+            android:textColor="#ff555555"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="复制文本内容" />
+    </LinearLayout>
+</LinearLayout>
