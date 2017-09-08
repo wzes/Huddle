@@ -55,21 +55,12 @@ public class LoginActivity extends AppCompatActivity {
         /*
          * login when click the button
          */
-        signInBtn.setOnClickListener(view -> {
-            if(NetworkUtils.isConnected(this)){
-                attemptLogin();
-            }
-            else {
-                Toast.makeText(this, "网络不太好 ^_^", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        signInBtn.setOnClickListener(view -> attemptLogin());
 
         /*
          * request for database if local not username
          */
         if (Preferences.getLastUserAccount() != null) {
-            if()
             if(NetworkUtils.isConnected(this)){
                 new Builder().baseUrl("http://59.110.136.134/")
                         .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
@@ -129,9 +120,17 @@ public class LoginActivity extends AppCompatActivity {
                 focusView.requestFocus();
                 return;
             }
-            signInBtn.setText("正在登录...");
-            mAuthTask = new UserLoginTask(username, password);
-            mAuthTask.execute((Void) null);
+            /*
+             * network is not good !
+             */
+            if(!NetworkUtils.isConnected(this)){
+                Toast.makeText(this, "网络不太好 ^_^", Toast.LENGTH_SHORT).show();
+            }else{
+                signInBtn.setText("正在登录...");
+                mAuthTask = new UserLoginTask(username, password);
+                mAuthTask.execute((Void) null);
+            }
+
         }
     }
 
