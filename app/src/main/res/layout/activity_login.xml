@@ -152,7 +152,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_width="50dp"
                             android:layout_height="50dp" 
-                            android:src="@drawable/team"/>
+                            android:src="@drawable/tongji"/>
                         <TextView
                             android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"
