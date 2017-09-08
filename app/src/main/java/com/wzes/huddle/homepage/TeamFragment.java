@@ -21,10 +21,6 @@ import com.wzes.huddle.team.TeamNewFragment;
 import com.wzes.huddle.team.TeamRecFragment;
 
 public class TeamFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
     private TeamAdapter teamAdapter;
     private TeamHotFragment teamHotFragment;
     private TeamNearFragment teamNearFragment;
@@ -43,21 +39,13 @@ public class TeamFragment extends Fragment {
         }
     }
 
-    public static TeamFragment newInstance(String param1, String param2) {
+    public static TeamFragment newInstance() {
         TeamFragment fragment = new TeamFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            this.mParam1 = getArguments().getString(ARG_PARAM1);
-            this.mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

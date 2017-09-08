@@ -25,15 +25,11 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class EventFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private static boolean FirstLoad = true;
     private static List<Event> hotList;
     private static List<Event> list;
     public Banner banner;
     private EventAdapter eventAdapter;
-    private String mParam1;
-    private String mParam2;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private SearchView searchView;
@@ -101,21 +97,13 @@ public class EventFragment extends Fragment {
         return this.recyclerView;
     }
 
-    public static EventFragment newInstance(String param1, String param2) {
+    public static EventFragment newInstance() {
         EventFragment fragment = new EventFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            this.mParam1 = getArguments().getString(ARG_PARAM1);
-            this.mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     public void initData() {

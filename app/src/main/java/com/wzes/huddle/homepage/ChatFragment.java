@@ -27,15 +27,10 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class ChatFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private static ChatAdapter chatAdapter;
     private static List<Chat> list;
     private static RecyclerView recyclerView;
     private static SwipeRefreshLayout refreshLayout;
-    private String mParam1;
-    private String mParam2;
-
     public static class Receiver extends BroadcastReceiver {
 
         class C09021 implements Observer<List<Chat>> {
@@ -106,21 +101,13 @@ public class ChatFragment extends Fragment {
         }
     }
 
-    public static ChatFragment newInstance(String param1, String param2) {
+    public static ChatFragment newInstance() {
         ChatFragment fragment = new ChatFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            this.mParam1 = getArguments().getString(ARG_PARAM1);
-            this.mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

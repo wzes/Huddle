@@ -27,16 +27,12 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class MyFragment extends Fragment implements OnClickListener {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     public static User currentUser;
     public static boolean update = true;
     private View eventItem;
     private View feedbackItem;
     private View followItem;
     private ImageView imageView;
-    private String mParam1;
-    private String mParam2;
     private TextView majorTxt;
     private TextView mottoTxt;
     private View msgItem;
@@ -66,22 +62,14 @@ public class MyFragment extends Fragment implements OnClickListener {
         }
     }
 
-    public static MyFragment newInstance(String param1, String param2) {
+    public static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     public void onCreate(Bundle savedInstanceState) {
         AppManager.getAppManager().addActivity(getActivity());
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            this.mParam1 = getArguments().getString(ARG_PARAM1);
-            this.mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

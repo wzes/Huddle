@@ -8,6 +8,7 @@ import android.support.design.widget.BottomNavigationView.OnNavigationItemSelect
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.MainAdapter;
@@ -17,83 +18,84 @@ import com.wzes.huddle.util.AppManager;
 import com.wzes.huddle.util.BottomNavigationViewHelper;
 import com.wzes.huddle.util.NoScrollViewPager;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
-    private OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new C09061();
-    private OnPageChangeListener mOnPageChangeListener = new C09072();
-    private TextView mTextMessage;
-    private NoScrollViewPager mViewPager;
+
+    @BindView(R.id.content) NoScrollViewPager mViewPager;
+    @BindView(R.id.navigation) BottomNavigationView navigation;
     private MainAdapter mainAdapter;
-    private BottomNavigationView navigation;
 
-    class C09061 implements OnNavigationItemSelectedListener {
-        C09061() {
-        }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        AppManager.getAppManager().addActivity(this);
 
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent chatIntent = new Intent(this, ChatService.class);
+        chatIntent.putExtra("user_id", Preferences.getUserAccount());
+        startService(chatIntent);
+
+        mainAdapter = new MainAdapter(getSupportFragmentManager(), this,
+                EventFragment.newInstance(),
+                TeamFragment.newInstance(),
+                ChatFragment.newInstance(),
+                MyFragment.newInstance());
+        mViewPager.setAdapter(mainAdapter);
+
+        navigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.navigation_team /*2131624329*/:
+                case R.id.navigation_team:
                     MainActivity.this.mViewPager.setCurrentItem(1);
                     return true;
-                case R.id.navigation_event /*2131624330*/:
+                case R.id.navigation_event:
                     MainActivity.this.mViewPager.setCurrentItem(0);
                     return true;
-                case R.id.navigation_chat /*2131624331*/:
+                case R.id.navigation_chat:
                     MainActivity.this.mViewPager.setCurrentItem(2);
                     return true;
-                case R.id.navigation_my /*2131624332*/:
+                case R.id.navigation_my:
                     MainActivity.this.mViewPager.setCurrentItem(3);
                     return true;
                 default:
                     return false;
             }
-        }
-    }
+        });
 
-    class C09072 implements OnPageChangeListener {
-        C09072() {
-        }
 
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        }
+        mViewPager.addOnPageChangeListener(new OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-        public void onPageSelected(int position) {
-            switch (position) {
-                case 0:
-                    MainActivity.this.navigation.setSelectedItemId(R.id.navigation_event);
-                    return;
-                case 1:
-                    MainActivity.this.navigation.setSelectedItemId(R.id.navigation_team);
-                    return;
-                case 2:
-                    MainActivity.this.navigation.setSelectedItemId(R.id.navigation_chat);
-                    return;
-                case 3:
-                    MainActivity.this.navigation.setSelectedItemId(R.id.navigation_my);
-                    return;
-                default:
-                    return;
             }
-        }
 
-        public void onPageScrollStateChanged(int state) {
-        }
-    }
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        MainActivity.this.navigation.setSelectedItemId(R.id.navigation_event);
+                        return;
+                    case 1:
+                        MainActivity.this.navigation.setSelectedItemId(R.id.navigation_team);
+                        return;
+                    case 2:
+                        MainActivity.this.navigation.setSelectedItemId(R.id.navigation_chat);
+                        return;
+                    case 3:
+                        MainActivity.this.navigation.setSelectedItemId(R.id.navigation_my);
+                        return;
+                    default:
+                        return;
+                }
+            }
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView((int) R.layout.activity_main);
-        AppManager.getAppManager().addActivity(this);
-        Intent chatIntent = new Intent(this, ChatService.class);
-        chatIntent.putExtra("user_id", Preferences.getUserAccount());
-        startService(chatIntent);
-        this.mViewPager = (NoScrollViewPager) findViewById(R.id.content);
-        ChatFragment cf = ChatFragment.newInstance("ChatFragment", "1");
-        MyFragment mf = MyFragment.newInstance("MyFragment", "2");
-        this.mainAdapter = new MainAdapter(getSupportFragmentManager(), this, EventFragment.newInstance("EventFragment", "3"), TeamFragment.newInstance("TeamFragment", "4"), cf, mf);
-        this.mViewPager.setAdapter(this.mainAdapter);
-        this.navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        this.navigation.setOnNavigationItemSelectedListener(this.mOnNavigationItemSelectedListener);
-        this.mViewPager.setOnPageChangeListener(this.mOnPageChangeListener);
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         BottomNavigationViewHelper.disableShiftMode(this.navigation);
     }
 }
