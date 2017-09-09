@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.homepage.MyFragment;
+import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.service.RetrofitService;
 import com.wzes.huddle.util.GalleryGlideImageLoader;
 import com.yancy.gallerypick.config.GalleryConfig;
@@ -29,15 +30,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody.Part;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit.Builder;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class MyInfoActivity extends AppCompatActivity implements OnClickListener {
     private static final int IMAGE_REQUEST_CODE = 0;
@@ -59,31 +61,6 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
 
     class C09121 implements IHandlerCallBack {
 
-        class C09111 implements Observer<ResponseBody> {
-            C09111() {
-            }
-
-            public void onCompleted() {
-                Log.i(MyInfoActivity.TAG, "uploadImage onSuccess");
-            }
-
-            public void onError(Throwable e) {
-                Log.i(MyInfoActivity.TAG, "uploadImage Failed " + e.getMessage());
-            }
-
-            public void onNext(ResponseBody responseBody) {
-                try {
-                    MyFragment.update = false;
-                    Log.i(MyInfoActivity.TAG, "onNext: " + responseBody.string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        C09121() {
-        }
-
         public void onStart() {
             Log.i(MyInfoActivity.TAG, "onStart: 开启");
         }
@@ -104,7 +81,30 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
             Part body = Part.createFormData("image", file.getName(), RequestBody.create(MediaType.parse("image/jpeg"), file));
             RequestBody user_id = RequestBody.create(MediaType.parse(Values.MULTIPART_FORM_DATA), Preferences.getUserAccount());
             Log.i(MyInfoActivity.TAG, "uploadImage: " + file.getName());
-            ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/").addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).upLoad(user_id, body).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09111());
+            MyRetrofit.getNormalRetrofit().upLoad(user_id, body)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<ResponseBody>() {
+                        @Override
+                        public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(@io.reactivex.annotations.NonNull ResponseBody responseBody) {
+
+                        }
+
+                        @Override
+                        public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
         }
 
         public void onCancel() {
@@ -145,7 +145,7 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
         this.mottoTxt.setOnClickListener(this);
         this.moreTxt.setOnClickListener(this);
         this.imageView.setOnClickListener(this);
-        Glide.with((FragmentActivity) this).load(MyFragment.currentUser.getImage()).into(this.imageView);
+        Glide.with(this).load(MyFragment.currentUser.getImage()).into(this.imageView);
         this.usernameTxt.setText(MyFragment.currentUser.getUser_id());
         this.nameTxt.setText(MyFragment.currentUser.getName());
         this.sexTxt.setText(MyFragment.currentUser.getSex());

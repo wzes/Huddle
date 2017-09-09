@@ -26,18 +26,20 @@ import com.wzes.huddle.app.DemoCache;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Message;
 import com.wzes.huddle.homepage.MyFragment;
+import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.service.RetrofitService;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit.Builder;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class ChatActivity extends AppCompatActivity implements OnClickListener {
     public static List<Message> list;
@@ -63,41 +65,6 @@ public class ChatActivity extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    class C08961 implements Observer<List<Message>> {
-        C08961() {
-        }
-
-        public void onCompleted() {
-            int size;
-            if (ChatActivity.list == null) {
-                ChatActivity.list = new ArrayList();
-            }
-            if (ChatActivity.list.size() > 0) {
-                if ((ChatActivity.list.get(0)).getTo_id().equals(Preferences.getUserAccount())) {
-                    ChatActivity.to_img = (list.get(0)).getFrom_img();
-                } else {
-                    ChatActivity.to_img = (list.get(0)).getTo_img();
-                }
-            }
-            ChatActivity.messageAdapter = new MessageAdapter(ChatActivity.this, ChatActivity.list);
-            ChatActivity.recyclerView.setAdapter(ChatActivity.messageAdapter);
-            RecyclerView recyclerView = ChatActivity.recyclerView;
-            if (ChatActivity.list.size() > 0) {
-                size = ChatActivity.list.size() - 1;
-            } else {
-                size = 0;
-            }
-            recyclerView.scrollToPosition(size);
-        }
-
-        public void onError(Throwable e) {
-            e.printStackTrace();
-        }
-
-        public void onNext(List<Message> events) {
-            ChatActivity.list = events;
-        }
-    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,14 +73,54 @@ public class ChatActivity extends AppCompatActivity implements OnClickListener {
         to_name = intent.getStringExtra("to_name");
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
-        recyclerView = (RecyclerView) findViewById(R.id.msg_recyclerView);
+        recyclerView = findViewById(R.id.msg_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         sendBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
         titleTxt.setText(to_name);
-        new Builder().baseUrl("http://59.110.136.134/")
-                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class).getMessageListByID(Preferences.getUserAccount(), to_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C08961());
+      MyRetrofit.getGsonRetrofit().getMessageListByID(Preferences.getUserAccount(), to_id)
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(new Observer<List<Message>>() {
+                  @Override
+                  public void onSubscribe(@NonNull Disposable d) {
+
+                  }
+
+                  @Override
+                  public void onNext(@NonNull List<Message> messages) {
+                      list = messages;
+                  }
+
+                  @Override
+                  public void onError(@NonNull Throwable e) {
+
+                  }
+
+                  @Override
+                  public void onComplete() {
+                      int size;
+                      if (ChatActivity.list == null) {
+                          ChatActivity.list = new ArrayList();
+                      }
+                      if (ChatActivity.list.size() > 0) {
+                          if ((ChatActivity.list.get(0)).getTo_id().equals(Preferences.getUserAccount())) {
+                              ChatActivity.to_img = (list.get(0)).getFrom_img();
+                          } else {
+                              ChatActivity.to_img = (list.get(0)).getTo_img();
+                          }
+                      }
+                      ChatActivity.messageAdapter = new MessageAdapter(ChatActivity.this, ChatActivity.list);
+                      ChatActivity.recyclerView.setAdapter(ChatActivity.messageAdapter);
+                      RecyclerView recyclerView = ChatActivity.recyclerView;
+                      if (ChatActivity.list.size() > 0) {
+                          size = ChatActivity.list.size() - 1;
+                      } else {
+                          size = 0;
+                      }
+                      recyclerView.scrollToPosition(size);
+                  }
+              });
     }
 
     public static void refreshData(String msg) {

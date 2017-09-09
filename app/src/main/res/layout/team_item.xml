@@ -38,18 +38,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
-            <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
+            <com.lzy.ninegrid.NineGridView
                 android:id="@+id/team_item_images"
-                android:layout_marginTop="8dp"
-                app:bga_npl_itemCornerRadius="0dp"
-                app:bga_npl_itemSpanCount="3"
-                app:bga_npl_itemWhiteSpacing="4dp"
-                app:bga_npl_itemWidth="0dp"
-                app:bga_npl_otherWhiteSpacing="64dp"
-                app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
-                app:bga_npl_showAsLargeWhenOnlyOne="true"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"/>
+                android:layout_marginBottom="8dp"
+                app:ngv_gridSpacing="3dp"
+                app:ngv_maxSize="9"
+                app:ngv_mode="grid"
+                app:ngv_singleImageRatio="1"
+                app:ngv_singleImageSize="250dp">
+
+            </com.lzy.ninegrid.NineGridView>
+            <!--<cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout-->
+                <!--android:id="@+id/team_item_images"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--app:bga_npl_itemCornerRadius="0dp"-->
+                <!--app:bga_npl_itemSpanCount="3"-->
+                <!--app:bga_npl_itemWhiteSpacing="4dp"-->
+                <!--app:bga_npl_itemWidth="0dp"-->
+                <!--app:bga_npl_otherWhiteSpacing="64dp"-->
+                <!--app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"-->
+                <!--app:bga_npl_showAsLargeWhenOnlyOne="true"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_width="match_parent"/>-->
         </LinearLayout>
 
         <TextView

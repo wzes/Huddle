@@ -47,14 +47,18 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
-    compile 'io.reactivex:rxjava:1.1.6'
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile "io.reactivex.rxjava2:rxjava:2.1.1"
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
+
     compile 'io.netty:netty-all:4.0.21.Final'
     compile 'pub.devrel:easypermissions:1.0.0'
     compile 'com.github.YancyYe:GalleryPick:1.2.1'
+
+    compile 'com.lzy.widget:ninegridview:0.2.0'
 
     compile 'cn.bingoogolapple:bga-adapter:1.1.5@aar'
     compile 'cn.bingoogolapple:bga-photopicker:1.2.3@aar'

@@ -11,14 +11,16 @@ import com.google.gson.GsonBuilder;
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.UserEventAdapter;
 import com.wzes.huddle.bean.Event;
+import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.service.RetrofitService;
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit.Builder;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class UserEventFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -28,33 +30,6 @@ public class UserEventFragment extends Fragment {
     private String mParam2;
     private RecyclerView recyclerView;
 
-    class C04931 implements Runnable {
-        C04931() {
-        }
-
-        public void run() {
-            UserEventFragment.this.initData();
-        }
-    }
-
-    class C09272 implements Observer<List<Event>> {
-        C09272() {
-        }
-
-        public void onCompleted() {
-            UserEventFragment.this.recyclerView.setAdapter(new UserEventAdapter(UserEventFragment.this, UserEventFragment.this.list));
-            UserEventFragment.this.recyclerView.setHasFixedSize(true);
-            UserEventFragment.this.recyclerView.setLayoutManager(new LinearLayoutManager(UserEventFragment.this.getActivity()));
-        }
-
-        public void onError(Throwable e) {
-            e.printStackTrace();
-        }
-
-        public void onNext(List<Event> events) {
-            UserEventFragment.this.list = events;
-        }
-    }
 
     public static UserEventFragment newInstance(String param1, String param2) {
         UserEventFragment fragment = new UserEventFragment();
@@ -75,12 +50,37 @@ public class UserEventFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_event, container, false);
-        this.recyclerView = (RecyclerView) view.findViewById(R.id.user_event_recyclerView);
-        new Thread(new C04931()).start();
+        this.recyclerView = view.findViewById(R.id.user_event_recyclerView);
+        new Thread(this::initData).start();
         return view;
     }
 
     public void initData() {
-        ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).getEventList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09272());
+       MyRetrofit.getGsonRetrofit().getEventList()
+               .subscribeOn(Schedulers.io())
+               .observeOn(AndroidSchedulers.mainThread())
+               .subscribe(new Observer<List<Event>>() {
+                   @Override
+                   public void onSubscribe(@NonNull Disposable d) {
+
+                   }
+
+                   @Override
+                   public void onNext(@NonNull List<Event> events) {
+                       list = events;
+                   }
+
+                   @Override
+                   public void onError(@NonNull Throwable e) {
+
+                   }
+
+                   @Override
+                   public void onComplete() {
+                       UserEventFragment.this.recyclerView.setAdapter(new UserEventAdapter(UserEventFragment.this, UserEventFragment.this.list));
+                       UserEventFragment.this.recyclerView.setHasFixedSize(true);
+                       UserEventFragment.this.recyclerView.setLayoutManager(new LinearLayoutManager(UserEventFragment.this.getActivity()));
+                   }
+               });
     }
 }

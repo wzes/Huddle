@@ -25,6 +25,7 @@ import com.wzes.huddle.bean.Image;
 import com.wzes.huddle.bean.Team;
 import com.wzes.huddle.chatservice.ChatActivity;
 import com.wzes.huddle.imageloader.ImageViewActivity;
+import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.service.RetrofitService;
 import com.wzes.huddle.user_info.UserInfoActivity;
 import com.wzes.huddle.util.AppManager;
@@ -33,12 +34,13 @@ import com.youth.banner.Banner;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit.Builder;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class TeamInfoActivity extends AppCompatActivity {
     @BindView(R.id.team_info_banner)
@@ -87,52 +89,6 @@ public class TeamInfoActivity extends AppCompatActivity {
     @BindView(R.id.team_info_user_layout)
     public LinearLayout userBtn;
 
-    class C09261 implements Observer<Team> {
-        C09261() {
-        }
-
-        public void onCompleted() {
-            collapsing.setTitle(myTeam.getTitle());
-            final List<String> images = new ArrayList();
-            for (Image img : myTeam.getImages()) {
-                images.add(img.getImage());
-            }
-            Glide.with(TeamInfoActivity.this).load(myTeam.getImage()).into(circleImageView);
-            infoTxt.setText(myTeam.getInfo());
-            banner.setImages(images).setDelayTime(m_AppUI.MSG_APP_GPS).setIndicatorGravity(6).setImageLoader(new GlideImageLoader()).start();
-            banner.setOnBannerListener(position -> {
-                Intent intent = new Intent(TeamInfoActivity.this, ImageViewActivity.class);
-                intent.putExtra("uri", (String) images.get(position));
-                startActivity(intent);
-            });
-            categoryTxt.setText("——" + myTeam.getCategory().toString());
-            nameTxt.setText(myTeam.getName());
-            contentTxt.setText("——" + myTeam.getContent());
-            timeTxt.setText("——" + myTeam.getStart_date());
-            peopleTxt.setText("组员" + myTeam.getJoin_people() + "人已报名(还差" + ((myTeam.getJoin_acount() - myTeam.getJoin_people()) - 1) + "人)");
-            userBtn.setOnClickListener(v -> {
-                Intent nIntent = new Intent(TeamInfoActivity.this, UserInfoActivity.class);
-                nIntent.putExtra("user_id", myTeam.getUser_id());
-                startActivity(nIntent);
-            });
-            locationTxt.setText("——" + myTeam.getLocationname());
-            locationBtn.setOnClickListener(v -> {
-                Intent nIntent = new Intent(TeamInfoActivity.this, TeamInfoLocationActivity.class);
-                nIntent.putExtra("title", myTeam.getLocationname());
-                nIntent.putExtra("longitude", myTeam.getLocationlongitude());
-                nIntent.putExtra("latitude", myTeam.getLocationlatitude());
-                startActivity(nIntent);
-            });
-        }
-
-        public void onError(Throwable e) {
-            e.printStackTrace();
-        }
-
-        public void onNext(Team team) {
-            myTeam = team;
-        }
-    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,13 +99,60 @@ public class TeamInfoActivity extends AppCompatActivity {
             this.team_id = "1";
         }
         ButterKnife.bind(this);
-        new Builder().baseUrl("http://59.110.136.134/")
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build().create(RetrofitService.class).getTeam(this.team_id)
+        MyRetrofit.getGsonRetrofit().getTeam(this.team_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new C09261());
+                .subscribe(new Observer<Team>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Team team) {
+                        myTeam = team;
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        collapsing.setTitle(myTeam.getTitle());
+                        final List<String> images = new ArrayList();
+                        for (Image img : myTeam.getImages()) {
+                            images.add(img.getImage());
+                        }
+                        Glide.with(TeamInfoActivity.this).load(myTeam.getImage()).into(circleImageView);
+                        infoTxt.setText(myTeam.getInfo());
+                        banner.setImages(images).setDelayTime(m_AppUI.MSG_APP_GPS).setIndicatorGravity(6).setImageLoader(new GlideImageLoader()).start();
+                        banner.setOnBannerListener(position -> {
+                            Intent intent = new Intent(TeamInfoActivity.this, ImageViewActivity.class);
+                            intent.putExtra("uri", (String) images.get(position));
+                            startActivity(intent);
+                        });
+                        categoryTxt.setText("——" + myTeam.getCategory().toString());
+                        nameTxt.setText(myTeam.getName());
+                        contentTxt.setText("——" + myTeam.getContent());
+                        timeTxt.setText("——" + myTeam.getStart_date());
+                        peopleTxt.setText("组员" + myTeam.getJoin_people() + "人已报名(还差" + ((myTeam.getJoin_acount() - myTeam.getJoin_people()) - 1) + "人)");
+                        userBtn.setOnClickListener(v -> {
+                            Intent nIntent = new Intent(TeamInfoActivity.this, UserInfoActivity.class);
+                            nIntent.putExtra("user_id", myTeam.getUser_id());
+                            startActivity(nIntent);
+                        });
+                        locationTxt.setText("——" + myTeam.getLocationname());
+                        locationBtn.setOnClickListener(v -> {
+                            Intent nIntent = new Intent(TeamInfoActivity.this, TeamInfoLocationActivity.class);
+                            nIntent.putExtra("title", myTeam.getLocationname());
+                            nIntent.putExtra("longitude", myTeam.getLocationlongitude());
+                            nIntent.putExtra("latitude", myTeam.getLocationlatitude());
+                            startActivity(nIntent);
+                        });
+                    }
+                });
         setSupportActionBar(this.toolBar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

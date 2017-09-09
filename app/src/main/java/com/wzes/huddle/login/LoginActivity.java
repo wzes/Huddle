@@ -34,15 +34,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
-import retrofit2.Retrofit.Builder;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class LoginActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
@@ -78,7 +76,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Observer<User>(){
-                            public void onCompleted() {
+                            public void onComplete() {
                                 Glide.with(LoginActivity.this)
                                         .load(lastUser.getImage())
                                         .into(mUserImage);
@@ -86,6 +84,11 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
 
                             public void onError(Throwable e) {
                                 e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+
                             }
 
                             public void onNext(User user) {

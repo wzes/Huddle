@@ -37,13 +37,13 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp">
                 <TextView android:textSize="18sp"
-                    android:textColor="#ff000000" 
+                    android:textColor="@color/black" 
                     android:id="@+id/chat_item_name"
                     android:layout_width="wrap_content" 
                     android:layout_height="wrap_content" 
                     android:text="侯主席" />
                 <TextView 
-                    android:textSize="14.0sp" 
+                    android:textSize="14sp"
                     android:id="@+id/chat_item_msg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" 

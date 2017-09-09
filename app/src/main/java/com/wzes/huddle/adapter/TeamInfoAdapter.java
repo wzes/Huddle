@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.lzy.ninegrid.ImageInfo;
+import com.lzy.ninegrid.NineGridView;
+import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 import com.wzes.huddle.R;
 import com.wzes.huddle.bean.Image;
 import com.wzes.huddle.bean.Team;
@@ -26,7 +28,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TeamInfoAdapter extends Adapter<ViewHolder> {
@@ -39,7 +40,7 @@ public class TeamInfoAdapter extends Adapter<ViewHolder> {
     public class MyViewHolder extends ViewHolder implements OnClickListener {
         @BindView(R.id.team_item_img_title) TextView teamItemImgTitle;
         @BindView(R.id.team_item_img_status) TextView teamItemImgStatus;
-        @BindView(R.id.team_item_images) BGANinePhotoLayout teamItemImages;
+        @BindView(R.id.team_item_images) NineGridView teamItemImages;
         @BindView(R.id.team_item_img_content) TextView teamItemImgContent;
         @BindView(R.id.team_item_img_image) CircleImageView teamItemImgImage;
         @BindView(R.id.team_item_img_name) TextView teamItemImgName;
@@ -108,11 +109,16 @@ public class TeamInfoAdapter extends Adapter<ViewHolder> {
         textView.setText(charSequence);
         Glide.with(this.context).load(item.getImage()).into(((MyViewHolder) holder).teamItemImgImage);
 
-        ArrayList<String> images = new ArrayList<>();
-        for (Image image : list.get(position).getImages()){
-            images.add(image.getImage());
+        ArrayList<ImageInfo> imageInfo = new ArrayList<>();
+        if (list.get(position).getImages() != null) {
+            for (Image image : list.get(position).getImages()){
+                ImageInfo info = new ImageInfo();
+                info.setBigImageUrl(image.getImage());
+                info.setThumbnailUrl(image.getImage());
+                imageInfo.add(info);
+            }
         }
-        ((MyViewHolder) holder).teamItemImages.setData(images);
+        ((MyViewHolder) holder).teamItemImages.setAdapter(new NineGridViewClickAdapter(context.getContext(), imageInfo));
 
     }
 

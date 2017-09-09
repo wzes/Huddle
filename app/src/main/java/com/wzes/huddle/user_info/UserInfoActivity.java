@@ -22,15 +22,15 @@ import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.UserAdapter;
 import com.wzes.huddle.bean.User;
 import com.wzes.huddle.imageloader.ImageViewActivity;
+import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.service.RetrofitService;
 import com.wzes.huddle.util.AppManager;
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Retrofit.Builder;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class UserInfoActivity extends AppCompatActivity {
     private static boolean expend = false;
@@ -107,29 +107,7 @@ public class UserInfoActivity extends AppCompatActivity {
         }
     }
 
-    class C09283 implements Observer<User> {
-        C09283() {
-        }
 
-        public void onCompleted() {
-            if (currentUser != null) {
-                Glide.with(UserInfoActivity.this).load(currentUser.getImage()).into(imageView);
-                nameTxt.setText(currentUser.getName());
-                majorTxt.setText(currentUser.getMajor());
-                mottoTxt.setText(currentUser.getMotto() == null ? "这家伙很懒，还没有写呢" : currentUser.getMotto());
-                titleTxt.setText(currentUser.getName());
-                infoTxt.setText((currentUser.getInfo() == null ? "暂无简介" : currentUser.getInfo()).length() > 20 ? currentUser.getInfo().substring(0, 20) + "..." : currentUser.getInfo());
-            }
-        }
-
-        public void onError(Throwable e) {
-            e.printStackTrace();
-        }
-
-        public void onNext(User user) {
-            currentUser = user;
-        }
-    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,7 +119,37 @@ public class UserInfoActivity extends AppCompatActivity {
         this.tabLayout.setupWithViewPager(this.viewPager);
         this.backBtn.setOnClickListener(new C04941());
         this.moreBtn.setOnClickListener(new C04952());
-        ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).getUserByUername(user_id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09283());
+        MyRetrofit.getGsonRetrofit().getUserByUername(user_id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<User>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull User user) {
+                        currentUser = user;
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        if (currentUser != null) {
+                            Glide.with(UserInfoActivity.this).load(currentUser.getImage()).into(imageView);
+                            nameTxt.setText(currentUser.getName());
+                            majorTxt.setText(currentUser.getMajor());
+                            mottoTxt.setText(currentUser.getMotto() == null ? "这家伙很懒，还没有写呢" : currentUser.getMotto());
+                            titleTxt.setText(currentUser.getName());
+                            infoTxt.setText((currentUser.getInfo() == null ? "暂无简介" : currentUser.getInfo()).length() > 20 ? currentUser.getInfo().substring(0, 20) + "..." : currentUser.getInfo());
+                        }
+                    }
+                });
         this.expendBtn.setOnClickListener(new C04964());
         this.imageView.setOnClickListener(new C04975());
     }

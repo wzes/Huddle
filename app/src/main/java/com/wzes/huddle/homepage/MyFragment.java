@@ -16,15 +16,19 @@ import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.User;
 import com.wzes.huddle.myinfo.MyInfoActivity;
+import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.service.RetrofitService;
 import com.wzes.huddle.setting.SettingActivity;
 import com.wzes.huddle.util.AppManager;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.internal.operators.observable.ObservableGroupBy;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit.Builder;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class MyFragment extends Fragment implements OnClickListener {
     public static User currentUser;
@@ -41,26 +45,6 @@ public class MyFragment extends Fragment implements OnClickListener {
     private View setItem;
     private View signItem;
     private View teamItem;
-
-    class C09081 implements Observer<User> {
-        C09081() {
-        }
-
-        public void onCompleted() {
-            Glide.with(MyFragment.this.getContext()).load(MyFragment.currentUser.getImage()).into(MyFragment.this.imageView);
-            MyFragment.this.nameTxt.setText(MyFragment.currentUser.getName());
-            MyFragment.this.majorTxt.setText(MyFragment.currentUser.getMajor());
-            MyFragment.this.mottoTxt.setText(MyFragment.currentUser.getMotto());
-        }
-
-        public void onError(Throwable e) {
-            e.printStackTrace();
-        }
-
-        public void onNext(User user) {
-            MyFragment.currentUser = user;
-        }
-    }
 
     public static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
@@ -95,14 +79,34 @@ public class MyFragment extends Fragment implements OnClickListener {
         this.setItem.setOnClickListener(this);
         this.feedbackItem.setOnClickListener(this);
         if (currentUser == null || !update) {
-            ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/")
-                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .build()
-                    .create(RetrofitService.class))
+            MyRetrofit.getGsonRetrofit()
                     .getUserByUername(Preferences.getUserAccount())
                     .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe(new C09081());
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<User>() {
+                        @Override
+                        public void onSubscribe(@NonNull Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(@NonNull User user) {
+                            currentUser = user;
+                        }
+
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            Glide.with(MyFragment.this.getContext()).load(MyFragment.currentUser.getImage()).into(MyFragment.this.imageView);
+                            MyFragment.this.nameTxt.setText(MyFragment.currentUser.getName());
+                            MyFragment.this.majorTxt.setText(MyFragment.currentUser.getMajor());
+                            MyFragment.this.mottoTxt.setText(MyFragment.currentUser.getMotto());
+                        }
+                    });
             update = true;
         } else {
             Glide.with(getContext()).load(currentUser.getImage()).into(this.imageView);

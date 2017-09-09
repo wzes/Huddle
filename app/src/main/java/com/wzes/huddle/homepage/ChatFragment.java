@@ -8,102 +8,86 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.google.gson.GsonBuilder;
+
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.ChatAdapter;
 import com.wzes.huddle.app.Preferences;
-import com.wzes.huddle.bean.Chat;
-import com.wzes.huddle.service.RetrofitService;
+import com.wzes.huddle.bean.ChatList;
+import com.wzes.huddle.service.MyRetrofit;
+
+import com.wzes.huddle.util.MyLog;
+
 import java.util.List;
-import retrofit2.Retrofit.Builder;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 public class ChatFragment extends Fragment {
+    private static ChatFragment chatFragment;
     private static ChatAdapter chatAdapter;
-    private static List<Chat> list;
-    private static RecyclerView recyclerView;
-    private static SwipeRefreshLayout refreshLayout;
+    private static List<ChatList> list;
+
+    @BindView(R.id.chat_recyclerView) RecyclerView recyclerView;
+    @BindView(R.id.chat_refreshLayout) SwipeRefreshLayout refreshLayout;
+    Unbinder unbinder;
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
     public static class Receiver extends BroadcastReceiver {
 
-        class C09021 implements Observer<List<Chat>> {
-            C09021() {
-            }
-
-            public void onCompleted() {
-                ChatFragment.chatAdapter.notifyDataSetChanged();
-            }
-
-            public void onError(Throwable e) {
-                e.printStackTrace();
-            }
-
-            public void onNext(List<Chat> chats) {
-                ChatFragment.list.clear();
-                for (Chat e : chats) {
-                    ChatFragment.list.add(e);
-                }
-            }
-        }
-
         public void onReceive(Context context, Intent intent) {
-            Log.i("TTTT", "onReceive: 新消息");
-            ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).getChatListByID(Preferences.getUserAccount()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09021());
+            MyRetrofit.getGsonRetrofit()
+                    .getChatListByID(Preferences.getUserAccount())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<ChatList>>() {
+                        @Override
+                        public void onComplete() {
+                            chatAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onSubscribe(@NonNull Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(List<ChatList> chatLists) {
+                            ChatFragment.list.clear();
+                            for (ChatList e : chatLists) {
+                                list.add(e);
+                            }
+                        }
+                    });
         }
     }
 
-    class C09001 implements Observer<List<Chat>> {
-        C09001() {
-        }
-
-        public void onCompleted() {
-            ChatFragment.refreshLayout.setRefreshing(false);
-            ChatFragment.chatAdapter = new ChatAdapter(ChatFragment.this, ChatFragment.list);
-            ChatFragment.recyclerView.setAdapter(ChatFragment.chatAdapter);
-            ChatFragment.recyclerView.setHasFixedSize(true);
-            ChatFragment.recyclerView.setLayoutManager(new LinearLayoutManager(ChatFragment.this.getActivity()));
-        }
-
-        public void onError(Throwable e) {
-            e.printStackTrace();
-        }
-
-        public void onNext(List<Chat> events) {
-            ChatFragment.list = events;
-        }
-    }
-
-    class C09012 implements Observer<List<Chat>> {
-        C09012() {
-        }
-
-        public void onCompleted() {
-            ChatFragment.refreshLayout.setRefreshing(false);
-            ChatFragment.chatAdapter = new ChatAdapter(ChatFragment.this, ChatFragment.list);
-            ChatFragment.recyclerView.setAdapter(ChatFragment.chatAdapter);
-            ChatFragment.recyclerView.setHasFixedSize(true);
-            ChatFragment.recyclerView.setLayoutManager(new LinearLayoutManager(ChatFragment.this.getActivity()));
-        }
-
-        public void onError(Throwable e) {
-            e.printStackTrace();
-        }
-
-        public void onNext(List<Chat> events) {
-            ChatFragment.list = events;
-        }
+    private ChatFragment(){
     }
 
     public static ChatFragment newInstance() {
-        ChatFragment fragment = new ChatFragment();
-        return fragment;
+        if(chatFragment == null){
+            chatFragment = new ChatFragment();
+        }
+        return chatFragment;
     }
 
     public void onCreate(Bundle savedInstanceState) {
@@ -112,33 +96,83 @@ public class ChatFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.chat_recyclerView);
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.chat_refreshLayout);
-        refreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        if (list == null || !Preferences.getLastUserAccount().equals(Preferences.getUserAccount())) {
+        unbinder = ButterKnife.bind(this, view);
+
+        if (list == null) {
             refreshLayout.setRefreshing(true);
-            initData();
+            new Thread(this::initData).start();
         } else {
             chatAdapter = new ChatAdapter(this, list);
             recyclerView.setAdapter(chatAdapter);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
-        refreshLayout.setOnRefreshListener(() -> {
-
-        });
+        refreshLayout.setOnRefreshListener(this::refreshData);
         return view;
     }
 
-    private /* synthetic */ void lambda$onCreateView$0() {
-        refreshData();
-    }
 
     public void initData() {
-        ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).getChatListByID(Preferences.getUserAccount()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09001());
+       MyRetrofit.getGsonRetrofit()
+               .getChatListByID(Preferences.getUserAccount())
+               .subscribeOn(Schedulers.io())
+               .observeOn(AndroidSchedulers.mainThread())
+               .subscribe(new Observer<List<ChatList>>() {
+                   @Override
+                   public void onError(Throwable e) {
+                   }
+
+                   @Override
+                   public void onSubscribe(@NonNull Disposable d) {
+
+                   }
+
+                   @Override
+                   public void onNext(List<ChatList> chatLists) {
+                       list = chatLists;
+                   }
+
+                   @Override
+                   public void onComplete() {
+                       MyLog.i("list.size() : " + list.size());
+                       refreshLayout.setRefreshing(false);
+                       chatAdapter = new ChatAdapter(ChatFragment.this, list);
+                       recyclerView.setHasFixedSize(true);
+                       recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                       recyclerView.setAdapter(chatAdapter);
+                   }
+               });
     }
 
     public void refreshData() {
-        ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).getChatListByID(Preferences.getUserAccount()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09012());
+        MyRetrofit.getGsonRetrofit()
+                .getChatListByID(Preferences.getUserAccount())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<ChatList>>() {
+                    @Override
+                    public void onComplete() {
+                        refreshLayout.setRefreshing(false);
+                        chatAdapter = new ChatAdapter(ChatFragment.this, list);
+                        recyclerView.setAdapter(ChatFragment.chatAdapter);
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(ChatFragment.this.getActivity()));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<ChatList> chatLists) {
+                        list = chatLists;
+                    }
+                });
     }
 }

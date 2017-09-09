@@ -8,25 +8,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
-import com.google.gson.GsonBuilder;
+
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.EventAdapter;
 import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.service.MyRetrofit;
-import com.wzes.huddle.service.RetrofitService;
-import com.wzes.huddle.util.MyLog;
-import com.youth.banner.Banner;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Retrofit.Builder;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 public class EventFragment extends Fragment {
     private static EventFragment eventFragment;
@@ -82,15 +79,20 @@ public class EventFragment extends Fragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Event>>() {
-                    @Override
-                    public void onCompleted() {
 
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
                         MyRetrofit.getGsonRetrofit().getHotEventList()
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(new Observer<List<Event>>() {
                                     @Override
-                                    public void onCompleted() {
+                                    public void onComplete() {
                                         refreshLayout.setRefreshing(false);
                                         eventAdapter = new EventAdapter(EventFragment.this, list, hotList);
                                         recyclerView.setHasFixedSize(true);
@@ -104,6 +106,11 @@ public class EventFragment extends Fragment {
                                     }
 
                                     @Override
+                                    public void onSubscribe(@NonNull Disposable d) {
+
+                                    }
+
+                                    @Override
                                     public void onNext(List<Event> events) {
                                         hotList = events;
                                     }
@@ -111,7 +118,7 @@ public class EventFragment extends Fragment {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
@@ -129,7 +136,7 @@ public class EventFragment extends Fragment {
                 .subscribe(new Observer<List<Event>>(){
 
                     @Override
-                    public void onCompleted() {
+                    public void onComplete() {
                         eventAdapter = new EventAdapter(EventFragment.this, list, hotList);
                         recyclerView.setAdapter(eventAdapter);
                         refreshLayout.setRefreshing(false);
@@ -137,6 +144,11 @@ public class EventFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
