@@ -23,12 +23,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class TeamHotFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private static boolean FirstLoad = true;
     private static List<Team> list;
-    private String mParam1;
-    private String mParam2;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private TeamInfoAdapter teamInfoAdapter;
@@ -93,25 +89,17 @@ public class TeamHotFragment extends Fragment {
 
     public static TeamHotFragment newInstance(String param1, String param2) {
         TeamHotFragment fragment = new TeamHotFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            this.mParam1 = getArguments().getString(ARG_PARAM1);
-            this.mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_team_item_hot, container, false);
-        this.recyclerView = (RecyclerView) view.findViewById(R.id.team_hot_recyclerView);
-        this.refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.team_hot_refreshLayout);
+        this.recyclerView = view.findViewById(R.id.team_hot_recyclerView);
+        this.refreshLayout = view.findViewById(R.id.team_hot_refreshLayout);
         this.refreshLayout.setColorSchemeResources(R.color.colorPrimary);
         this.refreshLayout.setOnRefreshListener(new C09131());
         if (list == null) {
@@ -127,10 +115,10 @@ public class TeamHotFragment extends Fragment {
     }
 
     public void refreshData() {
-        ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).getTeamList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09143());
+        new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class).getTeamList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09143());
     }
 
     public void initData() {
-        ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).getTeamList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09154());
+        new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class).getTeamList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09154());
     }
 }

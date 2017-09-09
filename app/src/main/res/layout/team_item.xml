@@ -1,110 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout android:orientation="vertical"
     android:background="@drawable/select"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
         android:orientation="vertical"
-        android:background="@drawable/background"
-        android:layout_width="fill_parent"
-        android:layout_height="90.0dip"
-        android:layout_margin="8.0dip">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
         <RelativeLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:textSize="16.0sp"
+                android:textSize="18.0sp"
                 android:textStyle="bold"
-                android:textColor="#ff000000"
-                android:id="@+id/team_item_title"
-                android:layout_width="wrap_content"
+                android:textColor="@color/black"
+                android:id="@+id/team_item_img_title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="70dp"
                 android:text="微软2017编程之美挑战赛" />
             <TextView
-                android:gravity="bottom"
-                android:id="@+id/team_item_category"
+                android:textColor="@color/white"
+                android:id="@+id/team_item_img_status"
+                android:background="@drawable/message_time_background"
+                android:padding="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="(学术竞赛)"
-                android:layout_toRightOf="@+id/team_item_title" />
-            <TextView
-                android:textColor="#ffffffff"
-                android:id="@+id/team_item_status"
-                android:background="@drawable/team_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10.0dip"
+                android:layout_marginRight="2dp"
                 android:text="正在招募"
                 android:layout_alignParentRight="true" />
         </RelativeLayout>
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3.0dip">
-            <ImageView
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_access_time_black_24dp"
-                android:layout_width="15.0dip"
-                android:layout_height="15.0dip" />
-            <TextView
-                android:textSize="13.0sp"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/team_item_signtime"
-                android:layout_width="fill_parent"
+            android:layout_marginTop="10dp">
+            <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
+                android:id="@+id/team_item_images"
+                android:layout_marginTop="8dp"
+                app:bga_npl_itemCornerRadius="0dp"
+                app:bga_npl_itemSpanCount="3"
+                app:bga_npl_itemWhiteSpacing="4dp"
+                app:bga_npl_itemWidth="0dp"
+                app:bga_npl_otherWhiteSpacing="64dp"
+                app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
+                app:bga_npl_showAsLargeWhenOnlyOne="true"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5.0dip"
-                android:text="2017.07.11 - 2017.07.25" />
+                android:layout_width="match_parent"/>
         </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
+
+        <TextView
+            android:textSize="15dp"
+            android:id="@+id/team_item_img_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5.0dip">
-            <ImageView
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_person_add_black_24dp"
-                android:layout_width="15.0dip"
-                android:layout_height="15.0dip" />
-            <TextView
-                android:textSize="13.0sp"
-                android:id="@+id/team_item_signstatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5.0dip"
-                android:text="2 人已报名(还差1人)" />
-        </LinearLayout>
+            android:text="快来加入我们吧" />
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5.0dip">
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp">
             <de.hdodenhof.circleimageview.CircleImageView
-                android:gravity="center_vertical"
-                android:id="@+id/team_item_image"
-                android:layout_width="17.0dip"
-                android:layout_height="17.0dip"
-                android:src="@drawable/logo" />
-            <TextView android:gravity="center_vertical"
-                android:id="@+id/team_item_name"
+                android:id="@+id/team_item_img_image"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/logo"
+                android:layout_centerVertical="true" />
+            <TextView android:textSize="16dp"
+                android:id="@+id/team_item_img_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5.0dip"
-                android:text="侯主席"
-                android:layout_toRightOf="@+id/team_item_image" />
-            <Button android:textColor="#ffd1d1d1"
-                android:id="@+id/team_item_more"
+                android:layout_marginLeft="5dp"
+                android:text="为战而生"
+                android:layout_toRightOf="@+id/team_item_img_image"
+                android:layout_centerVertical="true" />
+            <Button
+                android:textSize="16.0sp"
+                android:textColor="#ffd1d1d1"
+                android:id="@+id/team_item_img_location"
                 android:background="?android:selectableItemBackground"
                 android:layout_width="wrap_content"
-                android:layout_height="20.0dip"
+                android:layout_height="20dp"
                 android:text="同济大学体育馆"
                 android:drawableRight="@drawable/ic_place_black_24dp"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
         </RelativeLayout>
     </LinearLayout>
-    <View android:id="@+id/team_divider"
+    <View android:id="@+id/team_img_divider"
         android:background="@color/divider"
-        android:layout_width="fill_parent"
-        android:layout_height="4.0dip" />
+        android:layout_width="match_parent"
+        android:layout_height="4dp" />
 </LinearLayout>

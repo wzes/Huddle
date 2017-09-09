@@ -13,7 +13,9 @@ import com.google.gson.GsonBuilder;
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.EventAdapter;
 import com.wzes.huddle.bean.Event;
+import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.service.RetrofitService;
+import com.wzes.huddle.util.MyLog;
 import com.youth.banner.Banner;
 import java.util.List;
 
@@ -42,7 +44,6 @@ public class EventFragment extends Fragment {
     }
 
     private EventFragment(){
-        eventFragment = new EventFragment();
     }
 
     public static EventFragment newInstance() {
@@ -77,28 +78,24 @@ public class EventFragment extends Fragment {
         return view;
     }
     public void initData() {
-        new Builder().baseUrl("http://59.110.136.134/")
-                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build().create(RetrofitService.class).getEventList()
+       MyRetrofit.getGsonRetrofit().getEventList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Event>>() {
                     @Override
                     public void onCompleted() {
-                        new Builder().baseUrl("http://59.110.136.134/")
-                                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
-                                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                                .build().create(RetrofitService.class).getHotEventList()
+
+                        MyRetrofit.getGsonRetrofit().getHotEventList()
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(new Observer<List<Event>>() {
                                     @Override
                                     public void onCompleted() {
                                         refreshLayout.setRefreshing(false);
-                                        eventAdapter = new EventAdapter(EventFragment.this, EventFragment.list, EventFragment.hotList);
+                                        eventAdapter = new EventAdapter(EventFragment.this, list, hotList);
                                         recyclerView.setHasFixedSize(true);
                                         recyclerView.setLayoutManager(new LinearLayoutManager(EventFragment.this.getActivity()));
+                                        recyclerView.setAdapter(eventAdapter);
                                     }
 
                                     @Override
@@ -126,10 +123,7 @@ public class EventFragment extends Fragment {
     }
 
     public void refreshData() {
-        new Builder().baseUrl("http://59.110.136.134/")
-                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build().create(RetrofitService.class).getEventList()
+       MyRetrofit.getGsonRetrofit().getEventList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Event>>(){

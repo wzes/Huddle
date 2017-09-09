@@ -19,11 +19,9 @@ import com.wzes.huddle.myinterface.OnRecyclerViewOnClickListener;
 import java.util.List;
 
 public class ChatAdapter extends Adapter<android.support.v7.widget.RecyclerView.ViewHolder> {
-    private static final String TAG = "TTTT";
     private ChatFragment context;
     private LayoutInflater inflater;
     private List<Chat> list;
-    private OnRecyclerViewOnClickListener listener;
 
     public class ViewHolder extends android.support.v7.widget.RecyclerView.ViewHolder implements OnClickListener {
         TextView Content;
@@ -31,16 +29,14 @@ public class ChatAdapter extends Adapter<android.support.v7.widget.RecyclerView.
         TextView Name;
         ImageView Status;
         TextView Time;
-        OnRecyclerViewOnClickListener listener;
 
-        public ViewHolder(View itemView, OnRecyclerViewOnClickListener listener) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            this.Img = (ImageView) itemView.findViewById(R.id.chat_item_img);
-            this.Content = (TextView) itemView.findViewById(R.id.chat_item_msg);
-            this.Name = (TextView) itemView.findViewById(R.id.chat_item_name);
-            this.Status = (ImageView) itemView.findViewById(R.id.chat_item_new);
-            this.Time = (TextView) itemView.findViewById(R.id.chat_item_time);
-            this.listener = listener;
+            this.Img = itemView.findViewById(R.id.chat_item_img);
+            this.Content = itemView.findViewById(R.id.chat_item_msg);
+            this.Name =  itemView.findViewById(R.id.chat_item_name);
+            this.Status =  itemView.findViewById(R.id.chat_item_new);
+            this.Time = itemView.findViewById(R.id.chat_item_time);
             itemView.setOnClickListener(this);
         }
 
@@ -58,17 +54,16 @@ public class ChatAdapter extends Adapter<android.support.v7.widget.RecyclerView.
         this.list = list;
     }
 
-    public android.support.v7.widget.RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(this.inflater.inflate(R.layout.chat_item, parent, false), this.listener);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(inflater.inflate(R.layout.chat_item, parent, false));
     }
 
     public void onBindViewHolder(android.support.v7.widget.RecyclerView.ViewHolder holder, int position) {
-        Chat item = (Chat) this.list.get(position);
+        Chat item = this.list.get(position);
         if (holder instanceof ViewHolder) {
-            Log.i(TAG, "onBindViewHolder: " + item.getImage() + item.getSend_date());
             ((ViewHolder) holder).Name.setText(item.getName());
             ((ViewHolder) holder).Time.setText(item.getSend_date());
-            ((ViewHolder) holder).Status.setVisibility(8);
+            ((ViewHolder) holder).Status.setVisibility(View.GONE);
             ((ViewHolder) holder).Content.setText(item.getContent());
             Glide.with(this.context).load(item.getImage()).into(((ViewHolder) holder).Img);
         }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
 import com.wzes.huddle.bean.Image;
@@ -19,66 +20,63 @@ import com.wzes.huddle.bean.Team;
 import com.wzes.huddle.myinterface.OnRecyclerViewOnClickListener;
 import com.wzes.huddle.team_info.TeamInfoActivity;
 import com.wzes.huddle.user_info.UserInfoActivity;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout;
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class TeamInfoAdapter extends Adapter<ViewHolder> {
+
     private Fragment context;
     private LayoutInflater inflater;
     private List<Team> list;
     private OnRecyclerViewOnClickListener listener;
 
     public class MyViewHolder extends ViewHolder implements OnClickListener {
-        TextView Category;
-        TextView Content;
-        View Divider;
-        ImageView Img;
-        ImageView Imgone;
-        ImageView Imgthree;
-        ImageView Imgtwo;
-        Button Location;
-        TextView Name;
-        TextView Status;
-        TextView Title;
+        @BindView(R.id.team_item_img_title) TextView teamItemImgTitle;
+        @BindView(R.id.team_item_img_status) TextView teamItemImgStatus;
+        @BindView(R.id.team_item_images) BGANinePhotoLayout teamItemImages;
+        @BindView(R.id.team_item_img_content) TextView teamItemImgContent;
+        @BindView(R.id.team_item_img_image) CircleImageView teamItemImgImage;
+        @BindView(R.id.team_item_img_name) TextView teamItemImgName;
+        @BindView(R.id.team_item_img_location) Button teamItemImgLocation;
+
         OnRecyclerViewOnClickListener listener;
 
         public MyViewHolder(View itemView, OnRecyclerViewOnClickListener listener) {
             super(itemView);
-            this.Img = (ImageView) itemView.findViewById(R.id.team_item_img_image);
-            this.Title = (TextView) itemView.findViewById(R.id.team_item_img_title);
-            this.Content = (TextView) itemView.findViewById(R.id.team_item_img_content);
-            this.Name = (TextView) itemView.findViewById(R.id.team_item_img_name);
-            this.Status = (TextView) itemView.findViewById(R.id.team_item_img_status);
-            this.Location = (Button) itemView.findViewById(R.id.team_item_img_location);
-            this.Imgone = (ImageView) itemView.findViewById(R.id.team_item_img1);
-            this.Imgtwo = (ImageView) itemView.findViewById(R.id.team_item_img2);
-            this.Imgthree = (ImageView) itemView.findViewById(R.id.team_item_img3);
+            ButterKnife.bind(this, itemView);
             this.listener = listener;
-            this.Location.setOnClickListener(this);
-            this.Img.setOnClickListener(this);
-            this.Name.setOnClickListener(this);
+            teamItemImgLocation.setOnClickListener(this);
+            teamItemImgImage.setOnClickListener(this);
+            teamItemImgName.setOnClickListener(this);
             itemView.setOnClickListener(this);
         }
 
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.team_item_image /*2131624289*/:
+                case R.id.team_item_img_image:
                     Intent uIntent = new Intent(TeamInfoAdapter.this.context.getContext(), UserInfoActivity.class);
-                    uIntent.putExtra("user_id", ((Team) TeamInfoAdapter.this.list.get(getLayoutPosition())).getUser_id());
+                    uIntent.putExtra("user_id", TeamInfoAdapter.this.list.get(getLayoutPosition()).getUser_id());
                     TeamInfoAdapter.this.context.startActivity(uIntent);
                     return;
-                case R.id.team_item_img_name /*2131624300*/:
+                case R.id.team_item_img_name:
                     Intent nIntent = new Intent(TeamInfoAdapter.this.context.getContext(), UserInfoActivity.class);
-                    nIntent.putExtra("user_id", ((Team) TeamInfoAdapter.this.list.get(getLayoutPosition())).getUser_id());
+                    nIntent.putExtra("user_id", TeamInfoAdapter.this.list.get(getLayoutPosition()).getUser_id());
                     TeamInfoAdapter.this.context.startActivity(nIntent);
                     return;
-                case R.id.team_item_img_location /*2131624301*/:
+                case R.id.team_item_img_location:
                     Intent mIntent = new Intent(TeamInfoAdapter.this.context.getContext(), TeamInfoActivity.class);
-                    mIntent.putExtra("team_id", ((Team) TeamInfoAdapter.this.list.get(getLayoutPosition())).getTeam_id());
+                    mIntent.putExtra("team_id", TeamInfoAdapter.this.list.get(getLayoutPosition()).getTeam_id());
                     TeamInfoAdapter.this.context.startActivity(mIntent);
                     return;
                 default:
                     Intent intent = new Intent(TeamInfoAdapter.this.context.getContext(), TeamInfoActivity.class);
-                    intent.putExtra("team_id", ((Team) TeamInfoAdapter.this.list.get(getLayoutPosition())).getTeam_id() + "");
+                    intent.putExtra("team_id", TeamInfoAdapter.this.list.get(getLayoutPosition()).getTeam_id() + "");
                     TeamInfoAdapter.this.context.startActivity(intent);
                     return;
             }
@@ -92,39 +90,30 @@ public class TeamInfoAdapter extends Adapter<ViewHolder> {
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyViewHolder(this.inflater.inflate(R.layout.team_item_img, parent, false), this.listener);
+        return new MyViewHolder(this.inflater.inflate(R.layout.team_item, parent, false), this.listener);
     }
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         CharSequence charSequence;
-        Team item = (Team) this.list.get(position);
-        ((MyViewHolder) holder).Title.setText(item.getTitle() + "[" + item.getCategory() + "]");
-        ((MyViewHolder) holder).Name.setText(item.getName());
-        ((MyViewHolder) holder).Status.setText(item.getStatus());
-        TextView textView = ((MyViewHolder) holder).Content;
+        Team item = list.get(position);
+        ((MyViewHolder) holder).teamItemImgTitle.setText(item.getTitle() + "[" + item.getCategory() + "]");
+        ((MyViewHolder) holder).teamItemImgName.setText(item.getName());
+        ((MyViewHolder) holder).teamItemImgStatus.setText(item.getStatus());
+        TextView textView = ((MyViewHolder) holder).teamItemImgContent;
         if (item.getContent().trim().length() > 40) {
             charSequence = item.getContent().substring(0, 40) + "...";
         } else {
             charSequence = item.getContent().trim();
         }
         textView.setText(charSequence);
-        Glide.with(this.context).load(item.getImage()).into(((MyViewHolder) holder).Img);
-        if (item.getImages() == null) {
-            return;
+        Glide.with(this.context).load(item.getImage()).into(((MyViewHolder) holder).teamItemImgImage);
+
+        ArrayList<String> images = new ArrayList<>();
+        for (Image image : list.get(position).getImages()){
+            images.add(image.getImage());
         }
-        if (item.getImages().size() == 1) {
-            Glide.with(this.context).load(((Image) item.getImages().get(0)).getImage()).into(((MyViewHolder) holder).Imgone);
-            ((MyViewHolder) holder).Imgtwo.setVisibility(8);
-            ((MyViewHolder) holder).Imgthree.setVisibility(8);
-        } else if (item.getImages().size() == 2) {
-            Glide.with(this.context).load(((Image) item.getImages().get(0)).getImage()).into(((MyViewHolder) holder).Imgone);
-            Glide.with(this.context).load(((Image) item.getImages().get(1)).getImage()).into(((MyViewHolder) holder).Imgtwo);
-            ((MyViewHolder) holder).Imgthree.setVisibility(8);
-        } else {
-            Glide.with(this.context).load(((Image) item.getImages().get(0)).getImage()).into(((MyViewHolder) holder).Imgone);
-            Glide.with(this.context).load(((Image) item.getImages().get(1)).getImage()).into(((MyViewHolder) holder).Imgtwo);
-            Glide.with(this.context).load(((Image) item.getImages().get(2)).getImage()).into(((MyViewHolder) holder).Imgthree);
-        }
+        ((MyViewHolder) holder).teamItemImages.setData(images);
+
     }
 
     public int getItemCount() {

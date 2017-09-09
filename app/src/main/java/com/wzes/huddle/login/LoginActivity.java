@@ -23,6 +23,7 @@ import com.wzes.huddle.bean.User;
 import com.wzes.huddle.homepage.MainActivity;
 import com.wzes.huddle.homepage.MyFragment;
 import com.wzes.huddle.service.Identity;
+import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.service.RetrofitService;
 import com.wzes.huddle.util.AppManager;
 import com.wzes.huddle.util.MyLog;
@@ -65,12 +66,15 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
         /*
          * request for database if local not username
          */
-        if (Preferences.getLastUserAccount() != null) {
+        if(Preferences.getUserAccount() != null){
+            //show defalut image and enter the main
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+        else if(Preferences.getLastUserAccount() != null) {
             if(NetworkUtils.isConnected(this)){
-                new Builder().baseUrl("http://59.110.136.134/")
-                        .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
-                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                        .build().create(RetrofitService.class).getUserByUername(Preferences.getLastUserAccount())
+                MyRetrofit.getGsonRetrofit()
+                        .getUserByUername(Preferences.getLastUserAccount())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Observer<User>(){
@@ -88,10 +92,8 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
                                 lastUser = user;
                             }
                         });
-            }else {
-                //show defalut image and enter the main
-                startActivity(new Intent(this, MainActivity.class));
-                finish();
+            }else{
+                Toast.makeText(this, "网络不太好 ^_^", Toast.LENGTH_SHORT).show();
             }
         }
 

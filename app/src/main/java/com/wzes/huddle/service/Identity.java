@@ -23,7 +23,7 @@ public class Identity {
             if (result == null || result.equals("null")) {
                 return null;
             }
-            return (User) new Gson().fromJson(result, User.class);
+            return new Gson().fromJson(result, User.class);
         } catch (Exception e) {
             return null;
         }

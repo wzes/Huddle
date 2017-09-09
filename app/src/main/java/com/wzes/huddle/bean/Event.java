@@ -1,20 +1,21 @@
 package com.wzes.huddle.bean;
 
 public class Event {
-    public String content;
-    public String enrool_end_date;
-    public String enrool_start_date;
-    public int event_id;
-    public Category event_type;
-    public int follow_account;
-    public String image;
-    public Level level;
-    public String match_end_date;
-    public String match_start_date;
-    public String organizer;
-    public int page_view;
-    public String title;
-    public String user_id;
+    private String content;
+    private String enrool_end_date;
+    private String enrool_start_date;
+    private String event_type;
+    private String image;
+    private String level;
+    private String match_end_date;
+    private String match_start_date;
+    private String organizer;
+    private String title;
+    private String user_id;
+
+    private int page_view;
+    private int event_id;
+    private int follow_account;
 
     public String getUser_id() {
         return this.user_id;
@@ -40,11 +41,11 @@ public class Event {
         this.title = title;
     }
 
-    public Category getEvent_type() {
+    public String getEvent_type() {
         return this.event_type;
     }
 
-    public void setEvent_type(Category event_type) {
+    public void setEvent_type(String event_type) {
         this.event_type = event_type;
     }
 
@@ -64,11 +65,11 @@ public class Event {
         this.organizer = organizer;
     }
 
-    public Level getLevel() {
+    public String getLevel() {
         return this.level;
     }
 
-    public void setLevel(Level level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 

@@ -3,10 +3,21 @@ package com.wzes.huddle.bean;
 import java.util.List;
 
 public class Team {
-    private Category category;
+    private String category;
     private String content;
     public String image;
     private List<Image> images;
+
+    public List<teamuser> getTeamusers() {
+        return teamusers;
+    }
+
+    public void setTeamusers(List<teamuser> teamusers) {
+        this.teamusers = teamusers;
+    }
+
+    private List<teamuser> teamusers;
+
     private String info;
     private int join_acount;
     private int join_people;
@@ -53,11 +64,11 @@ public class Team {
         this.title = title;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return this.category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
