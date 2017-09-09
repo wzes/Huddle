@@ -51,14 +51,15 @@
                     android:layout_width="match_parent" 
                     android:layout_height="wrap_content" 
                     android:layout_marginTop="20dp">
-                    <AutoCompleteTextView 
+                    <EditText
                         android:textColor="@color/white" 
                         android:textColorHighlight="@color/white" 
                         android:textColorHint="@color/white" 
                         android:id="@+id/login_username" 
                         android:layout_width="match_parent" 
                         android:layout_height="wrap_content" 
-                        android:hint="@string/prompt_username" android:maxLines="1"
+                        android:hint="@string/prompt_username"
+                        android:maxLines="1"
                         android:inputType="textEmailAddress" />
                 </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout 
@@ -70,7 +71,8 @@
                         android:id="@+id/login_password" 
                         android:layout_width="match_parent" 
                         android:layout_height="wrap_content" 
-                        android:hint="@string/prompt_password" android:maxLines="1" 
+                        android:hint="@string/prompt_password"
+                        android:maxLines="1"
                         android:inputType="textPassword" 
                         android:imeOptions="normal|actionUnspecified" 
                         android:imeActionLabel="@string/action_sign_in_short" 

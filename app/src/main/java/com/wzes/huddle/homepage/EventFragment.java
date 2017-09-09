@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,9 @@ import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.service.RetrofitService;
 import com.youth.banner.Banner;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Retrofit.Builder;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -25,126 +27,129 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class EventFragment extends Fragment {
+    private static EventFragment eventFragment;
     private static boolean FirstLoad = true;
     private static List<Event> hotList;
     private static List<Event> list;
-    public Banner banner;
+
+    @BindView(R.id.event_recyclerView) RecyclerView recyclerView;
+    @BindView(R.id.event_refreshLayout) SwipeRefreshLayout refreshLayout;
+
     private EventAdapter eventAdapter;
-    private RecyclerView recyclerView;
-    private SwipeRefreshLayout refreshLayout;
-    private SearchView searchView;
-    private Toolbar toolbar;
-
-    class C09041 implements Observer<List<Event>> {
-
-        class C09031 implements Observer<List<Event>> {
-            C09031() {
-            }
-
-            public void onCompleted() {
-                EventFragment.this.refreshLayout.setRefreshing(false);
-                EventFragment.this.eventAdapter = new EventAdapter(EventFragment.this, EventFragment.list, EventFragment.hotList);
-                EventFragment.this.recyclerView.setAdapter(EventFragment.this.eventAdapter);
-                EventFragment.this.recyclerView.setHasFixedSize(true);
-                EventFragment.this.recyclerView.setLayoutManager(new LinearLayoutManager(EventFragment.this.getActivity()));
-            }
-
-            public void onError(Throwable e) {
-                e.printStackTrace();
-            }
-
-            public void onNext(List<Event> events) {
-                EventFragment.hotList = events;
-            }
-        }
-
-        C09041() {
-        }
-
-        public void onCompleted() {
-            ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).getHotEventList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09031());
-        }
-
-        public void onError(Throwable e) {
-            e.printStackTrace();
-        }
-
-        public void onNext(List<Event> events) {
-            EventFragment.list = events;
-        }
-    }
-
-    class C09052 implements Observer<List<Event>> {
-        C09052() {
-        }
-
-        public void onCompleted() {
-            EventFragment.this.eventAdapter = new EventAdapter(EventFragment.this, EventFragment.list, EventFragment.hotList);
-            EventFragment.this.recyclerView.setAdapter(EventFragment.this.eventAdapter);
-            EventFragment.this.refreshLayout.setRefreshing(false);
-        }
-
-        public void onError(Throwable e) {
-            e.printStackTrace();
-        }
-
-        public void onNext(List<Event> events) {
-            EventFragment.list = events;
-        }
-    }
 
     public RecyclerView getRecyclerView() {
         return this.recyclerView;
     }
 
+    private EventFragment(){
+        eventFragment = new EventFragment();
+    }
+
     public static EventFragment newInstance() {
-        EventFragment fragment = new EventFragment();
-        return fragment;
+        if(eventFragment == null){
+            eventFragment = new EventFragment();
+        }
+        return eventFragment;
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    public void initData() {
-        ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).getEventList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09041());
-    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event, container, false);
-        this.searchView = (SearchView) view.findViewById(R.id.event_searchview);
-        this.searchView.bringToFront();
-        this.recyclerView = (RecyclerView) view.findViewById(R.id.event_recyclerView);
-        this.refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.event_refreshLayout);
-        this.refreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        this.refreshLayout.setOnRefreshListener(() -> {
+        ButterKnife.bind(this, view);
 
-        });
+        refreshLayout.setOnRefreshListener(this::refreshData);
+
         if (FirstLoad) {
-            this.refreshLayout.setRefreshing(true);
-            new Thread(() ->{
-
-            }).start();
+            refreshLayout.setRefreshing(true);
+            new Thread(this::initData).start();
             FirstLoad = false;
         } else {
-            this.eventAdapter = new EventAdapter(this, list, hotList);
-            this.recyclerView.setAdapter(this.eventAdapter);
-            this.recyclerView.setHasFixedSize(true);
-            this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            eventAdapter = new EventAdapter(this, list, hotList);
+            recyclerView.setAdapter(eventAdapter);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
         setHasOptionsMenu(true);
         return view;
     }
+    public void initData() {
+        new Builder().baseUrl("http://59.110.136.134/")
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build().create(RetrofitService.class).getEventList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Event>>() {
+                    @Override
+                    public void onCompleted() {
+                        new Builder().baseUrl("http://59.110.136.134/")
+                                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                                .build().create(RetrofitService.class).getHotEventList()
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Observer<List<Event>>() {
+                                    @Override
+                                    public void onCompleted() {
+                                        refreshLayout.setRefreshing(false);
+                                        eventAdapter = new EventAdapter(EventFragment.this, EventFragment.list, EventFragment.hotList);
+                                        recyclerView.setHasFixedSize(true);
+                                        recyclerView.setLayoutManager(new LinearLayoutManager(EventFragment.this.getActivity()));
+                                    }
 
-    private /* synthetic */ void lambda$onCreateView$0() {
-        refreshData();
-    }
+                                    @Override
+                                    public void onError(Throwable e) {
 
-    private /* synthetic */ void lambda$onCreateView$1() {
-        initData();
+                                    }
+
+                                    @Override
+                                    public void onNext(List<Event> events) {
+                                        hotList = events;
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<Event> events) {
+                        list = events;
+                    }
+                });
     }
 
     public void refreshData() {
-        ((RetrofitService) new Builder().baseUrl("http://59.110.136.134/").addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create())).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).build().create(RetrofitService.class)).getEventList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new C09052());
+        new Builder().baseUrl("http://59.110.136.134/")
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build().create(RetrofitService.class).getEventList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Event>>(){
+
+                    @Override
+                    public void onCompleted() {
+                        eventAdapter = new EventAdapter(EventFragment.this, list, hotList);
+                        recyclerView.setAdapter(eventAdapter);
+                        refreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<Event> events) {
+                        list = events;
+                    }
+                });
     }
 }

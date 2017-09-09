@@ -24,7 +24,7 @@
         android:layout_width="fill_parent" 
         android:layout_height="fill_parent">
         <View 
-            android:background="@drawable/toolbar_dropshadow" 
+            android:background="@drawable/toolbar_shadow"
             android:layout_width="fill_parent" 
             android:layout_height="4.0dip" />
         <ScrollView 

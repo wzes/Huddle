@@ -28,6 +28,18 @@ public class TeamFragment extends Fragment {
     private TeamRecFragment teamRecFragment;
     private Toolbar toolbar;
 
+    private static TeamFragment teamFragment;
+    private TeamFragment(){
+        teamFragment = new TeamFragment();
+    }
+
+    public static TeamFragment newInstance() {
+        if(teamFragment == null){
+            teamFragment = new TeamFragment();
+        }
+        return teamFragment;
+    }
+
     class C09091 implements OnMenuItemClickListener {
         C09091() {
         }
@@ -39,10 +51,6 @@ public class TeamFragment extends Fragment {
         }
     }
 
-    public static TeamFragment newInstance() {
-        TeamFragment fragment = new TeamFragment();
-        return fragment;
-    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

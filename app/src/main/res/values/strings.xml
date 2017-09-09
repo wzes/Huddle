@@ -30,4 +30,12 @@
     <string name="title_my">我的</string>
     <string name="title_team">组队</string>
 
+    <string name="returned_from_app_settings_to_activity">
+        Returned from app settings to MainActivity with the following permissions:
+        \n\nIntnet: %s
+    </string>
+
+    <string name="internet_permission">该应用需要网络权限</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

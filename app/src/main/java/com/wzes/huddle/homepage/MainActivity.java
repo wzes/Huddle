@@ -46,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
 
         navigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.navigation_team:
-                    MainActivity.this.mViewPager.setCurrentItem(1);
-                    return true;
                 case R.id.navigation_event:
                     MainActivity.this.mViewPager.setCurrentItem(0);
+                    return true;
+                case R.id.navigation_team:
+                    MainActivity.this.mViewPager.setCurrentItem(1);
                     return true;
                 case R.id.navigation_chat:
                     MainActivity.this.mViewPager.setCurrentItem(2);

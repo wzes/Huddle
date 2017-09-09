@@ -1,9 +1,11 @@
 package com.wzes.huddle.login;
 
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,11 +25,17 @@ import com.wzes.huddle.homepage.MyFragment;
 import com.wzes.huddle.service.Identity;
 import com.wzes.huddle.service.RetrofitService;
 import com.wzes.huddle.util.AppManager;
+import com.wzes.huddle.util.MyLog;
 import com.wzes.huddle.util.NetworkUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 import retrofit2.Retrofit.Builder;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -35,14 +43,16 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     @BindView(R2.id.login_image) CircleImageView mUserImage;
     @BindView(R2.id.login_sign) Button signInBtn;
-    @BindView(R2.id.login_username) AutoCompleteTextView mUsernameView;
+    @BindView(R2.id.login_username) EditText mUsernameView;
     @BindView(R2.id.login_password) EditText mPasswordView;
 
-
+    private static final String[] INTERNET =
+            {Manifest.permission.INTERNET};
+    private static final int INTERNET_PERM = 123;
     private UserLoginTask mAuthTask = null;
     private User lastUser = null;
 
@@ -51,11 +61,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         AppManager.getAppManager().addActivity(this);
-
-        /*
-         * login when click the button
-         */
-        signInBtn.setOnClickListener(view -> attemptLogin());
 
         /*
          * request for database if local not username
@@ -90,6 +95,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
+        /*
+         * login when click the button
+         */
+        signInBtn.setOnClickListener(view -> internetTask());
     }
 
     // check login
@@ -143,6 +152,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+
+
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         private final String password;
         private final String username;
@@ -168,6 +179,7 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
             if (success.booleanValue()) {
                 Preferences.saveUserAccount(username);
+                Preferences.saveLastUserAccount(username);
                 MyFragment.currentUser = null;
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
@@ -184,5 +196,58 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    @AfterPermissionGranted(INTERNET_PERM)
+    private void internetTask() {
+        String perm = Manifest.permission.INTERNET;
+        if (hasInternetPermission()) {
+            attemptLogin();
+        } else {
+            // Do not have permissions, request them now
+            EasyPermissions.requestPermissions(this, getString(R.string.internet_permission),
+                    INTERNET_PERM, perm);
+        }
+    }
 
+    private boolean hasInternetPermission() {
+        return EasyPermissions.hasPermissions(this, Manifest.permission.INTERNET);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        // (Optional) Check whether the user denied any permissions and checked "NEVER ASK AGAIN."
+        // This will display a dialog directing them to enable the permission in app settings.
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
+            String yes = getString(R.string.yes);
+            String no = getString(R.string.no);
+
+            // Do something after user returned from app settings screen, like showing a Toast.
+            Toast.makeText(
+                    this,
+                    getString(R.string.returned_from_app_settings_to_activity,
+                            hasInternetPermission() ? yes : no),
+                    Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
 }

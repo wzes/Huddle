@@ -5,10 +5,11 @@ import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.baidu.mapapi.UIMsg.m_AppUI;
 import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
@@ -16,100 +17,49 @@ import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.event_info.EventInfoActivity;
 import com.wzes.huddle.homepage.EventFragment;
 import com.wzes.huddle.imageloader.ImageViewActivity;
-import com.wzes.huddle.myinterface.OnRecyclerViewOnClickListener;
 import com.wzes.huddle.util.GlideImageLoader;
 import com.youth.banner.Banner;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class EventAdapter extends Adapter<ViewHolder> {
     private static final int TYPE_HEADER = 2;
     private static final int TYPE_NORMAL = 0;
-    private static List<String> hotImages;
+    private static ArrayList hotImages;
+
+    private LayoutInflater inflater;
+    private List<Event> norList;
     private EventFragment context;
     private List<Event> hotList;
-    private List<String> images = new ArrayList();
-    private LayoutInflater inflater;
-    private List<Event> list;
-    private OnRecyclerViewOnClickListener listener;
-    private List<String> titles = new ArrayList();
+    private List<String> images;
+    private List<String> titles;
 
-    class HeaderViewHolder extends ViewHolder implements OnClickListener {
-        Banner banner;
 
-        HeaderViewHolder(View itemView, OnRecyclerViewOnClickListener listener) {
-            super(itemView);
-            this.banner = (Banner) itemView.findViewById(R.id.event_item_banner);
-            itemView.setOnClickListener(this);
-            //this.banner.setOnBannerListener();
-        }
-
-        private /* synthetic */ void lambda$new$0(int position) {
-            Intent intent = new Intent(EventAdapter.this.context.getContext(), EventInfoActivity.class);
-            intent.putExtra("event_id", ((Event) EventAdapter.this.list.get(position)).getEvent_id() + "");
-            EventAdapter.this.context.startActivity(intent);
-        }
-
-        public void onClick(View view) {
-            if (EventAdapter.this.listener != null) {
-                EventAdapter.this.listener.OnItemClick(view, getLayoutPosition());
-            }
-        }
-    }
-
-    public class NormalViewHolder extends ViewHolder implements OnClickListener {
-        View Divider;
-        TextView Follow;
-        TextView Host;
-        ImageView Img;
-        TextView Level;
-        TextView Rice;
-        TextView Sign;
-        TextView Title;
-        TextView View;
-        OnRecyclerViewOnClickListener listener;
-
-        public NormalViewHolder(View itemView, OnRecyclerViewOnClickListener listener) {
-            super(itemView);
-            this.Img = (ImageView) itemView.findViewById(R.id.event_item_image);
-            this.Title = (TextView) itemView.findViewById(R.id.event_item_title);
-            this.Sign = (TextView) itemView.findViewById(R.id.event_item_signtime);
-            this.Rice = (TextView) itemView.findViewById(R.id.event_item_ricetime);
-            this.Host = (TextView) itemView.findViewById(R.id.event_item_host);
-            this.View = (TextView) itemView.findViewById(R.id.event_item_view);
-            this.Follow = (TextView) itemView.findViewById(R.id.event_item_follow);
-            this.Level = (TextView) itemView.findViewById(R.id.event_item_level);
-            this.Divider = itemView.findViewById(R.id.event_divider);
-            this.listener = listener;
-            itemView.setOnClickListener(this);
-        }
-
-        public void onClick(View view) {
-            Intent intent = new Intent(EventAdapter.this.context.getContext(), EventInfoActivity.class);
-            intent.putExtra("event_id", ((Event) EventAdapter.this.list.get(getLayoutPosition() - 1)).getEvent_id() + "");
-            EventAdapter.this.context.startActivity(intent);
-        }
-    }
-
-    public EventAdapter(EventFragment context, List<Event> list,List<Event> HotEvents) {
+    public EventAdapter(EventFragment context, List<Event> norList, List<Event> hotList) {
         this.context = context;
-        this.hotList = HotEvents;
+        this.hotList = hotList;
         this.inflater = LayoutInflater.from(context.getContext());
-        this.list = list;
-        hotImages = new ArrayList();
-        for (Event event : this.hotList) {
-            this.images.add(event.getImage());
-            this.titles.add(event.getTitle());
+        this.norList = norList;
+        hotImages = new ArrayList<>();
+        images = new ArrayList<>();
+        titles = new ArrayList<>();
+        for (Event event : hotList) {
+            images.add(event.getImage());
+            titles.add(event.getTitle());
             hotImages.add(event.getImage());
         }
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
-            case 0:
-                return new NormalViewHolder(this.inflater.inflate(R.layout.event_item_normal, parent, false), this.listener);
-            case 2:
-                return new HeaderViewHolder(this.inflater.inflate(R.layout.event_item_banner, parent, false), this.listener);
+            case TYPE_NORMAL:
+                return new NormalViewHolder(inflater.inflate(R.layout.event_item_normal, parent, false));
+            case TYPE_HEADER:
+                return new HeaderViewHolder(inflater.inflate(R.layout.event_item_banner, parent, false));
             default:
                 return null;
         }
@@ -117,15 +67,15 @@ public class EventAdapter extends Adapter<ViewHolder> {
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder instanceof NormalViewHolder) {
-            Event item = list.get(position - 1);
+            Event item = norList.get(position - 1);
             String uri = item.getImage();
             Glide.with(this.context)
                     .load(item.getImage())
-                    .into(((NormalViewHolder) holder).Img);
-            ((NormalViewHolder) holder).Img.setOnClickListener(v -> {
+                    .into(((NormalViewHolder) holder).Image);
+            ((NormalViewHolder) holder).Image.setOnClickListener(view -> {
                 Intent intent = new Intent(this.context.getContext(), ImageViewActivity.class);
                 intent.putExtra("uri", uri);
-                this.context.startActivity(intent);
+                context.startActivity(intent);
             });
             ((NormalViewHolder) holder).Title.setText(item.getTitle());
             ((NormalViewHolder) holder).Sign.setText("报名时间 " + item.getEnrool_start_date().split(" ")[0] + " - " + item.getEnrool_end_date().split(" ")[0]);
@@ -134,29 +84,65 @@ public class EventAdapter extends Adapter<ViewHolder> {
             ((NormalViewHolder) holder).View.setText(item.getPage_view() + " 浏览");
             ((NormalViewHolder) holder).Follow.setText(item.getFollow_account() + " 关注");
             ((NormalViewHolder) holder).Level.setText(item.getLevel() + "");
+            ((NormalViewHolder) holder).Layout.setOnClickListener(view -> {
+                Intent intent = new Intent(context.getActivity(), EventInfoActivity.class);
+                intent.putExtra("event_id", norList.get(position - 1).getEvent_id() + "");
+                EventAdapter.this.context.startActivity(intent);
+            });
         } else if (holder instanceof HeaderViewHolder) {
-            ((HeaderViewHolder) holder).banner.setImages(this.images).setBannerStyle(5).setBannerTitles(this.titles).setDelayTime(m_AppUI.MSG_APP_GPS).setIndicatorGravity(7).setImageLoader(new GlideImageLoader()).start();
+            ((HeaderViewHolder) holder).banner.setImages(this.images)
+                    .setBannerStyle(5)
+                    .setBannerTitles(this.titles)
+                    .setDelayTime(m_AppUI.MSG_APP_GPS)
+                    .setIndicatorGravity(7)
+                    .setImageLoader(new GlideImageLoader())
+                    .start();
+            ((HeaderViewHolder) holder).banner.setOnBannerListener(bPosition -> {
+                Intent intent = new Intent(context.getActivity(), EventInfoActivity.class);
+                intent.putExtra("event_id", hotList.get(bPosition).getEvent_id() + "");
+                context.startActivity(intent);
+            });
         }
     }
 
-    private /* synthetic */ void lambda$onBindViewHolder$0(String uri, View v) {
-        Intent intent = new Intent(this.context.getContext(), ImageViewActivity.class);
-        intent.putExtra("uri", uri);
-        this.context.startActivity(intent);
+    class HeaderViewHolder extends ViewHolder {
+        @BindView(R.id.event_item_banner) Banner banner;
+
+        HeaderViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+    }
+
+    class NormalViewHolder extends ViewHolder {
+
+        @BindView(R.id.event_item_image) ImageView Image;
+        @BindView(R.id.event_item_title) TextView Title;
+        @BindView(R.id.event_item_signtime) TextView Sign;
+        @BindView(R.id.event_item_ricetime) TextView Rice;
+        @BindView(R.id.event_item_host) TextView Host;
+        @BindView(R.id.event_item_view) TextView View;
+        @BindView(R.id.event_item_follow) TextView Follow;
+        @BindView(R.id.event_item_level) TextView Level;
+        @BindView(R.id.event_item_layout) LinearLayout Layout;
+
+        public NormalViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
     }
 
     public int getItemViewType(int position) {
         if (position == 0) {
-            return 2;
+            return TYPE_HEADER;
         }
-        return 0;
+        return TYPE_NORMAL;
     }
 
     public int getItemCount() {
-        return this.list.size() + 1;
+        return norList.size() + 1;
     }
 
-    public void setItemClickListener(OnRecyclerViewOnClickListener listener) {
-        this.listener = listener;
-    }
 }

@@ -31,7 +31,7 @@
             android:layout_height="match_parent">
             <View
                 android:id="@+id/toolbar_shadow" 
-                android:background="@drawable/toolbar_dropshadow" 
+                android:background="@drawable/toolbar_shadow"
                 android:layout_width="match_parent" 
                 android:layout_height="4.0dip" />
             <android.support.v7.widget.RecyclerView 

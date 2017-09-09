@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" 
     android:background="@drawable/select" 
     android:layout_width="match_parent" 
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/event_item_layout">
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal" 
         android:layout_width="match_parent" 
         android:layout_height="wrap_content" 
@@ -13,84 +13,81 @@
         <ImageView
             android:id="@+id/event_item_image" 
             android:layout_width="110dp"
-            android:layout_height="110dp" 
+            android:layout_height="match_parent"
             android:src="@drawable/logo" />
-        <RelativeLayout 
-            android:layout_width="match_parent" 
-            android:layout_height="110dp" 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="8dp">
-            <LinearLayout 
-                android:orientation="vertical" 
+            <TextView
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:id="@+id/event_item_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:textSize="16.0sp" 
-                    android:textStyle="bold" 
-                    android:textColor="#ff000000" 
-                    android:id="@+id/event_item_title" 
-                    android:layout_width="match_parent" 
-                    android:layout_height="wrap_content"
-                    android:text="微软2017编程之美挑战赛阿三阿三阿三" />
-                <TextView 
-                    android:textSize="11dp" 
-                    android:textColor="#ff000000" 
-                    android:id="@+id/event_item_signtime" 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" 
-                    android:layout_marginTop="5dp"
-                    android:text="报名时间 2017.07.11 - 2017.07.25" />
-                <TextView 
-                    android:textSize="11dp"
-                    android:textColor="#ff000000"
-                    android:id="@+id/event_item_ricetime" 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="比赛时间 2017.07.11 - 2017.07.25" />
-                <TextView 
-                    android:textSize="11dp" 
-                    android:id="@+id/event_item_host"
-                    android:layout_width="match_parent" 
-                    android:layout_height="wrap_content" 
-                    android:layout_marginTop="5dp" 
-                    android:text="主办方 同济大学软件学院" />
-            </LinearLayout>
-            <LinearLayout 
+                android:layout_height="wrap_content"
+                android:text="微软2017编程之美挑战赛阿wwwww" />
+            <TextView
+                android:textSize="11dp"
+                android:textColor="@color/black"
+                android:id="@+id/event_item_signtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="报名时间 2017.07.11 - 2017.07.25" />
+            <TextView
+                android:textSize="11dp"
+                android:textColor="@color/black"
+                android:id="@+id/event_item_ricetime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="比赛时间 2017.07.11 - 2017.07.25" />
+            <TextView
+                android:textSize="11dp"
+                android:id="@+id/event_item_host"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="主办方 同济大学软件学院" />
+            <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent" 
-                android:layout_height="wrap_content" 
-                android:layout_alignParentBottom="true">
-                <TextView 
-                    android:textSize="11dp" 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:textSize="11dp"
                     android:id="@+id/event_item_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1000 浏览" />
-                <View 
-                    android:background="@color/divider" 
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent" 
-                    android:layout_marginLeft="5dp" 
-                    android:layout_marginRight="5dp" />
-                <TextView 
-                    android:textSize="11dp" 
-                    android:id="@+id/event_item_follow" 
-                    android:layout_width="wrap_content" 
-                    android:layout_height="wrap_content" 
-                    android:text="10 关注" />
-                <View 
+                <View
                     android:background="@color/divider"
-                    android:layout_width="1dp" 
-                    android:layout_height="match_parent" 
-                    android:layout_marginLeft="5dp" 
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp" />
-                <TextView 
-                    android:textSize="11dp" 
-                    android:id="@+id/event_item_level" 
-                    android:layout_width="wrap_content" 
+                <TextView
+                    android:textSize="11dp"
+                    android:id="@+id/event_item_follow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10 关注" />
+                <View
+                    android:background="@color/divider"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp" />
+                <TextView
+                    android:textSize="11dp"
+                    android:id="@+id/event_item_level"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="国家级比赛" />
             </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
+
     </LinearLayout>
     <View 
         android:id="@+id/event_divider"

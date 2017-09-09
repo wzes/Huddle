@@ -9,8 +9,8 @@
     <com.wzes.huddle.util.NoScrollViewPager 
         android:id="@+id/content" 
         android:layout_width="match_parent"
-        android:layout_height="0.0dip"
-        android:layout_weight="1.0" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
     <android.support.design.widget.BottomNavigationView
         android:layout_gravity="bottom"
         android:id="@+id/navigation"
