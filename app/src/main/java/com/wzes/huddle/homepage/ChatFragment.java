@@ -12,12 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.GsonBuilder;
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.ChatAdapter;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.ChatList;
 import com.wzes.huddle.service.MyRetrofit;
 
+import com.wzes.huddle.service.RetrofitService;
 import com.wzes.huddle.util.MyLog;
 
 import java.util.List;
@@ -30,6 +32,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class ChatFragment extends Fragment {
@@ -113,11 +118,12 @@ public class ChatFragment extends Fragment {
 
 
     public void initData() {
-       MyRetrofit.getGsonRetrofit()
-               .getChatListByID(Preferences.getUserAccount())
-               .subscribeOn(Schedulers.io())
-               .observeOn(AndroidSchedulers.mainThread())
-               .subscribe(new Observer<List<ChatList>>() {
+        MyLog.i("Preferences.getUserAccount(): " + Preferences.getUserAccount());
+        MyRetrofit.getGsonRetrofit()
+                .getChatListByID(Preferences.getUserAccount())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<ChatList>>() {
                    @Override
                    public void onError(Throwable e) {
                    }

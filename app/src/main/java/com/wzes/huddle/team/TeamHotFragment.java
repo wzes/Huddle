@@ -26,33 +26,37 @@ public class TeamHotFragment extends Fragment {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private TeamInfoAdapter teamInfoAdapter;
+    private static TeamHotFragment fragment;
 
 
+    private TeamHotFragment(){
 
-
-    public static TeamHotFragment newInstance(String param1, String param2) {
-        TeamHotFragment fragment = new TeamHotFragment();
-        return fragment;
     }
 
+    public static TeamHotFragment newInstance() {
+        if(fragment == null){
+            fragment = new TeamHotFragment();
+        }
+        return fragment;
+    }
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_team_item_hot, container, false);
-        this.recyclerView = view.findViewById(R.id.team_hot_recyclerView);
-        this.refreshLayout = view.findViewById(R.id.team_hot_refreshLayout);
-        this.refreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        this.refreshLayout.setOnRefreshListener(() -> refreshData());
+        recyclerView = view.findViewById(R.id.team_hot_recyclerView);
+        refreshLayout = view.findViewById(R.id.team_hot_refreshLayout);
+        refreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        refreshLayout.setOnRefreshListener(() -> refreshData());
         if (list == null) {
-            this.refreshLayout.setRefreshing(true);
+            refreshLayout.setRefreshing(true);
             new Thread(this::initData).start();
         } else {
-            this.teamInfoAdapter = new TeamInfoAdapter(this, list);
-            this.recyclerView.setAdapter(this.teamInfoAdapter);
-            this.recyclerView.setHasFixedSize(true);
-            this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            teamInfoAdapter = new TeamInfoAdapter(this, list);
+            recyclerView.setAdapter(teamInfoAdapter);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
         return view;
     }
@@ -79,9 +83,9 @@ public class TeamHotFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-                        TeamHotFragment.this.teamInfoAdapter = new TeamInfoAdapter(TeamHotFragment.this, TeamHotFragment.list);
-                        TeamHotFragment.this.recyclerView.setAdapter(TeamHotFragment.this.teamInfoAdapter);
-                        TeamHotFragment.this.refreshLayout.setRefreshing(false);
+                        teamInfoAdapter = new TeamInfoAdapter(TeamHotFragment.this, TeamHotFragment.list);
+                        recyclerView.setAdapter(teamInfoAdapter);
+                        refreshLayout.setRefreshing(false);
                     }
                 });
     }
@@ -108,11 +112,11 @@ public class TeamHotFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-                        TeamHotFragment.this.refreshLayout.setRefreshing(false);
-                        TeamHotFragment.this.teamInfoAdapter = new TeamInfoAdapter(TeamHotFragment.this, TeamHotFragment.list);
-                        TeamHotFragment.this.recyclerView.setAdapter(TeamHotFragment.this.teamInfoAdapter);
-                        TeamHotFragment.this.recyclerView.setHasFixedSize(true);
-                        TeamHotFragment.this.recyclerView.setLayoutManager(new LinearLayoutManager(TeamHotFragment.this.getActivity()));
+                        refreshLayout.setRefreshing(false);
+                        teamInfoAdapter = new TeamInfoAdapter(TeamHotFragment.this, TeamHotFragment.list);
+                        recyclerView.setAdapter(teamInfoAdapter);
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     }
                 });
     }

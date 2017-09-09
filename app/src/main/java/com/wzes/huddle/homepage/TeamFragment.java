@@ -49,15 +49,11 @@ public class TeamFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_team, container, false);
         ButterKnife.bind(this, view);
-        teamHotFragment = new TeamHotFragment();
-        teamNewFragment = new TeamNewFragment();
-        teamRecFragment = new TeamRecFragment();
-        teamNearFragment = new TeamNearFragment();
         teamAdapter = new TeamAdapter(getChildFragmentManager(), getContext(),
-                teamNewFragment,
-                teamRecFragment,
-                teamHotFragment,
-                teamNearFragment);
+                TeamNewFragment.newInstance(),
+                TeamRecFragment.newInstance(),
+                TeamHotFragment.newInstance(),
+                TeamNearFragment.newInstance());
         teamPager.setAdapter(teamAdapter);
         teamTabs.setupWithViewPager(teamPager);
         setHasOptionsMenu(true);

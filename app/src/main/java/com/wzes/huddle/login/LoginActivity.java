@@ -164,13 +164,13 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
         private final String username;
 
         UserLoginTask(String username, String password) {
-            this.password = username;
-            this.username = password;
+            this.username = username;
+            this.password = password;
         }
 
         protected Boolean doInBackground(Void... params) {
             try {
-                if (!Identity.Login(password, username)) {
+                if (!Identity.Login(username,password)) {
                     return Boolean.valueOf(false);
                 }
                 Preferences.saveUserAccount(username);

@@ -26,14 +26,20 @@ public class TeamNewFragment extends Fragment {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private TeamInfoAdapter teamInfoAdapter;
+    private static TeamNewFragment fragment;
 
 
+    private TeamNewFragment(){
 
+    }
 
-    public static TeamNewFragment newInstance(String param1, String param2) {
-        TeamNewFragment fragment = new TeamNewFragment();
+    public static TeamNewFragment newInstance() {
+        if(fragment == null){
+            fragment = new TeamNewFragment();
+        }
         return fragment;
     }
+    
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,18 +47,18 @@ public class TeamNewFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_team_item_new, container, false);
-        this.recyclerView = view.findViewById(R.id.team_new_recyclerView);
-        this.refreshLayout = view.findViewById(R.id.team_new_refreshLayout);
-        this.refreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        this.refreshLayout.setOnRefreshListener(() -> refreshData());
+        recyclerView = view.findViewById(R.id.team_new_recyclerView);
+        refreshLayout = view.findViewById(R.id.team_new_refreshLayout);
+        refreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        refreshLayout.setOnRefreshListener(() -> refreshData());
         if (list == null) {
-            this.refreshLayout.setRefreshing(true);
+            refreshLayout.setRefreshing(true);
             new Thread(this::initData).start();
         } else {
-            this.teamInfoAdapter = new TeamInfoAdapter(this, list);
-            this.recyclerView.setAdapter(this.teamInfoAdapter);
-            this.recyclerView.setHasFixedSize(true);
-            this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            teamInfoAdapter = new TeamInfoAdapter(this, list);
+            recyclerView.setAdapter(teamInfoAdapter);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
         return view;
     }
@@ -79,9 +85,9 @@ public class TeamNewFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-                        TeamNewFragment.this.teamInfoAdapter = new TeamInfoAdapter(TeamNewFragment.this, TeamNewFragment.list);
-                        TeamNewFragment.this.recyclerView.setAdapter(TeamNewFragment.this.teamInfoAdapter);
-                        TeamNewFragment.this.refreshLayout.setRefreshing(false);
+                        teamInfoAdapter = new TeamInfoAdapter(TeamNewFragment.this, list);
+                        recyclerView.setAdapter(teamInfoAdapter);
+                        refreshLayout.setRefreshing(false);
                     }
                 });
     }
@@ -108,11 +114,11 @@ public class TeamNewFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-                        TeamNewFragment.this.refreshLayout.setRefreshing(false);
-                        TeamNewFragment.this.teamInfoAdapter = new TeamInfoAdapter(TeamNewFragment.this, TeamNewFragment.list);
-                        TeamNewFragment.this.recyclerView.setAdapter(TeamNewFragment.this.teamInfoAdapter);
-                        TeamNewFragment.this.recyclerView.setHasFixedSize(true);
-                        TeamNewFragment.this.recyclerView.setLayoutManager(new LinearLayoutManager(TeamNewFragment.this.getActivity()));
+                        refreshLayout.setRefreshing(false);
+                        teamInfoAdapter = new TeamInfoAdapter(TeamNewFragment.this, list);
+                        recyclerView.setAdapter(teamInfoAdapter);
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     }
                 });
     }

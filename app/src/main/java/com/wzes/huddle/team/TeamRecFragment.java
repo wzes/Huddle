@@ -26,12 +26,17 @@ public class TeamRecFragment extends Fragment {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private TeamInfoAdapter teamInfoAdapter;
+    private static TeamRecFragment fragment;
 
+    
+    private TeamRecFragment(){
+        
+    }
 
-
-
-    public static TeamRecFragment newInstance(String param1, String param2) {
-        TeamRecFragment fragment = new TeamRecFragment();
+    public static TeamRecFragment newInstance() {
+        if(fragment == null){
+            fragment = new TeamRecFragment();
+        }
         return fragment;
     }
 
@@ -41,18 +46,18 @@ public class TeamRecFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_team_item_rec, container, false);
-        this.recyclerView = view.findViewById(R.id.team_rec_recyclerView);
-        this.refreshLayout = view.findViewById(R.id.team_rec_refreshLayout);
-        this.refreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        this.refreshLayout.setOnRefreshListener(() -> refreshData());
+        recyclerView = view.findViewById(R.id.team_rec_recyclerView);
+        refreshLayout = view.findViewById(R.id.team_rec_refreshLayout);
+        refreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        refreshLayout.setOnRefreshListener(() -> refreshData());
         if (list == null) {
-            this.refreshLayout.setRefreshing(true);
+            refreshLayout.setRefreshing(true);
             new Thread(this::initData).start();
         } else {
-            this.teamInfoAdapter = new TeamInfoAdapter(this, list);
-            this.recyclerView.setAdapter(this.teamInfoAdapter);
-            this.recyclerView.setHasFixedSize(true);
-            this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            teamInfoAdapter = new TeamInfoAdapter(this, list);
+            recyclerView.setAdapter(teamInfoAdapter);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
         return view;
     }
@@ -79,9 +84,9 @@ public class TeamRecFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-                        TeamRecFragment.this.teamInfoAdapter = new TeamInfoAdapter(TeamRecFragment.this, TeamRecFragment.list);
-                        TeamRecFragment.this.recyclerView.setAdapter(TeamRecFragment.this.teamInfoAdapter);
-                        TeamRecFragment.this.refreshLayout.setRefreshing(false);
+                        teamInfoAdapter = new TeamInfoAdapter(TeamRecFragment.this, TeamRecFragment.list);
+                        recyclerView.setAdapter(teamInfoAdapter);
+                        refreshLayout.setRefreshing(false);
                     }
                 });
     }
@@ -108,11 +113,11 @@ public class TeamRecFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-                        TeamRecFragment.this.refreshLayout.setRefreshing(false);
-                        TeamRecFragment.this.teamInfoAdapter = new TeamInfoAdapter(TeamRecFragment.this, TeamRecFragment.list);
-                        TeamRecFragment.this.recyclerView.setAdapter(TeamRecFragment.this.teamInfoAdapter);
-                        TeamRecFragment.this.recyclerView.setHasFixedSize(true);
-                        TeamRecFragment.this.recyclerView.setLayoutManager(new LinearLayoutManager(TeamRecFragment.this.getActivity()));
+                        refreshLayout.setRefreshing(false);
+                        teamInfoAdapter = new TeamInfoAdapter(TeamRecFragment.this, TeamRecFragment.list);
+                        recyclerView.setAdapter(teamInfoAdapter);
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     }
                 });
     }

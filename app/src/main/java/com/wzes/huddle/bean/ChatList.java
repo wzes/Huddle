@@ -1,5 +1,7 @@
 package com.wzes.huddle.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ChatList {
     public String getImage() {
         return image;
@@ -41,10 +43,15 @@ public class ChatList {
         this.content = content;
     }
 
+    @SerializedName("image")
     private String image;
+    @SerializedName("name")
     private String name;
+    @SerializedName("send_date")
     private String send_date;
+    @SerializedName("user_id")
     private String user_id;
+    @SerializedName("content")
     private String content;
 
 }

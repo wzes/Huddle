@@ -22,23 +22,14 @@ import com.wzes.huddle.R;
 import com.wzes.huddle.util.AppManager;
 
 public class TeamInfoLocationActivity extends AppCompatActivity {
-    @BindView(R.id.team_info_location_back)
-    public ImageButton backBtn;
+    @BindView(R.id.team_info_location_back) ImageButton backBtn;
     private BaiduMap baiduMap;
     private String latitude;
     private String longtitude;
     private String title;
-    @BindView(R.id.team_info_location_title)
-    public TextView titleTxt;
+    @BindView(R.id.team_info_location_title) TextView titleTxt;
 
-    class C04921 implements OnClickListener {
-        C04921() {
-        }
 
-        public void onClick(View v) {
-            TeamInfoLocationActivity.this.finish();
-        }
-    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +39,10 @@ public class TeamInfoLocationActivity extends AppCompatActivity {
         this.latitude = intent.getStringExtra("latitude");
         this.longtitude = intent.getStringExtra("longitude");
         SDKInitializer.initialize(getApplicationContext());
-        setContentView((int) R.layout.activity_team_info_location);
-        ButterKnife.bind((Activity) this);
+        setContentView(R.layout.activity_team_info_location);
+        ButterKnife.bind(this);
         this.titleTxt.setText(this.title);
-        this.backBtn.setOnClickListener(new C04921());
+        this.backBtn.setOnClickListener(view -> finish());
         this.baiduMap = ((MapView) findViewById(R.id.team_info_location_map)).getMap();
         this.baiduMap.setMyLocationEnabled(true);
         LatLng ll = new LatLng(Double.parseDouble(this.latitude), Double.parseDouble(this.longtitude));

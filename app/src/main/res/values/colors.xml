@@ -8,4 +8,12 @@
     <color name="divider">#ffeaeaea</color>
     <color name="white">#fff</color>
     <color name="yellow">#ff0</color>
+
+    <color name="colorBaseBackground">#fafafa</color>
+
+    <color name="colorNavItemUnselected">#757575</color>
+    <color name="colorNavItemSelected">@color/colorAccent</color>
+
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
 </resources>

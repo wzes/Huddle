@@ -78,7 +78,7 @@ public class ChatActivity extends AppCompatActivity implements OnClickListener {
         sendBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
         titleTxt.setText(to_name);
-      MyRetrofit.getGsonRetrofit().getMessageListByID(Preferences.getUserAccount(), to_id)
+        MyRetrofit.getGsonRetrofit().getMessageListByID(Preferences.getUserAccount(), to_id)
               .subscribeOn(Schedulers.io())
               .observeOn(AndroidSchedulers.mainThread())
               .subscribe(new Observer<List<Message>>() {
