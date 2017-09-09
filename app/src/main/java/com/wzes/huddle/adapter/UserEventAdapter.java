@@ -17,6 +17,9 @@ import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.event_info.EventInfoActivity;
 import com.wzes.huddle.myinterface.OnRecyclerViewOnClickListener;
 import com.wzes.huddle.user_info.UserEventFragment;
+import com.wzes.huddle.util.DateUtils;
+
+import java.util.Date;
 import java.util.List;
 
 public class UserEventAdapter extends Adapter<ViewHolder> {
@@ -41,14 +44,14 @@ public class UserEventAdapter extends Adapter<ViewHolder> {
 
         public NormalViewHolder(View itemView, OnRecyclerViewOnClickListener listener) {
             super(itemView);
-            this.Img = (ImageView) itemView.findViewById(R.id.event_item_image);
-            this.Title = (TextView) itemView.findViewById(R.id.event_item_title);
-            this.Sign = (TextView) itemView.findViewById(R.id.event_item_signtime);
-            this.Rice = (TextView) itemView.findViewById(R.id.event_item_ricetime);
-            this.Host = (TextView) itemView.findViewById(R.id.event_item_host);
-            this.View = (TextView) itemView.findViewById(R.id.event_item_view);
-            this.Follow = (TextView) itemView.findViewById(R.id.event_item_follow);
-            this.Level = (TextView) itemView.findViewById(R.id.event_item_level);
+            this.Img = itemView.findViewById(R.id.event_item_image);
+            this.Title = itemView.findViewById(R.id.event_item_title);
+            this.Sign = itemView.findViewById(R.id.event_item_signtime);
+            this.Rice = itemView.findViewById(R.id.event_item_ricetime);
+            this.Host = itemView.findViewById(R.id.event_item_host);
+            this.View = itemView.findViewById(R.id.event_item_view);
+            this.Follow = itemView.findViewById(R.id.event_item_follow);
+            this.Level = itemView.findViewById(R.id.event_item_level);
             this.Divider = itemView.findViewById(R.id.event_divider);
             this.listener = listener;
             itemView.setOnClickListener(this);
@@ -56,7 +59,7 @@ public class UserEventAdapter extends Adapter<ViewHolder> {
 
         public void onClick(View view) {
             Intent intent = new Intent(UserEventAdapter.this.context.getContext(), EventInfoActivity.class);
-            intent.putExtra("event_id", ((Event) UserEventAdapter.this.list.get(getLayoutPosition())).getEvent_id() + "");
+            intent.putExtra("event_id", UserEventAdapter.this.list.get(getLayoutPosition()).getEvent_id() + "");
             UserEventAdapter.this.context.startActivity(intent);
         }
     }
@@ -73,11 +76,13 @@ public class UserEventAdapter extends Adapter<ViewHolder> {
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder instanceof NormalViewHolder) {
-            Event item = (Event) this.list.get(position);
+            Event item = this.list.get(position);
             Glide.with(this.context).load(item.getImage()).into(((NormalViewHolder) holder).Img);
             ((NormalViewHolder) holder).Title.setText(item.getTitle());
-            ((NormalViewHolder) holder).Sign.setText("报名时间 " + item.getEnrool_start_date() + " - " + item.getEnrool_end_date());
-            ((NormalViewHolder) holder).Rice.setText("开始时间 " + item.getMatch_start_date() + " - " + item.getMatch_end_date());
+            ((NormalViewHolder) holder).Sign.setText("报名时间 " + DateUtils.getYearTime(item.getEnrool_start_date()) +
+                    " - " + DateUtils.getYearTime(item.getEnrool_end_date()));
+            ((NormalViewHolder) holder).Rice.setText("开始时间 " + DateUtils.getYearTime(item.getMatch_start_date()) + " - "
+                    + DateUtils.getYearTime(item.getMatch_end_date()));
             ((NormalViewHolder) holder).Host.setText("主办方 " + item.getOrganizer());
             ((NormalViewHolder) holder).View.setText(item.getPage_view() + " 浏览");
             ((NormalViewHolder) holder).Follow.setText(item.getFollow_account() + " 关注");

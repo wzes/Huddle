@@ -21,8 +21,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.List;
 
 public class MessageAdapter extends Adapter<MessageAdapter.ViewHolder> {
-    private static Bitmap left;
-    private static Bitmap right;
     private Context context;
     private List<Message> mMsgList;
 
@@ -37,13 +35,13 @@ public class MessageAdapter extends Adapter<MessageAdapter.ViewHolder> {
 
         public ViewHolder(View view) {
             super(view);
-            this.timeTxt = (TextView) view.findViewById(R.id.message_time);
-            this.leftLayout = (RelativeLayout) view.findViewById(R.id.left_layout);
-            this.rightLayout = (RelativeLayout) view.findViewById(R.id.right_layout);
-            this.leftMsg = (TextView) view.findViewById(R.id.left_txt);
-            this.rightMsg = (TextView) view.findViewById(R.id.right_txt);
-            this.leftImg = (CircleImageView) view.findViewById(R.id.left_img);
-            this.rightImg = (CircleImageView) view.findViewById(R.id.right_img);
+            this.timeTxt = view.findViewById(R.id.message_time);
+            this.leftLayout = view.findViewById(R.id.left_layout);
+            this.rightLayout = view.findViewById(R.id.right_layout);
+            this.leftMsg = view.findViewById(R.id.left_txt);
+            this.rightMsg = view.findViewById(R.id.right_txt);
+            this.leftImg = view.findViewById(R.id.left_img);
+            this.rightImg = view.findViewById(R.id.right_img);
         }
     }
 
@@ -59,34 +57,35 @@ public class MessageAdapter extends Adapter<MessageAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Message message = (Message) this.mMsgList.get(position);
+        Message message = this.mMsgList.get(position);
         if (position == 0) {
-            holder.timeTxt.setText(message.getSend_date());
-        } else if (DateUtils.ltTwo(((Message) this.mMsgList.get(position - 1)).getSend_date(), message.getSend_date())) {
-            holder.timeTxt.setVisibility(8);
+            holder.timeTxt.setText(DateUtils.getChatTime(message.getSend_date()));
+        } else if (DateUtils.ltTwo(mMsgList.get(position - 1).getSend_date(), message.getSend_date())) {
+            holder.timeTxt.setVisibility(View.GONE);
         } else {
-            holder.timeTxt.setText(message.getSend_date());
+            holder.timeTxt.setVisibility(View.VISIBLE);
+            holder.timeTxt.setText(DateUtils.getChatTime(message.getSend_date()));
         }
         if (message.getFrom_id().equals(Preferences.getUserAccount())) {
             Glide.with(this.context).load(message.getFrom_img()).into(holder.rightImg);
             holder.rightImg.setOnClickListener(v -> {
-                Intent nIntent = new Intent(MessageAdapter.this.context, UserInfoActivity.class);
-                nIntent.putExtra("user_id", ((Message) MessageAdapter.this.mMsgList.get(position)).getFrom_id());
-                MessageAdapter.this.context.startActivity(nIntent);
+                Intent nIntent = new Intent(context, UserInfoActivity.class);
+                nIntent.putExtra("user_id", mMsgList.get(position).getFrom_id());
+                context.startActivity(nIntent);
             });
-            holder.rightLayout.setVisibility(0);
-            holder.leftLayout.setVisibility(8);
+            holder.rightLayout.setVisibility(View.VISIBLE);
+            holder.leftLayout.setVisibility(View.GONE);
             holder.rightMsg.setText(message.getContent());
             return;
         }
         Glide.with(this.context).load(message.getFrom_img()).into(holder.leftImg);
         holder.leftImg.setOnClickListener(v -> {
-            Intent nIntent = new Intent(MessageAdapter.this.context, UserInfoActivity.class);
-            nIntent.putExtra("user_id", ((Message) MessageAdapter.this.mMsgList.get(position)).getFrom_id());
-            MessageAdapter.this.context.startActivity(nIntent);
+            Intent nIntent = new Intent(context, UserInfoActivity.class);
+            nIntent.putExtra("user_id", mMsgList.get(position).getFrom_id());
+            context.startActivity(nIntent);
         });
-        holder.rightLayout.setVisibility(8);
-        holder.leftLayout.setVisibility(0);
+        holder.rightLayout.setVisibility(View.GONE);
+        holder.leftLayout.setVisibility(View.VISIBLE);
         holder.leftMsg.setText(message.getContent());
     }
 

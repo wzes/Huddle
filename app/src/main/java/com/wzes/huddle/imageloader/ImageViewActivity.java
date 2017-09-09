@@ -1,8 +1,10 @@
 package com.wzes.huddle.imageloader;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import butterknife.BindView;
@@ -20,6 +22,9 @@ public class ImageViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_view);
         ButterKnife.bind(this);
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         uri = getIntent().getStringExtra("uri");
         Glide.with(this).load(this.uri).into(imageView);
         backBtn.setOnClickListener(view -> finish());

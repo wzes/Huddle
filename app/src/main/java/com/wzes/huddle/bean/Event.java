@@ -2,13 +2,46 @@ package com.wzes.huddle.bean;
 
 public class Event {
     private String content;
-    private String enrool_end_date;
-    private String enrool_start_date;
+    private long enrool_end_date;
+
+    public long getEnrool_end_date() {
+        return enrool_end_date;
+    }
+
+    public void setEnrool_end_date(long enrool_end_date) {
+        this.enrool_end_date = enrool_end_date;
+    }
+
+    public long getEnrool_start_date() {
+        return enrool_start_date;
+    }
+
+    public void setEnrool_start_date(long enrool_start_date) {
+        this.enrool_start_date = enrool_start_date;
+    }
+
+    public long getMatch_end_date() {
+        return match_end_date;
+    }
+
+    public void setMatch_end_date(long match_end_date) {
+        this.match_end_date = match_end_date;
+    }
+
+    public long getMatch_start_date() {
+        return match_start_date;
+    }
+
+    public void setMatch_start_date(long match_start_date) {
+        this.match_start_date = match_start_date;
+    }
+
+    private long enrool_start_date;
     private String event_type;
     private String image;
     private String level;
-    private String match_end_date;
-    private String match_start_date;
+    private long match_end_date;
+    private long match_start_date;
     private String organizer;
     private String title;
     private String user_id;
@@ -73,37 +106,7 @@ public class Event {
         this.level = level;
     }
 
-    public String getEnrool_start_date() {
-        return this.enrool_start_date;
-    }
 
-    public void setEnrool_start_date(String enrool_start_date) {
-        this.enrool_start_date = enrool_start_date;
-    }
-
-    public String getEnrool_end_date() {
-        return this.enrool_end_date;
-    }
-
-    public void setEnrool_end_date(String enrool_end_date) {
-        this.enrool_end_date = enrool_end_date;
-    }
-
-    public String getMatch_start_date() {
-        return this.match_start_date;
-    }
-
-    public void setMatch_start_date(String match_start_date) {
-        this.match_start_date = match_start_date;
-    }
-
-    public String getMatch_end_date() {
-        return this.match_end_date;
-    }
-
-    public void setMatch_end_date(String match_end_date) {
-        this.match_end_date = match_end_date;
-    }
 
     public int getPage_view() {
         return this.page_view;

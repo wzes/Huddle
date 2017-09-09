@@ -12,4 +12,5 @@ public class BaseApplication extends Application {
         DemoCache.setContext(this);
         NineGridView.setImageLoader(new TeamImageLoader());
     }
+
 }

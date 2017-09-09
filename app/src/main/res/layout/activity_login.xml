@@ -83,7 +83,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:id="@+id/login_sign"
-                    android:background="@drawable/ripple_bg"
+                    android:background="@drawable/ripple_sign_in_background"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -154,7 +154,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_width="50dp"
                             android:layout_height="50dp" 
-                            android:src="@drawable/tongji"/>
+                            android:src="@drawable/logo"/>
                         <TextView
                             android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"

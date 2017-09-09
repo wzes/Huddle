@@ -35,7 +35,6 @@ public class TeamInfoAdapter extends Adapter<ViewHolder> {
     private Fragment context;
     private LayoutInflater inflater;
     private List<Team> list;
-    private OnRecyclerViewOnClickListener listener;
 
     public class MyViewHolder extends ViewHolder implements OnClickListener {
         @BindView(R.id.team_item_img_title) TextView teamItemImgTitle;
@@ -48,7 +47,7 @@ public class TeamInfoAdapter extends Adapter<ViewHolder> {
 
         OnRecyclerViewOnClickListener listener;
 
-        public MyViewHolder(View itemView, OnRecyclerViewOnClickListener listener) {
+        public MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             this.listener = listener;
@@ -91,7 +90,7 @@ public class TeamInfoAdapter extends Adapter<ViewHolder> {
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyViewHolder(this.inflater.inflate(R.layout.team_item, parent, false), this.listener);
+        return new MyViewHolder(this.inflater.inflate(R.layout.team_item, parent, false));
     }
 
     public void onBindViewHolder(ViewHolder holder, int position) {

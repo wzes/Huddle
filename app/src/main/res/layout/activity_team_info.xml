@@ -1,318 +1,322 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fitsSystemWindows="true" 
-    android:layout_width="match_parent" 
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.design.widget.AppBarLayout 
-        android:id="@+id/team_info_appBar" 
-        android:fitsSystemWindows="true" 
-        android:layout_width="match_parent" 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/team_info_appBar"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
         android:layout_height="220dp">
-        <android.support.design.widget.CollapsingToolbarLayout 
+        <android.support.design.widget.CollapsingToolbarLayout
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:id="@+id/team_info_collapsing"
             android:fitsSystemWindows="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" 
-            app:layout_scrollFlags="exitUntilCollapsed|scroll" 
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="exitUntilCollapsed|scroll"
             app:contentScrim="?colorPrimary">
             <com.youth.banner.Banner
-                android:id="@+id/team_info_banner" 
+                android:id="@+id/team_info_banner"
                 android:fitsSystemWindows="true"
-                android:clickable="true" 
-                android:layout_width="match_parent" 
-                android:layout_height="220dp" 
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
                 app:layout_collapseMode="parallax" />
-            <android.support.v7.widget.Toolbar 
-                android:id="@+id/team_info_toolbar" 
-                android:layout_width="match_parent" 
-                android:layout_height="?actionBarSize" 
-                app:layout_collapseMode="pin" 
-                app:titleTextColor="#ff000000" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/team_info_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_collapseMode="pin"
+                app:titleTextColor="@color/black" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
-    <android.support.v4.widget.NestedScrollView 
-        android:layout_width="match_parent" 
-        android:layout_height="match_parent" 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <FrameLayout 
-            android:layout_width="match_parent" 
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <LinearLayout 
-                android:orientation="vertical" 
-                android:layout_width="match_parent" 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <LinearLayout 
-                    android:orientation="vertical" 
-                    android:layout_width="match_parent" 
-                    android:layout_height="wrap_content" 
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="5dp" 
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="8dp">
                     <TextView
-                        android:textSize="18dp" 
-                        android:textColor="#ff000000" 
+                        android:textSize="18dp"
+                        android:textColor="@color/black"
                         android:id="@+id/team_info_title"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" 
+                        android:layout_height="wrap_content"
                         android:text="周末去哪玩？" />
-                    <TextView 
-                        android:id="@+id/team_info_content" 
-                        android:layout_width="match_parent" 
-                        android:layout_height="wrap_content" 
+                    <TextView
+                        android:id="@+id/team_info_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="——比赛是一个汉语词汇，读音为bǐ sài，意思是在竞赛中比较高低。“比赛” 就是在体育、生产等活动中，比较本领、技术的高低。比赛由多个人参加，或者以团队参赛，并且有一定的... " />
                 </LinearLayout>
-                <LinearLayout 
-                    android:orientation="vertical" 
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" 
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="5dp" 
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="8dp">
-                    <TextView 
-                        android:textSize="17dp" 
-                        android:textColor="#ff000000"
-                        android:layout_width="match_parent" 
-                        android:layout_height="wrap_content" 
+                    <TextView
+                        android:textSize="17dp"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="开始时间" />
-                    <TextView 
+                    <TextView
                         android:textSize="15dp"
-                        android:id="@+id/team_info_start_time" 
-                        android:layout_width="match_parent" 
-                        android:layout_height="wrap_content" 
+                        android:id="@+id/team_info_start_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="——2020年 12月12日 8：30" />
                 </LinearLayout>
-                <LinearLayout 
-                    android:orientation="vertical" 
-                    android:layout_width="match_parent" 
-                    android:layout_height="wrap_content" 
-                    android:layout_marginLeft="8dp" 
-                    android:layout_marginTop="5dp" 
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="8dp">
-                    <TextView 
-                        android:textSize="17dp" 
-                        android:textColor="#ff000000" 
-                        android:layout_width="match_parent" 
-                        android:layout_height="wrap_content" 
+                    <TextView
+                        android:textSize="17dp"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="组队类型" />
-                    <TextView 
-                        android:textSize="15dp" 
-                        android:id="@+id/team_info_category" 
-                        android:layout_width="match_parent" 
-                        android:layout_height="wrap_content" 
+                    <TextView
+                        android:textSize="15dp"
+                        android:id="@+id/team_info_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="——学术竞赛" />
                 </LinearLayout>
-                <LinearLayout 
-                    android:orientation="vertical" 
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" 
-                    android:layout_marginLeft="8dp" 
-                    android:layout_marginTop="5dp" 
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="8dp">
-                    <TextView android:textSize="17dp" 
-                        android:textColor="#ff000000" 
-                        android:layout_width="match_parent" 
-                        android:layout_height="wrap_content" 
+                    <TextView android:textSize="17dp"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="活动地点" />
-                    <RelativeLayout 
-                        android:layout_width="match_parent" 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <TextView 
-                            android:textSize="15dp" 
-                            android:id="@+id/team_info_locationname" 
+                        <TextView
+                            android:textSize="15dp"
+                            android:id="@+id/team_info_locationname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="——同济大学" />
-                        <TextView 
-                            android:gravity="center_vertical" 
-                            android:id="@+id/team_info_location_detail" 
+                        <TextView
+                            android:gravity="center_vertical"
+                            android:id="@+id/team_info_location_detail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="查看位置"
-                            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp" 
+                            android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"
                             android:layout_alignParentEnd="true" />
                     </RelativeLayout>
                 </LinearLayout>
-                <View 
-                    android:background="@color/divider" 
-                    android:layout_width="match_parent" 
-                    android:layout_height="0.5dip" 
-                    android:layout_marginLeft="8dp" 
-                    android:layout_marginTop="5dp" 
-                    android:layout_marginRight="8dp" />
-                <LinearLayout 
-                    android:orientation="vertical" 
+                <View
+                    android:background="@color/divider"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" 
-                    android:layout_marginLeft="8dp" 
-                    android:layout_marginTop="5dp" 
+                    android:layout_height="0.5dip"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="8dp" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="8dp">
-                    <TextView 
-                        android:textSize="17dp" 
-                        android:textColor="#ff000000" 
-                        android:id="@+id/team_info_people" 
-                        android:layout_width="match_parent" 
-                        android:layout_height="wrap_content" 
-                        android:text="组员(1人已加入还差4人)" />
-                    <LinearLayout 
-                        android:orientation="horizontal" 
+                    <TextView
+                        android:textSize="17dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/team_info_people"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" 
-                        android:layout_marginTop="8dp" 
+                        android:layout_height="wrap_content"
+                        android:text="组员(1人已加入还差4人)" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp">
-                        <android.support.v7.widget.RecyclerView 
-                            android:id="@+id/team_info_user_recyclerView" 
-                            android:layout_width="match_parent" 
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/team_info_user_recyclerView"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                 </LinearLayout>
-                <View 
-                    android:background="@color/divider" 
-                    android:layout_width="match_parent" 
+                <View
+                    android:background="@color/divider"
+                    android:layout_width="match_parent"
                     android:layout_height="4dp" />
-                <LinearLayout 
-                    android:orientation="vertical" 
-                    android:layout_width="match_parent" 
-                    android:layout_height="wrap_content" 
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="8dp">
-                    <RelativeLayout 
-                        android:layout_width="match_parent" 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <LinearLayout 
-                            android:orientation="horizontal" 
+                        <LinearLayout
+                            android:orientation="horizontal"
                             android:id="@+id/team_info_user_layout"
-                            android:layout_width="wrap_content" 
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp">
-                            <de.hdodenhof.circleimageview.CircleImageView 
-                                android:id="@+id/team_info_user_img" 
-                                android:layout_width="60dp" 
-                                android:layout_height="60dp"
-                                android:src="@drawable/photo" />
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/team_info_user_img"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"/>
                             <RelativeLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="8dp">
-                                <LinearLayout 
+                                <LinearLayout
                                     android:orientation="vertical"
-                                    android:layout_width="wrap_content" 
-                                    android:layout_height="wrap_content" 
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     android:layout_centerVertical="true">
-                                    <TextView 
-                                        android:textSize="20.0sp"
-                                        android:textColor="#ff000000" 
-                                        android:id="@+id/team_info_user_name" 
-                                        android:layout_width="wrap_content" 
-                                        android:layout_height="wrap_content" 
-                                        android:text="为战而生" />
-                                    <TextView android:textSize="16dp" 
-                                        android:id="@+id/team_info_user_major" 
-                                        android:layout_width="wrap_content" 
+                                    <TextView
+                                        android:textSize="20sp"
+                                        android:textColor="@color/black"
+                                        android:id="@+id/team_info_user_name"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="4dp" 
+                                        android:text="为战而生" />
+                                    <TextView android:textSize="16dp"
+                                        android:id="@+id/team_info_user_major"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="4dp"
                                         android:text="软件学院" />
                                 </LinearLayout>
                             </RelativeLayout>
                         </LinearLayout>
-                        <LinearLayout 
+                        <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true" 
-                            android:layout_centerVertical="true" 
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginEnd="10dp">
-                            <Button 
-                                android:textSize="17.0sp"
-                                android:id="@+id/team_info_follow" 
-                                android:background="?android:selectableItemBackground" 
-                                android:layout_width="60dp" 
-                                android:layout_height="24dp" 
-                                android:text="关注" 
+                            <Button
+                                android:textSize="17sp"
+                                android:id="@+id/team_info_follow"
+                                android:background="?android:selectableItemBackground"
+                                android:layout_width="60dp"
+                                android:layout_height="24dp"
+                                android:text="关注"
                                 android:drawableRight="@drawable/ic_favorite_border_black_24dp" />
-                            <TextView 
-                                android:layout_gravity="center_horizontal" 
-                                android:id="@+id/team_info_user_follow" 
-                                android:layout_width="wrap_content" 
-                                android:layout_height="wrap_content" 
+                            <TextView
+                                android:layout_gravity="center_horizontal"
+                                android:id="@+id/team_info_user_follow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:text="52粉丝" />
                         </LinearLayout>
                     </RelativeLayout>
-                    <View android:background="@color/divider" 
-                        android:layout_width="match_parent" 
-                        android:layout_height="1dp" 
+                    <View android:background="@color/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
                         android:layout_marginTop="8dp" />
-                    <TextView android:textSize="16dp" 
-                        android:id="@+id/team_info_user_info" 
-                        android:layout_width="match_parent" 
-                        android:layout_height="wrap_content" 
-                        android:layout_marginTop="8dp" 
+                    <TextView android:textSize="16dp"
+                        android:id="@+id/team_info_user_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:text="" />
                 </LinearLayout>
-                <View 
-                    android:background="@color/divider" 
-                    android:layout_width="match_parent" 
-                    android:layout_height="0.5dip" 
+                <View
+                    android:background="@color/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
                     android:layout_marginBottom="100dp" />
             </LinearLayout>
         </FrameLayout>
     </android.support.v4.widget.NestedScrollView>
-    <LinearLayout 
-        android:layout_width="match_parent" 
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout 
-            android:layout_gravity="bottom" 
-            android:background="#ffffffff" 
-            android:layout_width="match_parent" 
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <LinearLayout 
-                android:layout_gravity="bottom" 
-                android:orientation="vertical" 
-                android:id="@+id/team_info_user_talk" 
-                android:layout_width="0dp" 
-                android:layout_height="wrap_content" 
-                android:layout_weight="2.0">
-                <ImageView 
-                    android:layout_gravity="center_horizontal" 
-                    android:background="@drawable/ic_sms_black_24dp" 
-                    android:layout_width="24dp" 
+            <LinearLayout
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:id="@+id/team_info_user_talk"
+                android:layout_width="0dp"
+                android:background="@drawable/ripple_chat_background"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+                <ImageView
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/ic_sms_black_24dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="24dp"
                     android:layout_height="24dp" />
-                <TextView 
-                    android:layout_gravity="center_horizontal" 
-                    android:layout_width="wrap_content" 
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="和Ta聊" />
             </LinearLayout>
-            <LinearLayout 
-                android:layout_gravity="bottom" 
-                android:orientation="vertical" 
-                android:id="@+id/team_info_user_save" 
-                android:layout_width="0dp" 
-                android:layout_height="wrap_content"
-                android:layout_weight="2.0">
-                <ImageView 
-                    android:layout_gravity="center_horizontal" 
-                    android:background="@drawable/ic_star_black_24dp"
-                    android:layout_width="24dp" 
+            <LinearLayout
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:background="@drawable/ripple_chat_background"
+                android:id="@+id/team_info_user_save"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+                <ImageView
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/ic_favorite_24dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="24dp"
                     android:layout_height="24dp" />
-                <TextView 
-                    android:layout_gravity="center_horizontal" 
+                <TextView
+                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="收藏" />
             </LinearLayout>
-            <LinearLayout 
-                android:layout_width="0dp" 
-                android:layout_height="wrap_content"
-                android:layout_weight="5.0">
-                <Button 
-                    android:textSize="25dp" 
-                    android:textColor="#ffffffff" 
-                    android:id="@+id/team_info_user_sign"
-                    android:background="#ff00dddd" 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:id="@+id/team_info_user_sign"
+                android:background="@drawable/ripple_sign_background">
+                <TextView
+                    android:textSize="25dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent" 
-                    android:layout_height="wrap_content" 
+                    android:layout_height="match_parent"
                     android:text="立即报名" />
             </LinearLayout>
         </LinearLayout>

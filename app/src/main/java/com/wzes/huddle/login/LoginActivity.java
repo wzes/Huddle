@@ -9,24 +9,19 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.GsonBuilder;
 import com.wzes.huddle.R;
-import com.wzes.huddle.R2;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.User;
 import com.wzes.huddle.homepage.MainActivity;
 import com.wzes.huddle.homepage.MyFragment;
 import com.wzes.huddle.service.Identity;
 import com.wzes.huddle.service.MyRetrofit;
-import com.wzes.huddle.service.RetrofitService;
 import com.wzes.huddle.util.AppManager;
-import com.wzes.huddle.util.MyLog;
 import com.wzes.huddle.util.NetworkUtils;
 
 import java.util.List;
@@ -44,10 +39,10 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class LoginActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
-    @BindView(R2.id.login_image) CircleImageView mUserImage;
-    @BindView(R2.id.login_sign) Button signInBtn;
-    @BindView(R2.id.login_username) EditText mUsernameView;
-    @BindView(R2.id.login_password) EditText mPasswordView;
+    @BindView(R.id.login_image) CircleImageView mUserImage;
+    @BindView(R.id.login_sign) Button signInBtn;
+    @BindView(R.id.login_username) EditText mUsernameView;
+    @BindView(R.id.login_password) EditText mPasswordView;
 
     private static final String[] INTERNET =
             {Manifest.permission.INTERNET};

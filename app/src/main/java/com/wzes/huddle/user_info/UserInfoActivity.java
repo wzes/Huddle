@@ -35,90 +35,35 @@ import io.reactivex.schedulers.Schedulers;
 public class UserInfoActivity extends AppCompatActivity {
     private static boolean expend = false;
     private static String user_id;
-    @BindView(R.id.user_info_back)
-    public ImageButton backBtn;
+    @BindView(R.id.user_info_back) ImageButton backBtn;
     private User currentUser;
-    @BindView(R.id.user_info_expend)
-    public Button expendBtn;
-    @BindView(R.id.user_info_image)
-    public CircleImageView imageView;
-    @BindView(R.id.user_info_info)
-    public TextView infoTxt;
-    @BindView(R.id.user_info_major)
-    public TextView majorTxt;
-    @BindView(R.id.user_info_more)
-    public ImageButton moreBtn;
-    @BindView(R.id.user_info_motto)
-    public TextView mottoTxt;
-    @BindView(R.id.user_info_name)
-    public TextView nameTxt;
-    @BindView(R.id.user_info_tabs)
-    public TabLayout tabLayout;
-    @BindView(R.id.user_info_title)
-    public TextView titleTxt;
-    @BindView(R.id.user_pager)
-    public ViewPager viewPager;
-
-    class C04941 implements OnClickListener {
-        C04941() {
-        }
-
-        public void onClick(View v) {
-            finish();
-        }
-    }
-
-    class C04952 implements OnClickListener {
-        C04952() {
-        }
-
-        public void onClick(View v) {
-            BottomSheetDialog dialog = new BottomSheetDialog(UserInfoActivity.this);
-            dialog.setContentView(LayoutInflater.from(UserInfoActivity.this).inflate(R.layout.user_info_bottom_sheet_dialog, null));
-            dialog.show();
-        }
-    }
-
-    class C04964 implements OnClickListener {
-        C04964() {
-        }
-
-        public void onClick(View v) {
-            if (UserInfoActivity.expend) {
-                infoTxt.setText(currentUser.getInfo().length() > 20 ? currentUser.getInfo().substring(0, 20) + "..." : currentUser.getInfo());
-                UserInfoActivity.expend = false;
-                expendBtn.setText("展开");
-                return;
-            }
-            infoTxt.setText(currentUser.getInfo());
-            expendBtn.setText("收起");
-            UserInfoActivity.expend = true;
-        }
-    }
-
-    class C04975 implements OnClickListener {
-        C04975() {
-        }
-
-        public void onClick(View v) {
-            Intent intentThree = new Intent(UserInfoActivity.this, ImageViewActivity.class);
-            intentThree.putExtra("uri", currentUser.getImage());
-            startActivity(intentThree);
-        }
-    }
+    @BindView(R.id.user_info_expend) Button expendBtn;
+    @BindView(R.id.user_info_image) CircleImageView imageView;
+    @BindView(R.id.user_info_info) TextView infoTxt;
+    @BindView(R.id.user_info_major) TextView majorTxt;
+    @BindView(R.id.user_info_more) ImageButton moreBtn;
+    @BindView(R.id.user_info_motto) TextView mottoTxt;
+    @BindView(R.id.user_info_name) TextView nameTxt;
+    @BindView(R.id.user_info_tabs) TabLayout tabLayout;
+    @BindView(R.id.user_info_title) TextView titleTxt;
+    @BindView(R.id.user_pager) ViewPager viewPager;
 
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView((int) R.layout.activity_user_info);
-        ButterKnife.bind((Activity) this);
+        setContentView(R.layout.activity_user_info);
+        ButterKnife.bind(this);
         AppManager.getAppManager().addActivity(this);
         user_id = getIntent().getStringExtra("user_id");
         this.viewPager.setAdapter(new UserAdapter(getSupportFragmentManager(), this, UserEventFragment.newInstance("UserEventFragment", "1"), UserTeamFragment.newInstance("UserTeamFragment", "2")));
         this.tabLayout.setupWithViewPager(this.viewPager);
-        this.backBtn.setOnClickListener(new C04941());
-        this.moreBtn.setOnClickListener(new C04952());
+        this.backBtn.setOnClickListener(view -> finish());
+        this.moreBtn.setOnClickListener(view -> {
+            BottomSheetDialog dialog = new BottomSheetDialog(UserInfoActivity.this);
+            dialog.setContentView(LayoutInflater.from(UserInfoActivity.this).inflate(R.layout.user_info_bottom_sheet_dialog, null));
+            dialog.show();
+        });
         MyRetrofit.getGsonRetrofit().getUserByUername(user_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -150,7 +95,21 @@ public class UserInfoActivity extends AppCompatActivity {
                         }
                     }
                 });
-        this.expendBtn.setOnClickListener(new C04964());
-        this.imageView.setOnClickListener(new C04975());
+        expendBtn.setOnClickListener(view ->{
+            if (UserInfoActivity.expend) {
+                infoTxt.setText(currentUser.getInfo().length() > 20 ? currentUser.getInfo().substring(0, 20) + "..." : currentUser.getInfo());
+                UserInfoActivity.expend = false;
+                expendBtn.setText("展开");
+                return;
+            }
+            infoTxt.setText(currentUser.getInfo());
+            expendBtn.setText("收起");
+            UserInfoActivity.expend = true;
+        });
+        imageView.setOnClickListener(view -> {
+            Intent intentThree = new Intent(UserInfoActivity.this, ImageViewActivity.class);
+            intentThree.putExtra("uri", currentUser.getImage());
+            startActivity(intentThree);
+        });
     }
 }

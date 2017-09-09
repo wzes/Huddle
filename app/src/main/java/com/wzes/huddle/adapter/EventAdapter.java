@@ -19,6 +19,7 @@ import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.event_info.EventInfoActivity;
 import com.wzes.huddle.homepage.EventFragment;
 import com.wzes.huddle.imageloader.ImageViewActivity;
+import com.wzes.huddle.util.DateUtils;
 import com.wzes.huddle.util.GlideImageLoader;
 import com.youth.banner.Banner;
 
@@ -84,8 +85,10 @@ public class EventAdapter extends Adapter<ViewHolder> {
                 context.startActivity(intent);
             });
             ((NormalViewHolder) holder).Title.setText(item.getTitle());
-            ((NormalViewHolder) holder).Sign.setText("报名时间 " + item.getEnrool_start_date().split(" ")[0] + " - " + item.getEnrool_end_date().split(" ")[0]);
-            ((NormalViewHolder) holder).Rice.setText("开始时间 " + item.getMatch_start_date().split(" ")[0] + " - " + item.getMatch_end_date().split(" ")[0]);
+            ((NormalViewHolder) holder).Sign.setText("报名时间 " + DateUtils.getYearTime(item.getEnrool_start_date()) +
+                    " - " + DateUtils.getYearTime(item.getEnrool_end_date()));
+            ((NormalViewHolder) holder).Rice.setText("开始时间 " + DateUtils.getYearTime(item.getMatch_start_date()) +
+                    " - " + DateUtils.getYearTime(item.getMatch_end_date()));
             ((NormalViewHolder) holder).Host.setText("主办方 " + item.getOrganizer());
             ((NormalViewHolder) holder).View.setText(item.getPage_view() + " 浏览");
             ((NormalViewHolder) holder).Follow.setText(item.getFollow_account() + " 关注");

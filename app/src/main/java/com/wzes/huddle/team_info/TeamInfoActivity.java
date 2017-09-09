@@ -55,7 +55,7 @@ public class TeamInfoActivity extends AppCompatActivity {
     @BindView(R.id.team_info_people) TextView peopleTxt;
     @BindView(R.id.team_info_user_recyclerView) RecyclerView recyclerView;
     @BindView(R.id.team_info_user_save) LinearLayout saveBtn;
-    @BindView(R.id.team_info_user_sign) Button signBtn;
+    @BindView(R.id.team_info_user_sign) LinearLayout signBtn;
     @BindView(R.id.team_info_user_talk) LinearLayout talkBtn;
     @BindView(R.id.team_info_start_time) TextView timeTxt;
     @BindView(R.id.team_info_toolbar) Toolbar toolBar;

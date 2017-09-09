@@ -28,7 +28,7 @@
             android:layout_height="10dp" />
         <RelativeLayout 
             android:id="@+id/my_info_re_img" 
-            android:background="@drawable/select" 
+            android:background="@drawable/select_background"
             android:layout_width="match_parent" 
             android:layout_height="wrap_content" 
             android:layout_margin="8dp">

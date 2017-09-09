@@ -162,7 +162,7 @@ public class ChatActivity extends AppCompatActivity implements OnClickListener {
                     message.setContent(text);
                     message.setTo_img("");
                     message.setFrom_img(MyFragment.currentUser.getImage());
-                    message.setSend_date(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+                    message.setSend_date(System.currentTimeMillis() / 1000);
                     message.setMessage_type("words");
                     String rs = new Gson().toJson(message);
                     ChatService.clientMain.sendMsg(rs);

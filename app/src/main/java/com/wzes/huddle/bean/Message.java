@@ -6,7 +6,7 @@ public class Message {
     private String from_img;
     private String message_type;
     private int msg_id;
-    private String send_date;
+    private long send_date;
     private String to_id;
     private String to_img;
 
@@ -66,11 +66,11 @@ public class Message {
         this.to_img = to_img;
     }
 
-    public String getSend_date() {
+    public long getSend_date() {
         return this.send_date;
     }
 
-    public void setSend_date(String send_date) {
+    public void setSend_date(long send_date) {
         this.send_date = send_date;
     }
 }

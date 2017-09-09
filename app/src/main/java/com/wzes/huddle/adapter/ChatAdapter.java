@@ -16,6 +16,8 @@ import com.wzes.huddle.R;
 import com.wzes.huddle.bean.ChatList;
 import com.wzes.huddle.chatservice.ChatActivity;
 import com.wzes.huddle.homepage.ChatFragment;
+import com.wzes.huddle.util.DateUtils;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -63,7 +65,7 @@ public class ChatAdapter extends Adapter<ViewHolder> {
         ChatList item = list.get(position);
         if (holder instanceof ChatViewHolder) {
             ((ChatViewHolder) holder).Name.setText(item.getName());
-            ((ChatViewHolder) holder).Time.setText(item.getSend_date());
+            ((ChatViewHolder) holder).Time.setText(DateUtils.getChatTime(item.getSend_date()));
             ((ChatViewHolder) holder).Status.setVisibility(View.GONE);
             ((ChatViewHolder) holder).Content.setText(item.getContent());
             Glide.with(context).load(item.getImage()).into(((ChatViewHolder) holder).Img);

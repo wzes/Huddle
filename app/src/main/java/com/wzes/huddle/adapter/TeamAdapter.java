@@ -18,21 +18,6 @@ public class TeamAdapter extends FragmentPagerAdapter {
     private TeamRecFragment teamRecFragment;
     private String[] titles;
 
-    public TeamNearFragment getTeamNearFragment() {
-        return this.teamNearFragment;
-    }
-
-    public TeamHotFragment getTeamHotFragment() {
-        return this.teamHotFragment;
-    }
-
-    public TeamNewFragment getTeamNewFragment() {
-        return this.teamNewFragment;
-    }
-
-    public TeamRecFragment getTeamRecFragment() {
-        return this.teamRecFragment;
-    }
 
     public TeamAdapter(FragmentManager fm, Context context, TeamNewFragment teamNewFragment, TeamRecFragment teamRecFragment, TeamHotFragment teamHotFragment, TeamNearFragment teamNearFragment) {
         super(fm);

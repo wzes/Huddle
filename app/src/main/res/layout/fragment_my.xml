@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" 
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent">
     <android.support.v7.widget.Toolbar 
         android:background="@color/colorPrimary" 
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout 
-            android:layout_width="fill_parent" 
+            android:layout_width="match_parent" 
             android:layout_height="wrap_content">
             <TextView 
-                android:textSize="24.0sp" 
-                android:textColor="#ffffffff" 
+                android:textSize="24sp" 
+                android:textColor="@color/white"
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content" 
                 android:text="@string/title_my" 
@@ -21,141 +21,159 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
     <FrameLayout 
-        android:layout_width="fill_parent" 
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent" 
+        android:layout_height="match_parent">
         <View 
             android:background="@drawable/toolbar_shadow"
-            android:layout_width="fill_parent" 
-            android:layout_height="4.0dip" />
+            android:layout_width="match_parent" 
+            android:layout_height="4dp" />
         <ScrollView 
-            android:layout_width="fill_parent" 
-            android:layout_height="fill_parent">
+            android:layout_width="match_parent" 
+            android:layout_height="match_parent">
             <LinearLayout 
                 android:orientation="vertical" 
-                android:layout_width="fill_parent" 
-                android:layout_height="fill_parent">
+                android:layout_width="match_parent" 
+                android:layout_height="match_parent">
+
                 <View 
                     android:background="@color/divider" 
-                    android:layout_width="fill_parent" 
-                    android:layout_height="10.0dip" />
+                    android:layout_width="match_parent" 
+                    android:layout_height="10dp" />
                 <LinearLayout 
                     android:orientation="horizontal" 
-                    android:id="@+id/my_info" 
-                    android:layout_width="fill_parent" 
+                    android:id="@+id/my_info_layout"
+                    android:layout_width="match_parent" 
                     android:layout_height="wrap_content" 
-                    android:layout_margin="10.0dip">
+                    android:layout_margin="10dp">
                     <ImageView
-                        android:id="@+id/my_image" 
-                        android:layout_width="90.0dip" 
-                        android:layout_height="90.0dip" />
+                        android:id="@+id/my_image"
+                        android:layout_width="90dp" 
+                        android:layout_height="90dp" />
                     <RelativeLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent" 
-                        android:layout_marginLeft="8.0dip">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" 
+                        android:layout_marginLeft="8dp">
                         <LinearLayout 
                             android:orientation="vertical" 
                             android:layout_width="wrap_content" 
                             android:layout_height="wrap_content">
                             <TextView 
-                                android:textSize="20.0sp" 
+                                android:textSize="20sp" 
                                 android:textColor="#ff000000" 
-                                android:id="@+id/my_name" 
+                                android:id="@+id/my_name_text"
                                 android:layout_width="wrap_content" 
                                 android:layout_height="wrap_content" />
                             <TextView 
-                                android:id="@+id/my_major" 
+                                android:id="@+id/my_major_text"
                                 android:layout_width="wrap_content" 
                                 android:layout_height="wrap_content" 
-                                android:layout_marginTop="4.0dip" 
+                                android:layout_marginTop="4dp" 
                                 android:text="" />
                             <TextView 
-                                android:id="@+id/my_motto" 
+                                android:id="@+id/my_motto_text"
                                 android:layout_width="wrap_content" 
                                 android:layout_height="wrap_content" 
-                                android:layout_marginTop="4.0dip" 
+                                android:layout_marginTop="4dp" 
                                 android:text="" />
                         </LinearLayout>
                         <Button 
                             android:background="@drawable/ic_keyboard_arrow_right_black_24dp" 
-                            android:layout_width="24.0dip" 
-                            android:layout_height="24.0dip" 
+                            android:layout_width="24dp" 
+                            android:layout_height="24dp" 
                             android:layout_alignParentRight="true" 
                             android:layout_centerVertical="true" />
                     </RelativeLayout>
                 </LinearLayout>
                 <View 
                     android:background="@color/divider" 
-                    android:layout_width="fill_parent" 
-                    android:layout_height="1.0dip" />
+                    android:layout_width="match_parent" 
+                    android:layout_height="1dp" />
                 <LinearLayout 
                     android:orientation="horizontal" 
-                    android:layout_width="fill_parent" 
-                    android:layout_height="wrap_content" 
-                    android:layout_margin="8.0dip">
-                    <LinearLayout 
+                    android:layout_width="match_parent" 
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/my_beFollow_layout"
                         android:layout_gravity="center_vertical"
                         android:orientation="vertical" 
-                        android:layout_width="0.0dip"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.0">
-                        <TextView 
-                            android:layout_gravity="center_horizontal" 
-                            android:layout_width="wrap_content"
+                        android:layout_weight="1">
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="520" />
-                        <TextView 
-                            android:layout_gravity="center_horizontal"
-                            android:layout_width="wrap_content" 
-                            android:layout_height="wrap_content" 
-                            android:text="我的粉丝" />
+                            android:orientation="vertical"
+                            android:layout_margin="8dp">
+                            <TextView
+                                android:id="@+id/my_beFollow_text"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="520" />
+                            <TextView
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="我的粉丝" />
+                        </LinearLayout>
+
                     </LinearLayout>
                     <View 
                         android:background="@color/divider" 
-                        android:layout_width="1.0dip" 
-                        android:layout_height="40.0dip" />
-                    <LinearLayout 
+                        android:layout_width="1dp" 
+                        android:layout_height="40dp" />
+                    <LinearLayout
+                        android:id="@+id/my_follow_layout"
                         android:layout_gravity="center_vertical" 
                         android:orientation="vertical"
-                        android:layout_width="0.0dip" 
+                        android:layout_width="0dp" 
                         android:layout_height="wrap_content" 
-                        android:layout_weight="1.0">
-                        <TextView 
-                            android:layout_gravity="center_horizontal"
-                            android:layout_width="wrap_content" 
-                            android:layout_height="wrap_content" 
-                            android:text="1" />
-                        <TextView 
-                            android:layout_gravity="center_horizontal" 
-                            android:layout_width="wrap_content" 
-                            android:layout_height="wrap_content" 
-                            android:text="我的关注" />
+                        android:layout_weight="1">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_margin="8dp">
+                            <TextView
+                                android:id="@+id/my_follow_text"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="520" />
+                            <TextView
+                                android:layout_gravity="center_horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="我的关注" />
+                        </LinearLayout>
+
                     </LinearLayout>
                 </LinearLayout>
                 <View
                     android:background="@color/divider" 
-                    android:layout_width="fill_parent" 
-                    android:layout_height="10.0dip" />
+                    android:layout_width="match_parent" 
+                    android:layout_height="10dp" />
                 <LinearLayout 
-                    android:id="@+id/my_sign_item" 
-                    android:background="@drawable/select" 
-                    android:layout_width="fill_parent" 
+                    android:id="@+id/my_sign_layout"
+                    android:background="@drawable/ripple_chat_background"
+                    android:layout_width="match_parent" 
                     android:layout_height="wrap_content">
                     <RelativeLayout 
-                        android:layout_width="fill_parent" 
+                        android:layout_width="match_parent" 
                         android:layout_height="wrap_content" 
-                        android:layout_margin="6.0dip">
+                        android:layout_margin="8dp">
                         <LinearLayout 
                             android:orientation="horizontal"
                             android:layout_width="wrap_content" 
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="24.0dip" 
-                                android:layout_height="24.0dip" 
-                                android:layout_marginLeft="8.0dip" 
-                                android:layout_marginRight="8.0dip" 
-                                android:src="@drawable/ic_stars_black_24dp" />
+                                android:layout_width="24dp" 
+                                android:layout_height="24dp" 
+                                android:layout_marginLeft="8dp" 
+                                android:layout_marginRight="8dp" 
+                                android:src="@drawable/ic_event_black_24dp" />
                             <TextView 
-                                android:textSize="15.0dip"
+                                android:textSize="18dp"
                                 android:textColor="#ff555555"
                                 android:layout_gravity="center_vertical" 
                                 android:layout_width="wrap_content" 
@@ -164,39 +182,40 @@
                         </LinearLayout>
                         <TextView 
                             android:gravity="center_vertical" 
-                            android:id="@+id/my_sign_text_item" 
+                            android:id="@+id/my_sign_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1" 
+                            android:layout_centerVertical="true"
+                            android:text="1"
                             android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp" 
                             android:layout_alignParentEnd="true" />
                     </RelativeLayout>
                 </LinearLayout>
                 <View
                     android:background="@color/divider"
-                    android:layout_width="fill_parent"
-                    android:layout_height="1.0dip" />
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
                 <LinearLayout
-                    android:id="@+id/my_team_item"
-                    android:background="@drawable/select"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/my_team_layout"
+                    android:background="@drawable/ripple_chat_background"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RelativeLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="6.0dip">
+                        android:layout_margin="8dp">
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="24.0dip"
-                                android:layout_height="24.0dip"
-                                android:layout_marginLeft="8.0dip"
-                                android:layout_marginRight="8.0dip"
-                                android:src="@drawable/ic_stars_black_24dp" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/ic_team_black_24dp" />
                             <TextView
-                                android:textSize="15.0dip"
+                                android:textSize="18dp"
                                 android:textColor="#ff555555"
                                 android:layout_gravity="center_vertical"
                                 android:layout_width="wrap_content"
@@ -205,7 +224,7 @@
                         </LinearLayout>
                         <TextView
                             android:gravity="center_vertical"
-                            android:id="@+id/my_team_text_item"
+                            android:id="@+id/my_team_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -215,29 +234,29 @@
                 </LinearLayout>
                 <View
                     android:background="@color/divider"
-                    android:layout_width="fill_parent"
-                    android:layout_height="1.0dip" />
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
                 <LinearLayout
-                    android:id="@+id/my_event_item"
-                    android:background="@drawable/select"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/my_event_layout"
+                    android:background="@drawable/ripple_chat_background"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RelativeLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="6.0dip">
+                        android:layout_margin="8dp">
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="24.0dip"
-                                android:layout_height="24.0dip"
-                                android:layout_marginLeft="8.0dip"
-                                android:layout_marginRight="8.0dip"
-                                android:src="@drawable/ic_stars_black_24dp" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/ic_assistant_photo_black_24dp" />
                             <TextView
-                                android:textSize="15.0dip"
+                                android:textSize="18dp"
                                 android:textColor="#ff555555"
                                 android:layout_gravity="center_vertical"
                                 android:layout_width="wrap_content"
@@ -246,7 +265,7 @@
                         </LinearLayout>
                         <TextView
                             android:gravity="center_vertical"
-                            android:id="@+id/my_event_text_item"
+                            android:id="@+id/my_event_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -256,29 +275,29 @@
                 </LinearLayout>
                 <View
                     android:background="@color/divider"
-                    android:layout_width="fill_parent"
-                    android:layout_height="1.0dip" />
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
                 <LinearLayout
-                    android:id="@+id/my_follow_item"
-                    android:background="@drawable/select"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/my_all_follw_layout"
+                    android:background="@drawable/ripple_chat_background"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RelativeLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="6.0dip">
+                        android:layout_margin="8dp">
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="24.0dip"
-                                android:layout_height="24.0dip"
-                                android:layout_marginLeft="8.0dip"
-                                android:layout_marginRight="8.0dip"
-                                android:src="@drawable/ic_stars_black_24dp" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/ic_grade_black_24dp" />
                             <TextView
-                                android:textSize="15.0dip"
+                                android:textSize="18dp"
                                 android:textColor="#ff555555"
                                 android:layout_gravity="center_vertical"
                                 android:layout_width="wrap_content"
@@ -287,7 +306,7 @@
                         </LinearLayout>
                         <TextView
                             android:gravity="center_vertical"
-                            android:id="@+id/my_follow_text"
+                            android:id="@+id/my_all_follow_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -297,29 +316,29 @@
                 </LinearLayout>
                 <View
                     android:background="@color/divider"
-                    android:layout_width="fill_parent"
-                    android:layout_height="10.0dip" />
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
                 <LinearLayout
-                    android:id="@+id/my_msg_item"
-                    android:background="@drawable/select"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/my_message_layout"
+                    android:background="@drawable/ripple_chat_background"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RelativeLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="6.0dip">
+                        android:layout_margin="8dp">
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="24.0dip"
-                                android:layout_height="24.0dip"
-                                android:layout_marginLeft="8.0dip"
-                                android:layout_marginRight="8.0dip"
-                                android:src="@drawable/ic_stars_black_24dp" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/ic_notifications_black_24dp" />
                             <TextView
-                                android:textSize="15.0dip"
+                                android:textSize="18dp"
                                 android:textColor="#ff555555"
                                 android:layout_gravity="center_vertical"
                                 android:layout_width="wrap_content"
@@ -336,29 +355,29 @@
                 </LinearLayout>
                 <View
                     android:background="@color/divider"
-                    android:layout_width="fill_parent"
-                    android:layout_height="10.0dip" />
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
                 <LinearLayout
-                    android:id="@+id/my_set_item"
-                    android:background="@drawable/select"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/my_set_layout"
+                    android:background="@drawable/ripple_chat_background"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RelativeLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="6.0dip">
+                        android:layout_margin="8dp">
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="24.0dip"
-                                android:layout_height="24.0dip"
-                                android:layout_marginLeft="8.0dip"
-                                android:layout_marginRight="8.0dip"
-                                android:src="@drawable/ic_stars_black_24dp" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/ic_settings_black_24dp" />
                             <TextView
-                                android:textSize="15.0dip"
+                                android:textSize="18dp"
                                 android:textColor="#ff555555"
                                 android:layout_gravity="center_vertical"
                                 android:layout_width="wrap_content"
@@ -375,29 +394,29 @@
                 </LinearLayout>
                 <View
                     android:background="@color/divider"
-                    android:layout_width="fill_parent"
-                    android:layout_height="1.0dip" />
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
                 <LinearLayout
-                    android:id="@+id/my_feedback_item"
-                    android:background="@drawable/select"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/my_feedback_layout"
+                    android:background="@drawable/ripple_chat_background"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RelativeLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="6.0dip">
+                        android:layout_margin="8dp">
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="24.0dip"
-                                android:layout_height="24.0dip"
-                                android:layout_marginLeft="8.0dip"
-                                android:layout_marginRight="8.0dip"
-                                android:src="@drawable/ic_stars_black_24dp" />
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/ic_feedback_black_24dp" />
                             <TextView
-                                android:textSize="15.0dip"
+                                android:textSize="18dp"
                                 android:textColor="#ff555555"
                                 android:layout_gravity="center_vertical"
                                 android:layout_width="wrap_content"
@@ -414,8 +433,8 @@
                 </LinearLayout>
                 <View
                     android:background="@color/divider"
-                    android:layout_width="fill_parent"
-                    android:layout_height="10.0dip" />
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
             </LinearLayout>
         </ScrollView>
     </FrameLayout>

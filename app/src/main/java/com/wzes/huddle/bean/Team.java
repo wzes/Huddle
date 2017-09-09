@@ -25,8 +25,8 @@ public class Team {
     private String locationlongitude;
     private String locationname;
     public String name;
-    private String release_date;
-    private String start_date;
+    private long release_date;
+    private long start_date;
     private String status;
     private int team_id;
     private String title;
@@ -80,19 +80,19 @@ public class Team {
         this.content = content;
     }
 
-    public String getStart_date() {
+    public long getStart_date() {
         return this.start_date;
     }
 
-    public void setStart_date(String start_date) {
+    public void setStart_date(long start_date) {
         this.start_date = start_date;
     }
 
-    public String getRelease_date() {
+    public long getRelease_date() {
         return this.release_date;
     }
 
-    public void setRelease_date(String release_date) {
+    public void setRelease_date(long release_date) {
         this.release_date = release_date;
     }
 

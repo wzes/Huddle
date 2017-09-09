@@ -51,7 +51,7 @@ public class UserTeamFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_team, container, false);
-        this.recyclerView = (RecyclerView) view.findViewById(R.id.user_team_recyclerView);
+        this.recyclerView = view.findViewById(R.id.user_team_recyclerView);
         new Thread(this::initData).start();
         return view;
     }

@@ -19,11 +19,11 @@ public class ChatList {
         this.name = name;
     }
 
-    public String getSend_date() {
+    public long getSend_date() {
         return send_date;
     }
 
-    public void setSend_date(String send_date) {
+    public void setSend_date(long send_date) {
         this.send_date = send_date;
     }
 
@@ -48,7 +48,7 @@ public class ChatList {
     @SerializedName("name")
     private String name;
     @SerializedName("send_date")
-    private String send_date;
+    private long send_date;
     @SerializedName("user_id")
     private String user_id;
     @SerializedName("content")

@@ -8,43 +8,51 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.gson.GsonBuilder;
 import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.User;
 import com.wzes.huddle.myinfo.MyInfoActivity;
 import com.wzes.huddle.service.MyRetrofit;
-import com.wzes.huddle.service.RetrofitService;
 import com.wzes.huddle.setting.SettingActivity;
 import com.wzes.huddle.util.AppManager;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.internal.operators.observable.ObservableGroupBy;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit.Builder;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MyFragment extends Fragment implements OnClickListener {
     public static User currentUser;
     public static boolean update = true;
-    private View eventItem;
-    private View feedbackItem;
-    private View followItem;
-    private ImageView imageView;
-    private TextView majorTxt;
-    private TextView mottoTxt;
-    private View msgItem;
-    private View myInfo;
-    private TextView nameTxt;
-    private View setItem;
-    private View signItem;
-    private View teamItem;
+    @BindView(R.id.my_beFollow_text) TextView myBeFollowText;
+    @BindView(R.id.my_beFollow_layout) LinearLayout myBeFollowLayout;
+    @BindView(R.id.my_follow_text) TextView myFollowText;
+    @BindView(R.id.my_follow_layout) LinearLayout myFollowLayout;
+    @BindView(R.id.my_sign_text) TextView mySignText;
+    @BindView(R.id.my_sign_layout) LinearLayout mySignLayout;
+    @BindView(R.id.my_team_text) TextView myTeamText;
+    @BindView(R.id.my_team_layout) LinearLayout myTeamLayout;
+    @BindView(R.id.my_event_text) TextView myEventText;
+    @BindView(R.id.my_event_layout) LinearLayout myEventLayout;
+    @BindView(R.id.my_all_follow_text) TextView myAllFollowText;
+    @BindView(R.id.my_all_follw_layout) LinearLayout myAllFollwLayout;
+    @BindView(R.id.my_message_layout) LinearLayout myMessageLayout;
+    @BindView(R.id.my_set_layout) LinearLayout mySetLayout;
+    @BindView(R.id.my_feedback_layout) LinearLayout myFeedbackLayout;
+    Unbinder unbinder;
+    @BindView(R.id.my_image) ImageView myImage;
+    @BindView(R.id.my_name_text) TextView myNameText;
+    @BindView(R.id.my_major_text) TextView myMajorText;
+    @BindView(R.id.my_motto_text) TextView myMottoText;
+    @BindView(R.id.my_info_layout) LinearLayout myInfoLayout;
 
     public static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
@@ -58,26 +66,17 @@ public class MyFragment extends Fragment implements OnClickListener {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
-        this.myInfo = view.findViewById(R.id.my_info);
-        this.myInfo.setOnClickListener(this);
-        this.imageView = (ImageView) view.findViewById(R.id.my_image);
-        this.nameTxt = (TextView) view.findViewById(R.id.my_name);
-        this.majorTxt = (TextView) view.findViewById(R.id.my_major);
-        this.mottoTxt = (TextView) view.findViewById(R.id.my_motto);
-        this.signItem = view.findViewById(R.id.my_sign_item);
-        this.teamItem = view.findViewById(R.id.my_team_item);
-        this.eventItem = view.findViewById(R.id.my_event_item);
-        this.followItem = view.findViewById(R.id.my_follow_item);
-        this.msgItem = view.findViewById(R.id.my_msg_item);
-        this.setItem = view.findViewById(R.id.my_set_item);
-        this.feedbackItem = view.findViewById(R.id.my_feedback_item);
-        this.signItem.setOnClickListener(this);
-        this.teamItem.setOnClickListener(this);
-        this.eventItem.setOnClickListener(this);
-        this.followItem.setOnClickListener(this);
-        this.msgItem.setOnClickListener(this);
-        this.setItem.setOnClickListener(this);
-        this.feedbackItem.setOnClickListener(this);
+        unbinder = ButterKnife.bind(this, view);
+        mySignLayout.setOnClickListener(this);
+        myTeamLayout.setOnClickListener(this);
+        myEventLayout.setOnClickListener(this);
+        myAllFollwLayout.setOnClickListener(this);
+        myMessageLayout.setOnClickListener(this);
+        mySetLayout.setOnClickListener(this);
+        myFeedbackLayout.setOnClickListener(this);
+        myBeFollowLayout.setOnClickListener(this);
+        myFollowLayout.setOnClickListener(this);
+        myInfoLayout.setOnClickListener(this);
         if (currentUser == null || !update) {
             MyRetrofit.getGsonRetrofit()
                     .getUserByUername(Preferences.getUserAccount())
@@ -101,32 +100,57 @@ public class MyFragment extends Fragment implements OnClickListener {
 
                         @Override
                         public void onComplete() {
-                            Glide.with(MyFragment.this.getContext()).load(MyFragment.currentUser.getImage()).into(MyFragment.this.imageView);
-                            MyFragment.this.nameTxt.setText(MyFragment.currentUser.getName());
-                            MyFragment.this.majorTxt.setText(MyFragment.currentUser.getMajor());
-                            MyFragment.this.mottoTxt.setText(MyFragment.currentUser.getMotto());
+                            Glide.with(getContext())
+                                    .load(currentUser.getImage())
+                                    .into(myImage);
+                            myNameText.setText(currentUser.getName());
+                            myMajorText.setText(currentUser.getMajor());
+                            myMottoText.setText(currentUser.getMotto());
+                            myBeFollowText.setText(currentUser.getBefollow_account());
+                            myFollowText.setText(currentUser.getFollow_account());
+                            mySignText.setText(currentUser.getTeam_sign_account());
+                            myTeamText.setText(currentUser.getTeam_group_account());
+                            myEventText.setText(currentUser.getEvent_account());
+                            myAllFollowText.setText(Integer.valueOf(currentUser.getFollow_event_account())
+                                    + Integer.valueOf(currentUser.getFollow_team_account()));
                         }
                     });
             update = true;
         } else {
-            Glide.with(getContext()).load(currentUser.getImage()).into(this.imageView);
-            this.nameTxt.setText(currentUser.getName());
-            this.majorTxt.setText(currentUser.getMajor());
-            this.mottoTxt.setText(currentUser.getMotto());
+            Glide.with(getContext())
+                    .load(currentUser.getImage())
+                    .into(myImage);
+            myNameText.setText(currentUser.getName());
+            myMajorText.setText(currentUser.getMajor());
+            myMottoText.setText(currentUser.getMotto());
+            myBeFollowText.setText(currentUser.getBefollow_account());
+            myFollowText.setText(currentUser.getFollow_account());
+            mySignText.setText(currentUser.getTeam_sign_account());
+            myTeamText.setText(currentUser.getTeam_group_account());
+            myEventText.setText(currentUser.getEvent_account());
+            myAllFollowText.setText(Integer.valueOf(currentUser.getFollow_event_account())
+                    + Integer.valueOf(currentUser.getFollow_team_account()));
         }
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.my_info /*2131624200*/:
+            case R.id.my_info_layout:
                 startActivity(new Intent(getContext(), MyInfoActivity.class));
-                return;
-            case R.id.my_set_item /*2131624214*/:
+                break;
+            case R.id.my_set_layout:
                 startActivity(new Intent(getContext(), SettingActivity.class));
-                return;
+                break;
             default:
-                return;
+                break;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }
