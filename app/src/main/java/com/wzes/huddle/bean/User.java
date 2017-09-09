@@ -13,69 +13,72 @@ public class User {
     private String telephone;
     private String user_id;
 
-    public String getFollow_account() {
+
+
+    private int follow_account;
+
+    public int getFollow_account() {
         return follow_account;
     }
 
-    public void setFollow_account(String follow_account) {
+    public void setFollow_account(int follow_account) {
         this.follow_account = follow_account;
     }
 
-    public String getBefollow_account() {
+    public int getBefollow_account() {
         return befollow_account;
     }
 
-    public void setBefollow_account(String befollow_account) {
+    public void setBefollow_account(int befollow_account) {
         this.befollow_account = befollow_account;
     }
 
-    public String getTeam_group_account() {
+    public int getTeam_group_account() {
         return team_group_account;
     }
 
-    public void setTeam_group_account(String team_group_account) {
+    public void setTeam_group_account(int team_group_account) {
         this.team_group_account = team_group_account;
     }
 
-    public String getTeam_sign_account() {
+    public int getTeam_sign_account() {
         return team_sign_account;
     }
 
-    public void setTeam_sign_account(String team_sign_account) {
+    public void setTeam_sign_account(int team_sign_account) {
         this.team_sign_account = team_sign_account;
     }
 
-    public String getEvent_account() {
+    public int getEvent_account() {
         return event_account;
     }
 
-    public void setEvent_account(String event_account) {
+    public void setEvent_account(int event_account) {
         this.event_account = event_account;
     }
 
-    public String getFollow_event_account() {
+    public int getFollow_event_account() {
         return follow_event_account;
     }
 
-    public void setFollow_event_account(String follow_event_account) {
+    public void setFollow_event_account(int follow_event_account) {
         this.follow_event_account = follow_event_account;
     }
 
-    public String getFollow_team_account() {
+    public int getFollow_team_account() {
         return follow_team_account;
     }
 
-    public void setFollow_team_account(String follow_team_account) {
+    public void setFollow_team_account(int follow_team_account) {
         this.follow_team_account = follow_team_account;
     }
 
-    private String follow_account;
-    private String befollow_account;
-    private String team_group_account;
-    private String team_sign_account;
-    private String event_account;
-    private String follow_event_account;
-    private String follow_team_account;
+    private int befollow_account;
+    private int team_group_account;
+    private int team_sign_account;
+    private int event_account;
+    private int follow_event_account;
+    private int follow_team_account;
 
 
     public String getUser_id() {

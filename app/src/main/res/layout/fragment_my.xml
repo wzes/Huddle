@@ -42,12 +42,14 @@
                 <LinearLayout 
                     android:orientation="horizontal" 
                     android:id="@+id/my_info_layout"
+                    android:background="@drawable/ripple_chat_background"
                     android:layout_width="match_parent" 
                     android:layout_height="wrap_content" 
                     android:layout_margin="10dp">
                     <ImageView
                         android:id="@+id/my_image"
-                        android:layout_width="90dp" 
+                        android:layout_width="90dp"
+                        android:src="@drawable/ic_default_image"
                         android:layout_height="90dp" />
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -61,6 +63,7 @@
                                 android:textSize="20sp" 
                                 android:textColor="#ff000000" 
                                 android:id="@+id/my_name_text"
+                                android:text="name"
                                 android:layout_width="wrap_content" 
                                 android:layout_height="wrap_content" />
                             <TextView 
@@ -68,13 +71,13 @@
                                 android:layout_width="wrap_content" 
                                 android:layout_height="wrap_content" 
                                 android:layout_marginTop="4dp" 
-                                android:text="" />
+                                android:text="major" />
                             <TextView 
                                 android:id="@+id/my_motto_text"
                                 android:layout_width="wrap_content" 
                                 android:layout_height="wrap_content" 
                                 android:layout_marginTop="4dp" 
-                                android:text="" />
+                                android:text="motto" />
                         </LinearLayout>
                         <Button 
                             android:background="@drawable/ic_keyboard_arrow_right_black_24dp" 
@@ -94,6 +97,7 @@
                     android:layout_height="wrap_content">
                     <LinearLayout
                         android:id="@+id/my_beFollow_layout"
+                        android:background="@drawable/ripple_chat_background"
                         android:layout_gravity="center_vertical"
                         android:orientation="vertical" 
                         android:layout_width="0dp"
@@ -109,7 +113,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="520" />
+                                android:text="0" />
                             <TextView
                                 android:layout_gravity="center_horizontal"
                                 android:layout_width="wrap_content"
@@ -124,6 +128,7 @@
                         android:layout_height="40dp" />
                     <LinearLayout
                         android:id="@+id/my_follow_layout"
+                        android:background="@drawable/ripple_chat_background"
                         android:layout_gravity="center_vertical" 
                         android:orientation="vertical"
                         android:layout_width="0dp" 
@@ -139,7 +144,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="520" />
+                                android:text="0" />
                             <TextView
                                 android:layout_gravity="center_horizontal"
                                 android:layout_width="wrap_content"
@@ -161,7 +166,7 @@
                     <RelativeLayout 
                         android:layout_width="match_parent" 
                         android:layout_height="wrap_content" 
-                        android:layout_margin="8dp">
+                        android:layout_margin="10dp">
                         <LinearLayout 
                             android:orientation="horizontal"
                             android:layout_width="wrap_content" 
@@ -186,7 +191,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:text="1"
+                            android:text="0"
                             android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp" 
                             android:layout_alignParentEnd="true" />
                     </RelativeLayout>
@@ -203,7 +208,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp">
+                        android:layout_margin="10dp">
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
@@ -244,7 +249,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp">
+                        android:layout_margin="10dp">
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
@@ -285,7 +290,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp">
+                        android:layout_margin="10dp">
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
@@ -326,7 +331,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp">
+                        android:layout_margin="10dp">
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
@@ -365,7 +370,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp">
+                        android:layout_margin="10dp">
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
@@ -404,7 +409,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp">
+                        android:layout_margin="10dp">
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"

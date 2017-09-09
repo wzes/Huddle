@@ -1,5 +1,6 @@
 package com.wzes.huddle.homepage;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -47,12 +48,12 @@ public class MyFragment extends Fragment implements OnClickListener {
     @BindView(R.id.my_message_layout) LinearLayout myMessageLayout;
     @BindView(R.id.my_set_layout) LinearLayout mySetLayout;
     @BindView(R.id.my_feedback_layout) LinearLayout myFeedbackLayout;
-    Unbinder unbinder;
     @BindView(R.id.my_image) ImageView myImage;
     @BindView(R.id.my_name_text) TextView myNameText;
     @BindView(R.id.my_major_text) TextView myMajorText;
     @BindView(R.id.my_motto_text) TextView myMottoText;
     @BindView(R.id.my_info_layout) LinearLayout myInfoLayout;
+    Unbinder unbinder;
 
     public static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
@@ -106,13 +107,13 @@ public class MyFragment extends Fragment implements OnClickListener {
                             myNameText.setText(currentUser.getName());
                             myMajorText.setText(currentUser.getMajor());
                             myMottoText.setText(currentUser.getMotto());
-                            myBeFollowText.setText(currentUser.getBefollow_account());
-                            myFollowText.setText(currentUser.getFollow_account());
-                            mySignText.setText(currentUser.getTeam_sign_account());
-                            myTeamText.setText(currentUser.getTeam_group_account());
-                            myEventText.setText(currentUser.getEvent_account());
-                            myAllFollowText.setText(Integer.valueOf(currentUser.getFollow_event_account())
-                                    + Integer.valueOf(currentUser.getFollow_team_account()));
+                            myBeFollowText.setText(String.valueOf(currentUser.getBefollow_account()));
+                            myFollowText.setText(String.valueOf(currentUser.getFollow_account()));
+                            mySignText.setText(String.valueOf(currentUser.getTeam_sign_account()));
+                            myTeamText.setText(String.valueOf(currentUser.getTeam_group_account()));
+                            myEventText.setText(String.valueOf(currentUser.getEvent_account()));
+                            myAllFollowText.setText(String.valueOf(currentUser.getFollow_event_account()
+                                    + currentUser.getFollow_team_account()));
                         }
                     });
             update = true;
@@ -123,13 +124,13 @@ public class MyFragment extends Fragment implements OnClickListener {
             myNameText.setText(currentUser.getName());
             myMajorText.setText(currentUser.getMajor());
             myMottoText.setText(currentUser.getMotto());
-            myBeFollowText.setText(currentUser.getBefollow_account());
-            myFollowText.setText(currentUser.getFollow_account());
-            mySignText.setText(currentUser.getTeam_sign_account());
-            myTeamText.setText(currentUser.getTeam_group_account());
-            myEventText.setText(currentUser.getEvent_account());
-            myAllFollowText.setText(Integer.valueOf(currentUser.getFollow_event_account())
-                    + Integer.valueOf(currentUser.getFollow_team_account()));
+            myBeFollowText.setText(String.valueOf(currentUser.getBefollow_account()));
+            myFollowText.setText(String.valueOf(currentUser.getFollow_account()));
+            mySignText.setText(String.valueOf(currentUser.getTeam_sign_account()));
+            myTeamText.setText(String.valueOf(currentUser.getTeam_group_account()));
+            myEventText.setText(String.valueOf(currentUser.getEvent_account()));
+            myAllFollowText.setText(String.valueOf(currentUser.getFollow_event_account()
+                    + currentUser.getFollow_team_account()));
         }
         unbinder = ButterKnife.bind(this, view);
         return view;

@@ -51,7 +51,7 @@ public class ChatFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
-    public static class Receiver extends BroadcastReceiver {
+    public class Receiver extends BroadcastReceiver {
 
         public void onReceive(Context context, Intent intent) {
             MyRetrofit.getGsonRetrofit()
@@ -140,7 +140,6 @@ public class ChatFragment extends Fragment {
 
                    @Override
                    public void onComplete() {
-                       MyLog.i("list.size() : " + list.size());
                        refreshLayout.setRefreshing(false);
                        chatAdapter = new ChatAdapter(ChatFragment.this, list);
                        recyclerView.setHasFixedSize(true);

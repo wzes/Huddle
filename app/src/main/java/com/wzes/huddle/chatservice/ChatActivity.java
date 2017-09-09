@@ -1,6 +1,5 @@
 package com.wzes.huddle.chatservice;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +16,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.wzes.huddle.R;
@@ -27,10 +25,7 @@ import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Message;
 import com.wzes.huddle.homepage.MyFragment;
 import com.wzes.huddle.service.MyRetrofit;
-import com.wzes.huddle.service.RetrofitService;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -39,29 +34,24 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit.Builder;
 
 public class ChatActivity extends AppCompatActivity implements OnClickListener {
     public static List<Message> list;
-    public static MessageAdapter messageAdapter;
-    public static RecyclerView recyclerView;
+    public MessageAdapter messageAdapter;
+    public RecyclerView recyclerView;
     private static String text;
     private static String to_id;
     private static String to_img;
     private static String to_name;
     private static String user_id = Preferences.getUserAccount();
-    @BindView(R.id.chat_back)
-    public ImageButton backBtn;
-    @BindView(R.id.chat_send)
-    public ImageButton sendBtn;
-    @BindView(R.id.chat_text)
-    public TextInputEditText textTxt;
-    @BindView(R.id.msg_title)
-    public TextView titleTxt;
+    @BindView(R.id.chat_back) ImageButton backBtn;
+    @BindView(R.id.chat_send) ImageButton sendBtn;
+    @BindView(R.id.chat_text) TextInputEditText textTxt;
+    @BindView(R.id.msg_title) TextView titleTxt;
 
-    public static class UserReceiver extends BroadcastReceiver {
+    public class UserReceiver extends BroadcastReceiver {
         public void onReceive(Context context, Intent intent) {
-            ChatActivity.refreshData(intent.getStringExtra("msg"));
+            refreshData(intent.getStringExtra("msg"));
         }
     }
 
@@ -110,9 +100,8 @@ public class ChatActivity extends AppCompatActivity implements OnClickListener {
                               ChatActivity.to_img = (list.get(0)).getTo_img();
                           }
                       }
-                      ChatActivity.messageAdapter = new MessageAdapter(ChatActivity.this, ChatActivity.list);
-                      ChatActivity.recyclerView.setAdapter(ChatActivity.messageAdapter);
-                      RecyclerView recyclerView = ChatActivity.recyclerView;
+                      messageAdapter = new MessageAdapter(ChatActivity.this, list);
+                      recyclerView.setAdapter(messageAdapter);
                       if (ChatActivity.list.size() > 0) {
                           size = ChatActivity.list.size() - 1;
                       } else {
@@ -123,7 +112,7 @@ public class ChatActivity extends AppCompatActivity implements OnClickListener {
               });
     }
 
-    public static void refreshData(String msg) {
+    public void refreshData(String msg) {
         Gson gson = new Gson();
         JsonElement el = new JsonParser().parse(msg);
         if (list != null) {
@@ -169,7 +158,7 @@ public class ChatActivity extends AppCompatActivity implements OnClickListener {
                     list.add(message);
                     messageAdapter.notifyDataSetChanged();
                     recyclerView.scrollToPosition(list.size() > 0 ? list.size() - 1 : 0);
-                    this.textTxt.setText("");
+                    textTxt.setText("");
                     Intent intent = new Intent();
                     intent.setAction("com.wzes.huddle.list");
                     intent.putExtra("msg", rs);

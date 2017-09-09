@@ -14,7 +14,7 @@
             android:id="@+id/event_item_image" 
             android:layout_width="110dp"
             android:layout_height="match_parent"
-            android:src="@drawable/logo" />
+            android:background="@color/divider" />
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
