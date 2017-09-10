@@ -3,6 +3,7 @@ package com.wzes.huddle.homepage;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,15 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.gson.GsonBuilder;
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.ChatAdapter;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.ChatList;
 import com.wzes.huddle.service.MyRetrofit;
-
-import com.wzes.huddle.service.RetrofitService;
 import com.wzes.huddle.util.MyLog;
+
 
 import java.util.List;
 
@@ -32,16 +31,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 
 public class ChatFragment extends Fragment {
     private static ChatFragment chatFragment;
     private static ChatAdapter chatAdapter;
     private static List<ChatList> list;
-
+    private ChatReceiver chatReceiver;
     @BindView(R.id.chat_recyclerView) RecyclerView recyclerView;
     @BindView(R.id.chat_refreshLayout) SwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
@@ -51,19 +46,23 @@ public class ChatFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
-    public class Receiver extends BroadcastReceiver {
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().unregisterReceiver(chatReceiver);
+    }
+
+    public class ChatReceiver extends BroadcastReceiver {
+
+        @Override
         public void onReceive(Context context, Intent intent) {
+            MyLog.i("Sssssssssssssssss");
             MyRetrofit.getGsonRetrofit()
                     .getChatListByID(Preferences.getUserAccount())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<List<ChatList>>() {
-                        @Override
-                        public void onComplete() {
-                            chatAdapter.notifyDataSetChanged();
-                        }
-
                         @Override
                         public void onError(Throwable e) {
 
@@ -81,6 +80,12 @@ public class ChatFragment extends Fragment {
                                 list.add(e);
                             }
                         }
+
+                        @Override
+                        public void onComplete() {
+                            chatAdapter.notifyDataSetChanged();
+                        }
+
                     });
         }
     }
@@ -97,6 +102,9 @@ public class ChatFragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        chatReceiver = new ChatReceiver();
+        IntentFilter intentFilter = new IntentFilter("com.wzes.huddle.list");
+        getContext().registerReceiver(chatReceiver, intentFilter);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -118,7 +126,6 @@ public class ChatFragment extends Fragment {
 
 
     public void initData() {
-        MyLog.i("Preferences.getUserAccount(): " + Preferences.getUserAccount());
         MyRetrofit.getGsonRetrofit()
                 .getChatListByID(Preferences.getUserAccount())
                 .subscribeOn(Schedulers.io())
@@ -126,6 +133,7 @@ public class ChatFragment extends Fragment {
                 .subscribe(new Observer<List<ChatList>>() {
                    @Override
                    public void onError(Throwable e) {
+                       refreshLayout.setRefreshing(false);
                    }
 
                    @Override

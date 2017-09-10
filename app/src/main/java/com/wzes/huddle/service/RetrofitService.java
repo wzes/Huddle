@@ -54,4 +54,8 @@ public interface RetrofitService {
     @POST("huddle/uploadimage.php")
     @Multipart
     Observable<ResponseBody> upLoad(@Part("user_id") RequestBody requestBody, @Part MultipartBody.Part part);
+
+    @POST("huddle/uploadmessageimage.php")
+    @Multipart
+    Observable<ResponseBody> uploadMessageimage(@Part("message_id") RequestBody requestBody, @Part MultipartBody.Part part);
 }

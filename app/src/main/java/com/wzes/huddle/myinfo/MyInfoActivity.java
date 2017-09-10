@@ -48,7 +48,6 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
     private ImageButton backBtn;
     private TextView birthTxt;
     private TextView gradeTxt;
-    private IHandlerCallBack iHandlerCallBack = new C09121();
     private String imageUri;
     private ImageView imageView;
     private TextView majorTxt;
@@ -59,44 +58,41 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
     private TextView sexTxt;
     private TextView usernameTxt;
 
-    class C09121 implements IHandlerCallBack {
+    private IHandlerCallBack iHandlerCallBack = new IHandlerCallBack() {
 
         public void onStart() {
             Log.i(MyInfoActivity.TAG, "onStart: 开启");
         }
 
         public void onSuccess(List<String> photoList) {
-            Log.i(MyInfoActivity.TAG, "onSuccess: 返回数据");
             Iterator it = photoList.iterator();
             if (it.hasNext()) {
                 String s = (String) it.next();
-                Log.i(MyInfoActivity.TAG, s);
                 uploadImage(s);
-                Glide.with(MyInfoActivity.this).load(s).into(MyInfoActivity.this.imageView);
+                Glide.with(MyInfoActivity.this).load(s).into(imageView);
             }
         }
 
-        public void uploadImage(String path) {
+        private void uploadImage(String path) {
             File file = new File(path);
             Part body = Part.createFormData("image", file.getName(), RequestBody.create(MediaType.parse("image/jpeg"), file));
             RequestBody user_id = RequestBody.create(MediaType.parse(Values.MULTIPART_FORM_DATA), Preferences.getUserAccount());
-            Log.i(MyInfoActivity.TAG, "uploadImage: " + file.getName());
             MyRetrofit.getNormalRetrofit().upLoad(user_id, body)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<ResponseBody>() {
                         @Override
-                        public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+                        public void onSubscribe(@NonNull Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(@io.reactivex.annotations.NonNull ResponseBody responseBody) {
+                        public void onNext(@NonNull ResponseBody responseBody) {
 
                         }
 
                         @Override
-                        public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                        public void onError(@NonNull Throwable e) {
 
                         }
 
@@ -118,23 +114,23 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
         public void onError() {
             Log.i(MyInfoActivity.TAG, "onError: 出错");
         }
-    }
+    };
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView((int) R.layout.activity_my_info);
-        this.backBtn = (ImageButton) findViewById(R.id.my_info_back);
+        setContentView(R.layout.activity_my_info);
+        this.backBtn = findViewById(R.id.my_info_back);
         this.backBtn.setOnClickListener(this);
-        this.usernameTxt = (TextView) findViewById(R.id.my_info_username);
-        this.nameTxt = (TextView) findViewById(R.id.my_info_name);
-        this.sexTxt = (TextView) findViewById(R.id.my_info_sex);
-        this.gradeTxt = (TextView) findViewById(R.id.my_info_grade);
-        this.majorTxt = (TextView) findViewById(R.id.my_info_major);
-        this.birthTxt = (TextView) findViewById(R.id.my_info_birth);
-        this.phoneTxt = (TextView) findViewById(R.id.my_info_phone);
-        this.mottoTxt = (TextView) findViewById(R.id.my_info_motto);
-        this.moreTxt = (TextView) findViewById(R.id.my_info_more);
-        this.imageView = (ImageView) findViewById(R.id.my_info_img);
+        this.usernameTxt = findViewById(R.id.my_info_username);
+        this.nameTxt = findViewById(R.id.my_info_name);
+        this.sexTxt = findViewById(R.id.my_info_sex);
+        this.gradeTxt = findViewById(R.id.my_info_grade);
+        this.majorTxt = findViewById(R.id.my_info_major);
+        this.birthTxt = findViewById(R.id.my_info_birth);
+        this.phoneTxt = findViewById(R.id.my_info_phone);
+        this.mottoTxt = findViewById(R.id.my_info_motto);
+        this.moreTxt = findViewById(R.id.my_info_more);
+        this.imageView = findViewById(R.id.my_info_img);
         this.usernameTxt.setOnClickListener(this);
         this.nameTxt.setOnClickListener(this);
         this.sexTxt.setOnClickListener(this);
@@ -158,34 +154,34 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.my_info_back /*2131624094*/:
+            case R.id.my_info_back:
                 finish();
                 return;
-            case R.id.my_info_img /*2131624096*/:
+            case R.id.my_info_img:
                 requestPermission();
                 return;
-            case R.id.my_info_name /*2131624099*/:
+            case R.id.my_info_name:
                 Intent name = new Intent(this, MyInfoSettingActivity.class);
                 name.putExtra("title", "姓名");
                 name.putExtra("content", this.nameTxt.getText());
                 name.putExtra("note", "请不要超过40个字符");
                 startActivity(name);
                 return;
-            case R.id.my_info_sex /*2131624100*/:
+            case R.id.my_info_sex:
                 Intent sex = new Intent(this, MyInfoSettingActivity.class);
                 sex.putExtra("title", "姓别");
                 sex.putExtra("content", this.sexTxt.getText());
                 sex.putExtra("note", "请输入性别");
                 startActivity(sex);
                 return;
-            case R.id.my_info_grade /*2131624101*/:
+            case R.id.my_info_grade:
                 Intent grade = new Intent(this, MyInfoSettingActivity.class);
                 grade.putExtra("title", "年级");
                 grade.putExtra("content", this.phoneTxt.getText());
                 grade.putExtra("note", "");
                 startActivity(grade);
                 return;
-            case R.id.my_info_major /*2131624102*/:
+            case R.id.my_info_major:
                 Intent major = new Intent(this, MyInfoSettingActivity.class);
                 major.putExtra("title", "专业");
                 major.putExtra("content", MyFragment.currentUser.getMajor());
@@ -193,21 +189,21 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
                 major.putExtra("note", "请输入专业");
                 startActivity(major);
                 return;
-            case R.id.my_info_birth /*2131624103*/:
+            case R.id.my_info_birth:
                 Intent birth = new Intent(this, MyInfoSettingActivity.class);
                 birth.putExtra("title", "生日");
                 birth.putExtra("content", this.birthTxt.getText());
                 birth.putExtra("note", "请选择日期");
                 startActivity(birth);
                 return;
-            case R.id.my_info_phone /*2131624104*/:
+            case R.id.my_info_phone:
                 Intent phone = new Intent(this, MyInfoSettingActivity.class);
                 phone.putExtra("title", "电话");
                 phone.putExtra("content", this.phoneTxt.getText());
                 phone.putExtra("note", "请输入电话号码");
                 startActivity(phone);
                 return;
-            case R.id.my_info_motto /*2131624105*/:
+            case R.id.my_info_motto:
                 Intent motto = new Intent(this, MyInfoSettingActivity.class);
                 motto.putExtra("title", "签名");
                 motto.putExtra("content", this.mottoTxt.getText());
@@ -215,7 +211,7 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
                 motto.putExtra("note", "不超过100个字符");
                 startActivity(motto);
                 return;
-            case R.id.my_info_more /*2131624106*/:
+            case R.id.my_info_more:
                 Intent more = new Intent(this, MyInfoSettingActivity.class);
                 more.putExtra("title", "简介");
                 more.putExtra("content", MyFragment.currentUser.getInfo());
@@ -224,7 +220,7 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
                 startActivity(more);
                 return;
             default:
-                return;
+                break;
         }
     }
 
@@ -232,15 +228,26 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
         if (ContextCompat.checkSelfPermission(this, "android.permission.WRITE_EXTERNAL_STORAGE") == 0) {
             openGallery();
         } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, "android.permission.WRITE_EXTERNAL_STORAGE")) {
-            Toast.makeText(this, "请在 设置-应用管理 中开启此应用的储存授权。", 0).show();
+            Toast.makeText(this, "请在 设置-应用管理 中开启此应用的储存授权。", Toast.LENGTH_SHORT).show();
         } else {
             ActivityCompat.requestPermissions(this, new String[]{"android.permission.WRITE_EXTERNAL_STORAGE"}, 2);
         }
     }
 
     private void openGallery() {
-        GalleryPick.getInstance().setGalleryConfig(new GalleryConfig.Builder()
-                .imageLoader(new GalleryGlideImageLoader()).iHandlerCallBack(this.iHandlerCallBack).provider("com.yancy.gallerypickdemo.fileprovider").pathList(new ArrayList()).multiSelect(false).maxSize(9).crop(true).isShowCamera(true).filePath("/Gallery/Pictures").build()).open(this);
+        GalleryPick.getInstance()
+                .setGalleryConfig(new GalleryConfig.Builder()
+                .imageLoader(new GalleryGlideImageLoader())
+                .iHandlerCallBack(iHandlerCallBack)
+                .provider("com.yancy.gallerypickdemo.fileprovider")
+                .pathList(new ArrayList<>())
+                .multiSelect(false)
+                .maxSize(9)
+                .crop(true)
+                .isShowCamera(true)
+                .filePath("/Gallery/Pictures")
+                .build())
+                .open(this);
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -254,7 +261,7 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
                     return;
                 }
             default:
-                return;
+                break;
         }
     }
 }

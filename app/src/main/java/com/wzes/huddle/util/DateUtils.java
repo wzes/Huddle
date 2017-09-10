@@ -8,7 +8,7 @@ import java.util.Date;
 public class DateUtils {
     public static boolean ltTwo(long d1, long d2) {
         try {
-            return (d2 - d1) / 60 <= 3;
+            return (d2 - d1) / 60000 <= 3;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -47,7 +47,6 @@ public class DateUtils {
         Calendar todayCalendar = Calendar.getInstance();
         Calendar otherCalendar = Calendar.getInstance();
         otherCalendar.setTimeInMillis(timestamp);
-
         String timeFormat = "M月d日 HH:mm";
         String yearTimeFormat= "yyyy年M月d日 HH:mm";
         String am_pm="";

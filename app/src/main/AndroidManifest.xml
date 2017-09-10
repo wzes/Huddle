@@ -59,16 +59,6 @@
         <activity android:name="com.wzes.huddle.team_info.TeamInfoLocationActivity"/>
         <activity android:name="com.wzes.huddle.chatservice.ChatActivity"/>
         <activity android:name="com.wzes.huddle.imageloader.ImageViewActivity"/>
-        <receiver android:name="com.wzes.huddle.homepage.ChatFragment$Receiver">
-            <intent-filter>
-                <action android:name="com.wzes.huddle.list"/>
-            </intent-filter>
-        </receiver>
-        <receiver android:name="com.wzes.huddle.chatservice.ChatActivity$UserReceiver">
-            <intent-filter>
-                <action android:name="com.wzes.huddle.user"/>
-            </intent-filter>
-        </receiver>
         <activity android:name="com.wzes.huddle.setting.SettingActivity"/>
         <!--<activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.yancy.gallerypick.activity.GalleryPickActivity" android:screenOrientation="portrait" android:theme="@style/GalleryTheme"/>-->
         <!--<activity android:name="com.yalantis.ucrop.UCropActivity" android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>-->

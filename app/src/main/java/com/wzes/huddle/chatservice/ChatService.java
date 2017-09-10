@@ -7,7 +7,6 @@ import android.widget.Toast;
 import com.wzes.huddle.app.Preferences;
 
 public class ChatService extends Service {
-    public static final String TAG = "MyService";
     public static ClientMain clientMain;
     private static String host = "59.110.136.134";
     private static int port = 9999;

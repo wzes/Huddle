@@ -1,6 +1,5 @@
 package com.wzes.huddle.homepage;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +30,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class MyFragment extends Fragment implements OnClickListener {
+
     public static User currentUser;
     public static boolean update = true;
     @BindView(R.id.my_beFollow_text) TextView myBeFollowText;

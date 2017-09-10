@@ -37,6 +37,8 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
+import static com.wzes.huddle.homepage.MyFragment.currentUser;
+
 public class LoginActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     @BindView(R.id.login_image) CircleImageView mUserImage;
@@ -60,6 +62,31 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
          * request for database if local not username
          */
         if(Preferences.getUserAccount() != null){
+            if (currentUser == null) {
+                MyRetrofit.getGsonRetrofit()
+                        .getUserByUername(Preferences.getUserAccount())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<User>() {
+                            @Override
+                            public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(@io.reactivex.annotations.NonNull User user) {
+                                currentUser = user;
+                            }
+
+                            @Override
+                            public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+            }
             //show defalut image and enter the main
             startActivity(new Intent(this, MainActivity.class));
             finish();
@@ -180,7 +207,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
             if (success.booleanValue()) {
                 Preferences.saveUserAccount(username);
                 Preferences.saveLastUserAccount(username);
-                MyFragment.currentUser = null;
+                currentUser = null;
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
                 return;

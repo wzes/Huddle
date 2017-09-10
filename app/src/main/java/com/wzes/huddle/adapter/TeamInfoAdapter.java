@@ -47,7 +47,7 @@ public class TeamInfoAdapter extends Adapter<ViewHolder> {
 
         OnRecyclerViewOnClickListener listener;
 
-        public MyViewHolder(View itemView) {
+         MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             this.listener = listener;

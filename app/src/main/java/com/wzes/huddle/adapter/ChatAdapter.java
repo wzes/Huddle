@@ -67,7 +67,10 @@ public class ChatAdapter extends Adapter<ViewHolder> {
             ((ChatViewHolder) holder).Name.setText(item.getName());
             ((ChatViewHolder) holder).Time.setText(DateUtils.getChatTime(item.getSend_date()));
             ((ChatViewHolder) holder).Status.setVisibility(View.GONE);
-            ((ChatViewHolder) holder).Content.setText(item.getContent());
+            if(item.getContent().contains("http://")){
+                ((ChatViewHolder) holder).Content.setText("图片");
+            }
+            else ((ChatViewHolder) holder).Content.setText(item.getContent());
             Glide.with(context).load(item.getImage()).into(((ChatViewHolder) holder).Img);
         }
     }

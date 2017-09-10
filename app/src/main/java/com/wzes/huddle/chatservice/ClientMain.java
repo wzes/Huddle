@@ -23,8 +23,8 @@ public class ClientMain {
         bootstrap.channel(NioSocketChannel.class);
         bootstrap.handler(new ClientIniter());
         try {
-            this.channel = bootstrap.connect(host, port).sync().channel();
-            this.channel.writeAndFlush("login" + user_id);
+            channel = bootstrap.connect(host, port).sync().channel();
+            channel.writeAndFlush("login" + user_id);
         } catch (InterruptedException e) {
             e.printStackTrace();
             System.exit(1);

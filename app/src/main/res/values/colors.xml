@@ -10,7 +10,7 @@
     <color name="yellow">#ff0</color>
 
     <color name="colorBaseBackground">#fafafa</color>
-
+    <color name="gallery_blue">#000</color>
     <color name="colorNavItemUnselected">#757575</color>
     <color name="colorNavItemSelected">@color/colorAccent</color>
 

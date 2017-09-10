@@ -2,9 +2,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20.0dip">
+    android:layout_marginTop="20dp">
     <TextView
         android:textColor="@color/white"
         android:layout_gravity="center_horizontal"
@@ -12,31 +12,41 @@
         android:background="@drawable/message_time_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0.0dip"
-        android:paddingStart="4.0dip"
-        android:paddingEnd="4.0dip" />
+        android:layout_marginTop="0dp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp" />
     <RelativeLayout
         android:layout_gravity="end"
         android:id="@+id/right_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10.0dip">
+        android:layout_marginTop="10dp">
         <TextView
-            android:textSize="18.0sp"
+            android:textSize="18sp"
             android:id="@+id/right_txt"
             android:background="@drawable/rightbackground"
-            android:padding="5.0dip"
+            android:padding="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40.0dip"
+            android:layout_marginStart="40dp"
             android:text=""
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/right_img" />
+            android:layout_toStartOf="@+id/right_photo" />
+        <ImageView
+            android:id="@+id/right_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxHeight="200dp"
+            android:gravity="start"
+            android:scaleType="fitEnd"
+            android:layout_toStartOf="@+id/right_photo"/>
+
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/right_img"
-            android:layout_width="40.0dip"
-            android:layout_height="40.0dip"
-            android:layout_margin="10.0dip"
+            android:id="@+id/right_photo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
     <RelativeLayout
@@ -44,23 +54,35 @@
         android:id="@+id/left_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10.0dip">
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/left_img"
-            android:layout_width="40.0dip"
-            android:layout_height="40.0dip"
-            android:layout_margin="10.0dip"
-            android:layout_alignParentStart="true" />
+            android:id="@+id/left_photo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp" />
+        <ImageView
+            android:id="@+id/left_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="200dp"
+            android:adjustViewBounds="true"
+            android:gravity="start"
+            android:visibility="gone"
+            android:scaleType="fitStart"
+            android:layout_toEndOf="@+id/left_photo"
+            android:src="@drawable/background"/>
+
         <TextView
-            android:textSize="18.0sp"
+            android:textSize="18sp"
             android:id="@+id/left_txt"
             android:background="@drawable/leftbackground"
-            android:padding="5.0dip"
+            android:padding="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
             android:layout_centerVertical="true"
-            android:layout_marginEnd="40.0dip"
-            android:layout_toEndOf="@+id/left_img" />
+            android:layout_marginEnd="40dp"
+            android:layout_toEndOf="@+id/left_photo" />
     </RelativeLayout>
 </LinearLayout>
