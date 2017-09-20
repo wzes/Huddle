@@ -62,7 +62,6 @@
                     android:text="" />
                 <TextView
                     android:textSize="15dp"
-                    android:textColor="@color/white"
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/user_info_motto"
                     android:layout_width="wrap_content"
@@ -71,7 +70,6 @@
                     android:text="" />
                 <TextView
                     android:textSize="15dp"
-                    android:textColor="@color/white"
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/user_info_major"
                     android:layout_width="wrap_content"
@@ -79,7 +77,6 @@
                     android:layout_marginTop="5dp" />
                 <TextView
                     android:textSize="13dp"
-                    android:textColor="@color/white"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -92,12 +89,10 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp">
                     <TextView
-                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="个人简介：" />
                     <TextView
-                        android:textColor="@color/white"
                         android:layout_gravity="center_horizontal"
                         android:id="@+id/user_info_info"
                         android:layout_width="wrap_content"
@@ -125,10 +120,9 @@
             android:id="@+id/user_info_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabIndicatorColor="@color/white"
             app:tabMode="fixed"
             app:tabGravity="center"
-            app:tabTextColor="@color/divider"
             app:tabSelectedTextColor="@color/white"
             app:tabPaddingTop="10dp" />
     </android.support.design.widget.AppBarLayout>

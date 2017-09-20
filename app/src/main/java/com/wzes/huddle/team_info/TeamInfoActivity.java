@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,14 +17,17 @@ import android.widget.Toast;
 import com.baidu.mapapi.UIMsg.m_AppUI;
 import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
+import com.wzes.huddle.adapter.TeamInfoUserAdapter;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Image;
 import com.wzes.huddle.bean.Team;
+import com.wzes.huddle.bean.teamuser;
 import com.wzes.huddle.chatservice.ChatActivity;
 import com.wzes.huddle.imageloader.ImageViewActivity;
 import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.user_info.UserInfoActivity;
 import com.wzes.huddle.util.AppManager;
+import com.wzes.huddle.util.DateUtils;
 import com.wzes.huddle.util.GlideImageLoader;
 import com.youth.banner.Banner;
 
@@ -64,6 +69,8 @@ public class TeamInfoActivity extends AppCompatActivity {
 
     private Team myTeam;
     private String team_id;
+    private List<teamuser> list;
+    private TeamInfoUserAdapter teamInfoUserAdapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,8 +118,8 @@ public class TeamInfoActivity extends AppCompatActivity {
                         categoryTxt.setText("——" + myTeam.getCategory().toString());
                         nameTxt.setText(myTeam.getName());
                         contentTxt.setText("——" + myTeam.getContent());
-                        timeTxt.setText("——" + myTeam.getStart_date());
-                        peopleTxt.setText("组员" + myTeam.getJoin_people() + "人已报名(还差" + ((myTeam.getJoin_acount() - myTeam.getJoin_people()) - 1) + "人)");
+
+                        timeTxt.setText("——" + DateUtils.getYearTime(myTeam.getStart_date()));
                         userBtn.setOnClickListener(v -> {
                             Intent nIntent = new Intent(TeamInfoActivity.this, UserInfoActivity.class);
                             nIntent.putExtra("user_id", myTeam.getUser_id());
@@ -126,6 +133,25 @@ public class TeamInfoActivity extends AppCompatActivity {
                             nIntent.putExtra("latitude", myTeam.getLocationlatitude());
                             startActivity(nIntent);
                         });
+
+                        if(myTeam.getTeamusers().get(0) == null){
+                            list = new ArrayList<>();
+                        }else{
+                            list = myTeam.getTeamusers();
+                        }
+                        peopleTxt.setText(String.format("组员%d人已报名(还差%d人)", list.size(), (myTeam.getJoin_acount() - list.size() - 1)));
+//                        try{
+//                            list.get(0).getImage();
+//                        }catch (Exception e){
+//                            list = new ArrayList<>();
+//                        }
+                        teamInfoUserAdapter = new TeamInfoUserAdapter(TeamInfoActivity.this, list);
+                        recyclerView.setHasFixedSize(true);
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(TeamInfoActivity.this);
+                        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        recyclerView.setAdapter(teamInfoUserAdapter);
+
                     }
                 });
         setSupportActionBar(toolBar);
@@ -146,5 +172,13 @@ public class TeamInfoActivity extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

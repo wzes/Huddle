@@ -1,7 +1,6 @@
 package com.wzes.huddle.event_info;
 
-import android.app.Activity;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -124,7 +123,7 @@ public class EventInfoActivity extends AppCompatActivity implements OnClickListe
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.event_read_create /*2131624079*/:
+            case R.id.event_read_create:
                 this.Normalservice = MyRetrofit.getNormalRetrofit();
                 this.Normalservice.addEventFollow(this.event_id, Preferences.getUserAccount())
                         .subscribeOn(Schedulers.io())
@@ -150,9 +149,9 @@ public class EventInfoActivity extends AppCompatActivity implements OnClickListe
                                 Toast.makeText(EventInfoActivity.this, "关注成功", 0).show();
                             }
                         });
-                return;
+                break;
             default:
-                return;
+                break;
         }
     }
 }

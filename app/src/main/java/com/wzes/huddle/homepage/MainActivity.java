@@ -2,16 +2,18 @@ package com.wzes.huddle.homepage;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.MainAdapter;
+import com.wzes.huddle.add.AddEventActivity;
+import com.wzes.huddle.add.AddTeamActivity;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.chatservice.ChatService;
 import com.wzes.huddle.util.AppManager;
@@ -23,9 +25,18 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.content) NoScrollViewPager mViewPager;
-    @BindView(R.id.navigation) BottomNavigationView navigation;
+    @BindView(R.id.content)
+    NoScrollViewPager mViewPager;
+    @BindView(R.id.navigation)
+    BottomNavigationView navigation;
+    @BindView(R.id.main_add_team)
+    FloatingActionButton addTeamBtn;
+    @BindView(R.id.main_add_event)
+    FloatingActionButton addEventBtn;
+    @BindView(R.id.main_add)
+    FloatingActionsMenu mainAdd;
     private MainAdapter mainAdapter;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,19 +55,40 @@ public class MainActivity extends AppCompatActivity {
                 MyFragment.newInstance());
         mViewPager.setAdapter(mainAdapter);
 
+
+        addEventBtn.setOnClickListener(view -> {
+            startActivity(new Intent(MainActivity.this, AddEventActivity.class));
+            mainAdd.collapse();
+            mainAdd.setActivated(false);
+        });
+
+        addTeamBtn.setOnClickListener(view -> {
+            startActivity(new Intent(MainActivity.this, AddTeamActivity.class));
+            mainAdd.setActivated(false);
+            mainAdd.collapse();
+        });
+
         navigation.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.navigation_event:
-                    MainActivity.this.mViewPager.setCurrentItem(0);
+                    mViewPager.setCurrentItem(0);
+                    mainAdd.setVisibility(View.VISIBLE);
+                    mainAdd.collapse();
                     return true;
                 case R.id.navigation_team:
-                    MainActivity.this.mViewPager.setCurrentItem(1);
+                    mViewPager.setCurrentItem(1);
+                    mainAdd.setVisibility(View.VISIBLE);
+                    mainAdd.collapse();
                     return true;
                 case R.id.navigation_chat:
-                    MainActivity.this.mViewPager.setCurrentItem(2);
+                    mViewPager.setCurrentItem(2);
+                    mainAdd.setVisibility(View.GONE);
+                    mainAdd.collapse();
                     return true;
                 case R.id.navigation_my:
-                    MainActivity.this.mViewPager.setCurrentItem(3);
+                    mViewPager.setCurrentItem(3);
+                    mainAdd.setVisibility(View.GONE);
+                    mainAdd.collapse();
                     return true;
                 default:
                     return false;
@@ -74,19 +106,23 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
-                        MainActivity.this.navigation.setSelectedItemId(R.id.navigation_event);
-                        return;
+                        navigation.setSelectedItemId(R.id.navigation_event);
+                        mainAdd.setVisibility(View.VISIBLE);
+                        break;
                     case 1:
-                        MainActivity.this.navigation.setSelectedItemId(R.id.navigation_team);
-                        return;
+                        navigation.setSelectedItemId(R.id.navigation_team);
+                        mainAdd.setVisibility(View.VISIBLE);
+                        break;
                     case 2:
-                        MainActivity.this.navigation.setSelectedItemId(R.id.navigation_chat);
-                        return;
+                        navigation.setSelectedItemId(R.id.navigation_chat);
+                        mainAdd.setVisibility(View.GONE);
+                        break;
                     case 3:
-                        MainActivity.this.navigation.setSelectedItemId(R.id.navigation_my);
-                        return;
+                        navigation.setSelectedItemId(R.id.navigation_my);
+                        mainAdd.setVisibility(View.GONE);
+                        break;
                     default:
-                        return;
+                        break;
                 }
             }
 
