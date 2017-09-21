@@ -64,6 +64,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
 
     compile 'com.getbase:floatingactionbutton:1.10.1'
+
+    compile 'br.com.simplepass:loading-button-android:1.8.1'
     
     compile files('libs/BaiduLBS_Android.jar')
 }

@@ -14,7 +14,7 @@ import com.wzes.huddle.R;
 
 public class ImageViewActivity extends AppCompatActivity {
     @BindView(R.id.image_loader_back) ImageButton backBtn;
-    @BindView(R.id.image_loader_view) ImageView imageView;
+    @BindView(R.id.image_loader_view) PinchImageView imageView;
     private String uri;
 
 
