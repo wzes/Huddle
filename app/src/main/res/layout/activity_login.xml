@@ -75,8 +75,7 @@
                         android:maxLines="1"
                         android:inputType="textPassword" 
                         android:imeOptions="normal|actionUnspecified" 
-                        android:imeActionLabel="@string/action_sign_in_short" 
-                        android:imeActionId="@+id/login" />
+                        android:imeActionLabel="@string/action_sign_in_short" />
                 </android.support.design.widget.TextInputLayout>
                 <Button
                     android:textSize="20dp"
@@ -135,7 +134,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/weixin"/>
+                            android:src="@drawable/wechat_50px_1164443_easyicon"/>
                         <TextView
                             android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"
@@ -154,7 +153,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_width="50dp"
                             android:layout_height="50dp" 
-                            android:src="@drawable/logo"/>
+                            android:src="@drawable/tongji"/>
                         <TextView
                             android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"
@@ -173,7 +172,7 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/qq"/>
+                            android:src="@drawable/qq_50px_1164430_easyicon"/>
                         <TextView
                             android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"

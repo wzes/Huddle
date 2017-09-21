@@ -77,9 +77,9 @@ public class UserEventFragment extends Fragment {
 
                    @Override
                    public void onComplete() {
-                       UserEventFragment.this.recyclerView.setAdapter(new UserEventAdapter(UserEventFragment.this, UserEventFragment.this.list));
-                       UserEventFragment.this.recyclerView.setHasFixedSize(true);
-                       UserEventFragment.this.recyclerView.setLayoutManager(new LinearLayoutManager(UserEventFragment.this.getActivity()));
+                       recyclerView.setAdapter(new UserEventAdapter(UserEventFragment.this, list));
+                       recyclerView.setHasFixedSize(true);
+                       recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                    }
                });
     }

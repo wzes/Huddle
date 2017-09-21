@@ -47,6 +47,9 @@
     <string name="share_to">Share to</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="share_error">Share failed</string>
+    <string name="add_team_content">描述一下主要内容</string>
+    <string name="add_team_title">标题 描述一下核心</string>
+    <string name="add_team">添加组队</string>
 
     <string-array name="sex_name">
         <item>男</item>
