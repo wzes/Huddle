@@ -64,6 +64,33 @@
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
     <TextView
+        android:id="@+id/add_team_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自由"
+        android:textSize="18sp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/ic_accessibility_black_24dp"/>
+    <TextView
+        android:id="@+id/add_team_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="学术竞赛"
+        android:textSize="18sp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/ic_filter_list_black_24dp"/>
+    <TextView
+        android:id="@+id/add_team_sign_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2017年9月20号"
+        android:textSize="18sp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/ic_access_time_black_24dp"/>
+    <TextView
         android:id="@+id/add_team_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,15 +99,6 @@
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="8dp"
         android:drawableStart="@drawable/ic_place_black_24dp"/>
-    <TextView
-        android:id="@+id/add_team_sign_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="请选择组队开始时间"
-        android:textSize="18sp"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="8dp"
-        android:drawableStart="@drawable/ic_access_time_black_24dp"/>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

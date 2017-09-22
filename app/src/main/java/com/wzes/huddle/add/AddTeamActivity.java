@@ -19,20 +19,18 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.TeamAddImageAdapter;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Image;
-import com.wzes.huddle.myinfo.MyInfoActivity;
-import com.wzes.huddle.myinterface.OnRecyclerViewOnClickListener;
+import com.wzes.huddle.chatservice.ChatActivity;
 import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.util.GalleryGlideImageLoader;
 import com.wzes.huddle.util.MyLog;
@@ -50,8 +48,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
-import br.com.simplepass.loading_button_lib.customViews.CircularProgressImageButton;
-import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -73,6 +69,8 @@ import okhttp3.ResponseBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class AddTeamActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
@@ -90,6 +88,10 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
     CircularProgressButton teamSendBtn;
     @BindView(R.id.team_add_recyclerView)
     RecyclerView addRecyclerView;
+    @BindView(R.id.add_team_category)
+    TextView teamCategory;
+    @BindView(R.id.add_team_level)
+    TextView teamLevel;
 
     private LocationManager locationManager;
     private static final String[] LOCATION =
@@ -97,6 +99,13 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
     private static final int LOCATION_PERM = 123;
     private static final int STORAGE_PERM = 234;
     private String provider;
+    private int image_acount = 0;
+    private int images = 0;
+
+    private String locationname;
+    private String locationlatitude;
+    private String locationlongitude;
+    private String team_id;
 
     private TeamAddImageAdapter teamAddImageAdapter;
     private List<Image> list;
@@ -119,35 +128,6 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
 
         }
 
-        private void uploadImage(String path) {
-            File file = new File(path);
-            MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), RequestBody.create(MediaType.parse("image/jpeg"), file));
-            RequestBody user_id = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), Preferences.getUserAccount());
-            MyRetrofit.getNormalRetrofit().upLoad(user_id, body)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<ResponseBody>() {
-                        @Override
-                        public void onSubscribe(@NonNull Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(@NonNull ResponseBody responseBody) {
-
-                        }
-
-                        @Override
-                        public void onError(@NonNull Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-        }
 
         public void onCancel() {
 
@@ -162,6 +142,69 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
         }
     };
 
+    /**
+     *
+     * @param path
+     */
+    private void uploadImage(String path, String team_id, String index) {
+
+        Luban.with(AddTeamActivity.this)
+                .load(path)                                   // 传人要压缩的图片列表
+                .ignoreBy(100)                                // 设置压缩后文件存储位置
+                .setCompressListener(new OnCompressListener() { //设置回调
+                    @Override
+                    public void onStart() {
+                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), RequestBody.create(MediaType.parse("image/jpeg"), file));
+                        RequestBody id = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), team_id);
+                        RequestBody in = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), index);
+                        MyRetrofit.getNormalRetrofit().uploadTeamimage(id, in, body)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new Observer<ResponseBody>() {
+                                    @Override
+                                    public void onSubscribe(@NonNull Disposable d) {
+
+                                    }
+
+                                    @Override
+                                    public void onNext(@NonNull ResponseBody responseBody) {
+                                        try {
+                                            MyLog.i(responseBody.string());
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(@NonNull Throwable e) {
+
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+                                        image_acount++;
+                                        if(image_acount == images){
+                                            teamSendBtn.doneLoadingAnimation(
+                                                    ContextCompat.getColor(AddTeamActivity.this, R.color.colorPrimaryDark),
+                                                    BitmapFactory.decodeResource(getResources(), R.drawable.ic_done_white_48dp));
+                                        }
+                                    }
+                                });
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // TODO 当压缩过程出现问题时调用
+                        MyLog.i(e.getMessage());
+                    }
+                }).launch();    //启动压缩
+    }
 
     private void openGallery() {
         GalleryPick.getInstance()
@@ -179,8 +222,6 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
     }
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,16 +234,16 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
 
         teamAddImageAdapter = new TeamAddImageAdapter(AddTeamActivity.this, list);
         teamAddImageAdapter.setOnItemClickLitener((view, i) -> {
-            switch (view.getId()){
+            switch (view.getId()) {
                 case R.id.team_add_item_cancel:
                     list.remove(i);
                     teamAddImageAdapter.notifyDataSetChanged();
                     break;
             }
-            if(i == list.size()-1){
-                if(hasStoragePermission()){
+            if (i == list.size() - 1) {
+                if (hasStoragePermission()) {
                     openGallery();
-                }else{
+                } else {
                     Toast.makeText(this, "您禁止了读权限", Toast.LENGTH_SHORT).show();
                 }
 
@@ -221,13 +262,72 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
 
     }
 
-    private void animateButton(final CircularProgressButton circularProgressButton){
-        Handler handler = new Handler();
-        Runnable runnable = () -> circularProgressButton.doneLoadingAnimation(
-                    ContextCompat.getColor(AddTeamActivity.this, R.color.colorPrimaryDark),
-                    BitmapFactory.decodeResource(getResources(), R.drawable.ic_done_white_48dp));
+
+    // 动画
+    private void animateButton(final CircularProgressButton circularProgressButton) {
+        images = list.size() - 1;
         circularProgressButton.startAnimation();
-        handler.postDelayed(runnable, 3000);
+        String user_id = Preferences.getUserAccount();
+        String content = teamContent.getText().toString();
+        String title = teamTitle.getText().toString();
+        String release_date = String.valueOf(System.currentTimeMillis());
+        String start_date = String.valueOf(System.currentTimeMillis());
+        String category = teamCategory.getText().toString();
+        String level = teamLevel.getText().toString();
+        String join_account = "5";
+        if(!TextUtils.isEmpty(user_id) && !TextUtils.isEmpty(content) && !TextUtils.isEmpty(title)
+                && !TextUtils.isEmpty(release_date) && !TextUtils.isEmpty(start_date)
+                && !TextUtils.isEmpty(category) && !TextUtils.isEmpty(level)){
+            RequestBody rUser_id = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), user_id);
+            RequestBody rContent = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), content);
+            RequestBody rTitle = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), title);
+            RequestBody rRelease_date = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), release_date);
+            RequestBody rStart_date = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), start_date);
+            RequestBody rCategory = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), category);
+            RequestBody rLevel = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), level);
+            RequestBody rJoin_account = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), join_account);
+            RequestBody rLocationname = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), locationname);
+            RequestBody rLocationlatitude = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), locationlatitude);
+            RequestBody rLocationlongitude = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), locationlongitude);
+
+            MyRetrofit.getNormalRetrofit().addTeam(rUser_id, rTitle, rCategory, rContent, rStart_date, rRelease_date, rJoin_account,
+                    rLevel, rLocationname, rLocationlatitude,  rLocationlongitude)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<ResponseBody>() {
+                        @Override
+                        public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(@io.reactivex.annotations.NonNull ResponseBody responseBody) {
+                            try {
+                                team_id = responseBody.string();
+                                MyLog.i(team_id);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                            Toast.makeText(AddTeamActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            for(int index = 0; index < list.size() -1; index ++){
+                                MyLog.i(list.get(index).getImage());
+                                uploadImage(list.get(index).getImage(), team_id , index + "");
+                            }
+                        }
+                    });
+
+        }else{
+            Toast.makeText(this, "请输入完成信息", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
@@ -336,6 +436,8 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
     public void getLocation(Location location) {
         String latitude = location.getLatitude() + "";
         String longitude = location.getLongitude() + "";
+        locationlatitude = latitude;
+        locationlongitude = longitude;
         String url = "http://api.map.baidu.com/geocoder/v2/?ak=pPGNKs75nVZPloDFuppTLFO3WXebPgXg&callback=renderReverse&location=" + latitude + "," + longitude + "&output=json&pois=0";
         try {
             run(url);
@@ -399,6 +501,7 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
                     message.what = 1;
                     message.setData(bundle);
                     handler.sendMessage(message);
+                    locationname = city;
                     MyLog.i(city);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -431,16 +534,14 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
     }
 
 
-    @OnClick({R.id.add_team_back_btn, R.id.add_team_title, R.id.add_team_sign_time,
-            R.id.add_team_content, R.id.add_team_location, R.id.add_team_send_btn})
+    @OnClick({R.id.add_team_back_btn, R.id.add_team_sign_time,
+            R.id.add_team_category, R.id.add_team_location, R.id.add_team_send_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.add_team_back_btn:
                 finish();
                 break;
-            case R.id.add_team_title:
-                break;
-            case R.id.add_team_content:
+            case R.id.add_team_category:
                 break;
             case R.id.add_team_location:
 

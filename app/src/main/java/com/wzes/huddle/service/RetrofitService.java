@@ -51,6 +51,20 @@ public interface RetrofitService {
     @GET("huddle/users.php")
     Observable<List<User>> getUsersByTeamID(@Query("team_id") String str);
 
+
+    @POST("huddle/addteam.php")
+    @Multipart
+    Observable<ResponseBody> addTeam(@Part("user_id") RequestBody user_id, @Part("title") RequestBody title,
+            @Part("category") RequestBody category, @Part("content") RequestBody content, @Part("start_date") RequestBody start_date,
+            @Part("release_date") RequestBody release_date, @Part("join_acount") RequestBody join_acount, @Part("level") RequestBody level,
+            @Part("locationname") RequestBody locationname, @Part("locationlatitude") RequestBody locationlatitude,
+            @Part("locationlongitude") RequestBody locationlongitude);
+
+    @POST("huddle/uploadteamimage.php")
+    @Multipart
+    Observable<ResponseBody> uploadTeamimage(@Part("team_id") RequestBody requestBody, @Part("index") RequestBody index,
+                                             @Part MultipartBody.Part part);
+
     @POST("huddle/uploadimage.php")
     @Multipart
     Observable<ResponseBody> upLoad(@Part("user_id") RequestBody requestBody, @Part MultipartBody.Part part);
