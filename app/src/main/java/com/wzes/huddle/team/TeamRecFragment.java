@@ -63,7 +63,7 @@ public class TeamRecFragment extends Fragment {
     }
 
     public void refreshData() {
-        MyRetrofit.getGsonRetrofit().getTeamList()
+        MyRetrofit.getGsonRetrofit().getNewTeamList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Team>>() {
@@ -92,7 +92,7 @@ public class TeamRecFragment extends Fragment {
     }
 
     public void initData() {
-        MyRetrofit.getGsonRetrofit().getTeamList()
+        MyRetrofit.getGsonRetrofit().getNewTeamList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Team>>() {

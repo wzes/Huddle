@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.google.gson.GsonBuilder;
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.TeamInfoAdapter;
+import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Team;
 import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.service.RetrofitService;
@@ -57,7 +58,7 @@ public class UserTeamFragment extends Fragment {
     }
 
     public void initData() {
-        MyRetrofit.getGsonRetrofit().getTeamList()
+        MyRetrofit.getGsonRetrofit().getUserTeamList(Preferences.getUserAccount())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Team>>() {

@@ -43,7 +43,16 @@ public interface RetrofitService {
     Observable<Team> getTeam(@Query("team_id") String str);
 
     @GET("huddle/teams.php")
-    Observable<List<Team>> getTeamList();
+    Observable<List<Team>> getUserTeamList(@Query("user_id") String user_id);
+
+    @GET("huddle/newteams.php")
+    Observable<List<Team>> getNewTeamList();
+
+    @GET("huddle/hotteams.php")
+    Observable<List<Team>> getHotTeamList();
+
+    @GET("huddle/nearteams.php")
+    Observable<List<Team>> getNearTeamList(@Query("latitude") String str, @Query("longitude") String str2);
 
     @GET("huddle/user.php")
     Observable<User> getUserByUername(@Query("user_id") String str);

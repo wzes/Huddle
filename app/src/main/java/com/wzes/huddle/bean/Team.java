@@ -32,6 +32,16 @@ public class Team {
     private String title;
     public String user_id;
 
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public String distance;
+
     public String getUser_id() {
         return this.user_id;
     }

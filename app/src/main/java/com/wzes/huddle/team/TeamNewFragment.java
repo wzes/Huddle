@@ -50,7 +50,7 @@ public class TeamNewFragment extends Fragment {
         recyclerView = view.findViewById(R.id.team_new_recyclerView);
         refreshLayout = view.findViewById(R.id.team_new_refreshLayout);
         refreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        refreshLayout.setOnRefreshListener(() -> refreshData());
+        refreshLayout.setOnRefreshListener(this::refreshData);
         if (list == null) {
             refreshLayout.setRefreshing(true);
             new Thread(this::initData).start();
@@ -64,7 +64,7 @@ public class TeamNewFragment extends Fragment {
     }
 
     public void refreshData() {
-        MyRetrofit.getGsonRetrofit().getTeamList()
+        MyRetrofit.getGsonRetrofit().getNewTeamList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Team>>() {
@@ -93,7 +93,7 @@ public class TeamNewFragment extends Fragment {
     }
 
     public void initData() {
-        MyRetrofit.getGsonRetrofit().getTeamList()
+        MyRetrofit.getGsonRetrofit().getNewTeamList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Team>>() {
