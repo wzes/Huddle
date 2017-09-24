@@ -161,7 +161,7 @@ public class ChatActivity extends AppCompatActivity implements OnClickListener {
                     @Override
                     public void onComplete() {
                         int size;
-                        if (list == null) {
+                        if(!(list.size() > 0 && list.get(0) != null)){
                             list = new ArrayList<>();
                         }
                         if (list.size() > 0) {

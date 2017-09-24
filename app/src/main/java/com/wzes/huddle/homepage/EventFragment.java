@@ -14,6 +14,7 @@ import com.wzes.huddle.adapter.EventAdapter;
 import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.service.MyRetrofit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,8 +29,8 @@ import io.reactivex.schedulers.Schedulers;
 public class EventFragment extends Fragment {
     private static EventFragment eventFragment;
     private static boolean FirstLoad = true;
-    private static List<Event> hotList;
-    private static List<Event> list;
+    private List<Event> hotList;
+    private List<Event> list;
 
     @BindView(R.id.event_recyclerView) RecyclerView recyclerView;
     @BindView(R.id.event_refreshLayout) SwipeRefreshLayout refreshLayout;
@@ -93,6 +94,9 @@ public class EventFragment extends Fragment {
                                 .subscribe(new Observer<List<Event>>() {
                                     @Override
                                     public void onComplete() {
+                                        if(!(list.size() > 0 && list.get(0) != null)){
+                                            list = new ArrayList<>();
+                                        }
                                         refreshLayout.setRefreshing(false);
                                         eventAdapter = new EventAdapter(EventFragment.this, list, hotList);
                                         recyclerView.setHasFixedSize(true);
@@ -137,6 +141,9 @@ public class EventFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
+                        if(!(list.size() > 0 && list.get(0) != null)){
+                            list = new ArrayList<>();
+                        }
                         eventAdapter = new EventAdapter(EventFragment.this, list, hotList);
                         recyclerView.setAdapter(eventAdapter);
                         refreshLayout.setRefreshing(false);

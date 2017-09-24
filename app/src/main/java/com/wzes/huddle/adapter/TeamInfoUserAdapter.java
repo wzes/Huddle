@@ -10,11 +10,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
-import com.wzes.huddle.bean.User;
 import com.wzes.huddle.bean.teamuser;
 import com.wzes.huddle.myinterface.OnRecyclerViewOnClickListener;
-import com.wzes.huddle.team_info.TeamInfoActivity;
-import com.wzes.huddle.user_info.UserInfoActivity;
+import com.wzes.huddle.activities.userdetail.UserInfoActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.List;

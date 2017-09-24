@@ -1,4 +1,4 @@
-package com.wzes.huddle.add;
+package com.wzes.huddle.activities.add;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

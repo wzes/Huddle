@@ -4,8 +4,8 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import com.wzes.huddle.user_info.UserEventFragment;
-import com.wzes.huddle.user_info.UserTeamFragment;
+import com.wzes.huddle.activities.userdetail.UserEventFragment;
+import com.wzes.huddle.activities.userdetail.UserTeamFragment;
 
 public class UserAdapter extends FragmentPagerAdapter {
     private final Context context;

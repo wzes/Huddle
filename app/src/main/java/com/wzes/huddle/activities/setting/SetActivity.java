@@ -1,4 +1,4 @@
-package com.wzes.huddle.setting;
+package com.wzes.huddle.activities.setting;
 
 import android.preference.PreferenceActivity;
 import android.os.Bundle;

@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Message;
-import com.wzes.huddle.user_info.UserInfoActivity;
+import com.wzes.huddle.activities.userdetail.UserInfoActivity;
 import com.wzes.huddle.util.DateUtils;
 import java.util.List;
 

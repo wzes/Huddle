@@ -1,4 +1,4 @@
-package com.wzes.huddle.team_info;
+package com.wzes.huddle.activities.teamdetail;
 
 import android.content.Intent;
 import android.os.Bundle;

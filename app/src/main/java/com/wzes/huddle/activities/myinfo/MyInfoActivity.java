@@ -1,10 +1,9 @@
-package com.wzes.huddle.myinfo;
+package com.wzes.huddle.activities.myinfo;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,14 +18,12 @@ import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.homepage.MyFragment;
 import com.wzes.huddle.service.MyRetrofit;
-import com.wzes.huddle.service.RetrofitService;
 import com.wzes.huddle.util.GalleryGlideImageLoader;
 import com.yancy.gallerypick.config.GalleryConfig;
 import com.yancy.gallerypick.config.GalleryPick;
 import com.yancy.gallerypick.inter.IHandlerCallBack;
 import io.netty.handler.codec.http.HttpHeaders.Values;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -39,7 +36,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody.Part;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Retrofit.Builder;
 
 public class MyInfoActivity extends AppCompatActivity implements OnClickListener {
     private static final int IMAGE_REQUEST_CODE = 0;

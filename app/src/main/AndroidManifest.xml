@@ -48,7 +48,7 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".activities.login.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -57,28 +57,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".register.RegisterActivity" />
-        <activity android:name=".myinfo.MyInfoActivity" />
-        <activity android:name=".myinfo.MyInfoSettingActivity" />
+        <activity android:name=".activities.register.RegisterActivity" />
+        <activity android:name=".activities.myinfo.MyInfoActivity" />
+        <activity android:name=".activities.myinfo.MyInfoSettingActivity" />
         <activity
-            android:name=".event_info.EventInfoActivity"
+            android:name=".activities.eventdetail.EventInfoActivity"
             android:theme="@style/EventActivityTheme" />
         <activity
-            android:name=".team_info.TeamInfoActivity"
+            android:name=".activities.teamdetail.TeamInfoActivity"
             android:theme="@style/EventActivityTheme" />
-        <activity android:name=".user_info.UserInfoActivity" />
+        <activity android:name=".activities.userdetail.UserInfoActivity" />
         <!-- <service android:enabled="true" android:name="com.baidu.location.f" android:process=":remote"/> -->
         <service android:name=".chatservice.ChatService" />
 
-        <activity android:name=".team_info.TeamInfoLocationActivity" />
+        <activity android:name=".activities.teamdetail.TeamInfoLocationActivity" />
         <activity android:name=".chatservice.ChatActivity" />
         <activity android:name=".imageloader.ImageViewActivity" />
-        <activity android:name=".setting.SettingActivity" />
+        <activity android:name=".activities.setting.SettingActivity" />
         <!-- <activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.yancy.gallerypick.activity.GalleryPickActivity" android:screenOrientation="portrait" android:theme="@style/GalleryTheme"/> -->
         <!-- <activity android:name="com.yalantis.ucrop.UCropActivity" android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/> -->
-        <activity android:name=".setting.SetActivity" />
-        <activity android:name=".add.AddTeamActivity" />
-        <activity android:name=".add.AddEventActivity"></activity>
+        <activity android:name=".activities.setting.SetActivity" />
+        <activity android:name=".activities.add.AddTeamActivity" />
+        <activity android:name=".activities.add.AddEventActivity"></activity>
     </application>
 
 </manifest>

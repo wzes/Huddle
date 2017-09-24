@@ -11,15 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.wzes.huddle.R;
 import com.wzes.huddle.bean.Event;
-import com.wzes.huddle.event_info.EventInfoActivity;
+import com.wzes.huddle.activities.eventdetail.EventInfoActivity;
 import com.wzes.huddle.myinterface.OnRecyclerViewOnClickListener;
-import com.wzes.huddle.user_info.UserEventFragment;
+import com.wzes.huddle.activities.userdetail.UserEventFragment;
 import com.wzes.huddle.util.DateUtils;
 
-import java.util.Date;
 import java.util.List;
 
 public class UserEventAdapter extends Adapter<ViewHolder> {

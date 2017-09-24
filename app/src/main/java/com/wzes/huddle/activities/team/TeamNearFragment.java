@@ -1,7 +1,8 @@
-package com.wzes.huddle.team;
+package com.wzes.huddle.activities.team;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -24,6 +25,7 @@ import com.wzes.huddle.bean.Team;
 import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.util.MyLog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -31,20 +33,27 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class TeamNearFragment extends Fragment {
+public class TeamNearFragment extends Fragment implements EasyPermissions.PermissionCallbacks {
     private static List<Team> list;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private TeamInfoAdapter teamInfoAdapter;
     private static TeamNearFragment fragment;
     private String latitude, longitude;
-    
-    private TeamNearFragment(){
+    private static final String[] LOCATION =
+            {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+    private static final int LOCATION_PERM = 123;
+
+    private TeamNearFragment() {
 
     }
+
     public static TeamNearFragment newInstance() {
-        if(fragment == null){
+        if (fragment == null) {
             fragment = new TeamNearFragment();
         }
         return fragment;
@@ -54,7 +63,14 @@ public class TeamNearFragment extends Fragment {
         super.onCreate(savedInstanceState);
         initLocation();
     }
+
+
+    @AfterPermissionGranted(LOCATION_PERM)
     public void initLocation() {
+        if (!hasLocationPermission()) {
+            EasyPermissions.requestPermissions(this, getString(R.string.internet_permission),
+                    LOCATION_PERM, LOCATION);
+        }
         LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         assert locationManager != null;
         List<String> locationList = locationManager.getProviders(true);
@@ -64,14 +80,20 @@ public class TeamNearFragment extends Fragment {
         } else if (locationList.contains(LocationManager.NETWORK_PROVIDER)) {
             provider = LocationManager.NETWORK_PROVIDER;
         } else {
-            Toast.makeText(getContext().getApplicationContext(), "没有可用的定位服务", Toast.LENGTH_LONG).show();
+            MyLog.i("没有可用的定位服务");
         }
 
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return;
         }
-
         Location location = locationManager.getLastKnownLocation(provider);
         if (location != null) {
             latitude = String.valueOf(location.getLatitude());
@@ -180,6 +202,9 @@ public class TeamNearFragment extends Fragment {
 
                         @Override
                         public void onComplete() {
+                            if(!(list.size() > 0 && list.get(0) != null)){
+                                list = new ArrayList<>();
+                            }
                             teamInfoAdapter = new TeamInfoAdapter(TeamNearFragment.this, TeamNearFragment.list);
                             recyclerView.setAdapter(teamInfoAdapter);
                             refreshLayout.setRefreshing(false);
@@ -192,6 +217,11 @@ public class TeamNearFragment extends Fragment {
     public void initData() {
         while(TextUtils.isEmpty(latitude)){
             initLocation();
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         if(TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude)){
             MyRetrofit.getGsonRetrofit().getHotTeamList()
@@ -215,6 +245,9 @@ public class TeamNearFragment extends Fragment {
 
                         @Override
                         public void onComplete() {
+                            if(!(list.size() > 0 && list.get(0) != null)){
+                                list = new ArrayList<>();
+                            }
                             teamInfoAdapter = new TeamInfoAdapter(TeamNearFragment.this, TeamNearFragment.list);
                             recyclerView.setAdapter(teamInfoAdapter);
                             refreshLayout.setRefreshing(false);
@@ -250,5 +283,45 @@ public class TeamNearFragment extends Fragment {
                         }
                     });
         }
+    }
+
+    private boolean hasLocationPermission() {
+        return EasyPermissions.hasPermissions(getContext(), LOCATION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @android.support.annotation.NonNull String[] permissions, @android.support.annotation.NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
+            String yes = getString(R.string.yes);
+            String no = getString(R.string.no);
+
+            // Do something after user returned from app settings screen, like showing a Toast.
+            Toast.makeText(
+                    getContext(),
+                    getString(R.string.returned_from_app_settings_to_activity,
+                            hasLocationPermission() ? yes : no),
+                    Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+
     }
 }

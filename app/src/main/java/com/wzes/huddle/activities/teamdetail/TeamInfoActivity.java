@@ -1,4 +1,4 @@
-package com.wzes.huddle.team_info;
+package com.wzes.huddle.activities.teamdetail;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +25,7 @@ import com.wzes.huddle.bean.teamuser;
 import com.wzes.huddle.chatservice.ChatActivity;
 import com.wzes.huddle.imageloader.ImageViewActivity;
 import com.wzes.huddle.service.MyRetrofit;
-import com.wzes.huddle.user_info.UserInfoActivity;
+import com.wzes.huddle.activities.userdetail.UserInfoActivity;
 import com.wzes.huddle.util.AppManager;
 import com.wzes.huddle.util.DateUtils;
 import com.wzes.huddle.util.GlideImageLoader;

@@ -1,4 +1,4 @@
-package com.wzes.huddle.user_info;
+package com.wzes.huddle.activities.userdetail;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,12 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.google.gson.GsonBuilder;
+
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.UserEventAdapter;
 import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.service.MyRetrofit;
-import com.wzes.huddle.service.RetrofitService;
+
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -20,7 +20,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit.Builder;
 
 public class UserEventFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";

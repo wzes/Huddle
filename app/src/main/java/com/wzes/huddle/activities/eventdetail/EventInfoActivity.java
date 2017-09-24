@@ -1,4 +1,4 @@
-package com.wzes.huddle.event_info;
+package com.wzes.huddle.activities.eventdetail;
 
 
 import android.os.Bundle;

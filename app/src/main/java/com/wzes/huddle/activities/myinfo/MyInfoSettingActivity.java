@@ -1,4 +1,4 @@
-package com.wzes.huddle.myinfo;
+package com.wzes.huddle.activities.myinfo;
 
 import android.content.Intent;
 import android.os.Bundle;

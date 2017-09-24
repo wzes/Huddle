@@ -15,9 +15,9 @@ import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.User;
-import com.wzes.huddle.myinfo.MyInfoActivity;
+import com.wzes.huddle.activities.myinfo.MyInfoActivity;
 import com.wzes.huddle.service.MyRetrofit;
-import com.wzes.huddle.setting.SettingActivity;
+import com.wzes.huddle.activities.setting.SettingActivity;
 import com.wzes.huddle.util.AppManager;
 
 import butterknife.BindView;

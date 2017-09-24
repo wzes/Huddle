@@ -1,4 +1,4 @@
-package com.wzes.huddle.team;
+package com.wzes.huddle.activities.team;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,8 @@ import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.TeamInfoAdapter;
 import com.wzes.huddle.bean.Team;
 import com.wzes.huddle.service.MyRetrofit;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -20,37 +22,35 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class TeamNewFragment extends Fragment {
+public class TeamHotFragment extends Fragment {
     private static boolean FirstLoad = true;
     private static List<Team> list;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private TeamInfoAdapter teamInfoAdapter;
-    private static TeamNewFragment fragment;
+    private static TeamHotFragment fragment;
 
 
-    private TeamNewFragment(){
+    private TeamHotFragment(){
 
     }
 
-    public static TeamNewFragment newInstance() {
+    public static TeamHotFragment newInstance() {
         if(fragment == null){
-            fragment = new TeamNewFragment();
+            fragment = new TeamHotFragment();
         }
         return fragment;
     }
-    
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_team_item_new, container, false);
-        recyclerView = view.findViewById(R.id.team_new_recyclerView);
-        refreshLayout = view.findViewById(R.id.team_new_refreshLayout);
+        View view = inflater.inflate(R.layout.fragment_team_item_hot, container, false);
+        recyclerView = view.findViewById(R.id.team_hot_recyclerView);
+        refreshLayout = view.findViewById(R.id.team_hot_refreshLayout);
         refreshLayout.setColorSchemeResources(R.color.colorPrimary);
-        refreshLayout.setOnRefreshListener(this::refreshData);
+        refreshLayout.setOnRefreshListener(() -> refreshData());
         if (list == null) {
             refreshLayout.setRefreshing(true);
             new Thread(this::initData).start();
@@ -64,7 +64,7 @@ public class TeamNewFragment extends Fragment {
     }
 
     public void refreshData() {
-        MyRetrofit.getGsonRetrofit().getNewTeamList()
+        MyRetrofit.getGsonRetrofit().getHotTeamList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Team>>() {
@@ -85,7 +85,10 @@ public class TeamNewFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-                        teamInfoAdapter = new TeamInfoAdapter(TeamNewFragment.this, list);
+                        if(!(list.size() > 0 && list.get(0) != null)){
+                            list = new ArrayList<>();
+                        }
+                        teamInfoAdapter = new TeamInfoAdapter(TeamHotFragment.this, TeamHotFragment.list);
                         recyclerView.setAdapter(teamInfoAdapter);
                         refreshLayout.setRefreshing(false);
                     }
@@ -93,7 +96,7 @@ public class TeamNewFragment extends Fragment {
     }
 
     public void initData() {
-        MyRetrofit.getGsonRetrofit().getNewTeamList()
+        MyRetrofit.getGsonRetrofit().getHotTeamList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Team>>() {
@@ -114,8 +117,11 @@ public class TeamNewFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
+                        if(!(list.size() > 0 && list.get(0) != null)){
+                            list = new ArrayList<>();
+                        }
                         refreshLayout.setRefreshing(false);
-                        teamInfoAdapter = new TeamInfoAdapter(TeamNewFragment.this, list);
+                        teamInfoAdapter = new TeamInfoAdapter(TeamHotFragment.this, TeamHotFragment.list);
                         recyclerView.setAdapter(teamInfoAdapter);
                         recyclerView.setHasFixedSize(true);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

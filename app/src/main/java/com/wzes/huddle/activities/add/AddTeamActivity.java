@@ -1,4 +1,4 @@
-package com.wzes.huddle.add;
+package com.wzes.huddle.activities.add;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -30,7 +30,6 @@ import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.TeamAddImageAdapter;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Image;
-import com.wzes.huddle.chatservice.ChatActivity;
 import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.util.GalleryGlideImageLoader;
 import com.wzes.huddle.util.MyLog;

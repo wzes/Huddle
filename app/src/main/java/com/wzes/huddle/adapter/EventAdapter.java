@@ -16,7 +16,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestOptions;
 import com.wzes.huddle.R;
 import com.wzes.huddle.bean.Event;
-import com.wzes.huddle.event_info.EventInfoActivity;
+import com.wzes.huddle.activities.eventdetail.EventInfoActivity;
 import com.wzes.huddle.homepage.EventFragment;
 import com.wzes.huddle.imageloader.ImageViewActivity;
 import com.wzes.huddle.util.DateUtils;

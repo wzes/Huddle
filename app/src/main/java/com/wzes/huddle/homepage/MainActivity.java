@@ -6,14 +6,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.MainAdapter;
-import com.wzes.huddle.add.AddEventActivity;
-import com.wzes.huddle.add.AddTeamActivity;
+import com.wzes.huddle.activities.add.AddEventActivity;
+import com.wzes.huddle.activities.add.AddTeamActivity;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.chatservice.ChatService;
 import com.wzes.huddle.util.AppManager;

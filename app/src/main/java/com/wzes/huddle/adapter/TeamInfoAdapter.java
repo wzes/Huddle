@@ -20,8 +20,8 @@ import com.wzes.huddle.R;
 import com.wzes.huddle.bean.Image;
 import com.wzes.huddle.bean.Team;
 import com.wzes.huddle.myinterface.OnRecyclerViewOnClickListener;
-import com.wzes.huddle.team_info.TeamInfoActivity;
-import com.wzes.huddle.user_info.UserInfoActivity;
+import com.wzes.huddle.activities.teamdetail.TeamInfoActivity;
+import com.wzes.huddle.activities.userdetail.UserInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,17 +67,17 @@ public class TeamInfoAdapter extends Adapter<ViewHolder> {
                 case R.id.team_item_img_name:
                     Intent nIntent = new Intent(TeamInfoAdapter.this.context.getContext(), UserInfoActivity.class);
                     nIntent.putExtra("user_id", TeamInfoAdapter.this.list.get(getLayoutPosition()).getUser_id());
-                    TeamInfoAdapter.this.context.startActivity(nIntent);
+                    context.startActivity(nIntent);
                     return;
                 case R.id.team_item_img_location:
-                    Intent mIntent = new Intent(TeamInfoAdapter.this.context.getContext(), TeamInfoActivity.class);
-                    mIntent.putExtra("team_id", TeamInfoAdapter.this.list.get(getLayoutPosition()).getTeam_id());
-                    TeamInfoAdapter.this.context.startActivity(mIntent);
+                    Intent mIntent = new Intent(context.getContext(), TeamInfoActivity.class);
+                    mIntent.putExtra("team_id", list.get(getLayoutPosition()).getTeam_id());
+                    context.startActivity(mIntent);
                     return;
                 default:
-                    Intent intent = new Intent(TeamInfoAdapter.this.context.getContext(), TeamInfoActivity.class);
-                    intent.putExtra("team_id", TeamInfoAdapter.this.list.get(getLayoutPosition()).getTeam_id() + "");
-                    TeamInfoAdapter.this.context.startActivity(intent);
+                    Intent intent = new Intent(context.getContext(), TeamInfoActivity.class);
+                    intent.putExtra("team_id", list.get(getLayoutPosition()).getTeam_id() + "");
+                    context.startActivity(intent);
                     return;
             }
         }

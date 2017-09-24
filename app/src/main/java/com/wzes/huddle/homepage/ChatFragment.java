@@ -18,6 +18,7 @@ import com.wzes.huddle.adapter.ChatAdapter;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.ChatList;
 import com.wzes.huddle.service.MyRetrofit;
+import com.wzes.huddle.util.AppManager;
 import com.wzes.huddle.util.MyLog;
 
 
@@ -35,7 +36,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ChatFragment extends Fragment {
     private static ChatFragment chatFragment;
     private static ChatAdapter chatAdapter;
-    private static List<ChatList> list;
+    private List<ChatList> list;
     private ChatReceiver chatReceiver;
     @BindView(R.id.chat_recyclerView) RecyclerView recyclerView;
     @BindView(R.id.chat_refreshLayout) SwipeRefreshLayout refreshLayout;
@@ -50,6 +51,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        list = null;
         getContext().unregisterReceiver(chatReceiver);
     }
 
@@ -57,7 +59,6 @@ public class ChatFragment extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            MyLog.i("Sssssssssssssssss");
             MyRetrofit.getGsonRetrofit()
                     .getChatListByID(Preferences.getUserAccount())
                     .subscribeOn(Schedulers.io())
@@ -75,7 +76,7 @@ public class ChatFragment extends Fragment {
 
                         @Override
                         public void onNext(List<ChatList> chatLists) {
-                            ChatFragment.list.clear();
+                            list.clear();
                             for (ChatList e : chatLists) {
                                 list.add(e);
                             }

@@ -1,4 +1,4 @@
-package com.wzes.huddle.login;
+package com.wzes.huddle.activities.login;
 
 
 import android.Manifest;
@@ -18,7 +18,6 @@ import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.User;
 import com.wzes.huddle.homepage.MainActivity;
-import com.wzes.huddle.homepage.MyFragment;
 import com.wzes.huddle.service.Identity;
 import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.util.AppManager;

@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.TeamAdapter;
-import com.wzes.huddle.team.TeamHotFragment;
-import com.wzes.huddle.team.TeamNearFragment;
-import com.wzes.huddle.team.TeamNewFragment;
-import com.wzes.huddle.team.TeamRecFragment;
+import com.wzes.huddle.activities.team.TeamHotFragment;
+import com.wzes.huddle.activities.team.TeamNearFragment;
+import com.wzes.huddle.activities.team.TeamNewFragment;
+import com.wzes.huddle.activities.team.TeamRecFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
