@@ -76,7 +76,7 @@ public interface RetrofitService {
     @Multipart
     Observable<ResponseBody> addEvent(@Part("user_id") RequestBody user_id, @Part("title") RequestBody title,
                                       @Part("event_type") RequestBody event_type, @Part("content") RequestBody content,
-                                      @Part("organizer") RequestBody organizer,@Part("image") RequestBody image,
+                                      @Part("organizer") RequestBody organizer,
                                       @Part("enrool_start_date") RequestBody enrool_start_date,
                                       @Part("enrool_end_date") RequestBody enrool_end_date,
                                       @Part("match_start_date") RequestBody match_start_date,
@@ -95,4 +95,8 @@ public interface RetrofitService {
     @POST("huddle/uploadmessageimage.php")
     @Multipart
     Observable<ResponseBody> uploadMessageimage(@Part("message_id") RequestBody requestBody, @Part MultipartBody.Part part);
+
+    @POST("huddle/uploadeventimage.php")
+    @Multipart
+    Observable<ResponseBody> uploadEventimage(@Part("event_id") RequestBody requestBody, @Part MultipartBody.Part part);
 }
