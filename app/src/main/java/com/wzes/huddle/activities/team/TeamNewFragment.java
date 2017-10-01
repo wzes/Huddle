@@ -28,7 +28,7 @@ public class TeamNewFragment extends Fragment {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private TeamInfoAdapter teamInfoAdapter;
-    private static TeamNewFragment fragment;
+    public static TeamNewFragment fragment;
 
 
     private TeamNewFragment(){

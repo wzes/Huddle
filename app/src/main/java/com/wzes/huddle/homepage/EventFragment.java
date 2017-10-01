@@ -38,10 +38,10 @@ public class EventFragment extends Fragment {
     private EventAdapter eventAdapter;
 
     public RecyclerView getRecyclerView() {
-        return this.recyclerView;
+        return recyclerView;
     }
 
-    private EventFragment(){
+    public EventFragment(){
     }
 
     public static EventFragment newInstance() {

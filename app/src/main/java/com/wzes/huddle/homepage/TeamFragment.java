@@ -29,7 +29,7 @@ public class TeamFragment extends Fragment {
     private TeamNewFragment teamNewFragment;
     private TeamRecFragment teamRecFragment;
 
-    private static TeamFragment teamFragment;
+    public static TeamFragment teamFragment;
 
     private TeamFragment() {
     }

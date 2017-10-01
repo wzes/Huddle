@@ -72,6 +72,17 @@ public interface RetrofitService {
             @Part("locationname") RequestBody locationname, @Part("locationlatitude") RequestBody locationlatitude,
             @Part("locationlongitude") RequestBody locationlongitude);
 
+    @POST("huddle/addevent.php")
+    @Multipart
+    Observable<ResponseBody> addEvent(@Part("user_id") RequestBody user_id, @Part("title") RequestBody title,
+                                      @Part("event_type") RequestBody event_type, @Part("content") RequestBody content,
+                                      @Part("organizer") RequestBody organizer,@Part("image") RequestBody image,
+                                      @Part("enrool_start_date") RequestBody enrool_start_date,
+                                      @Part("enrool_end_date") RequestBody enrool_end_date,
+                                      @Part("match_start_date") RequestBody match_start_date,
+                                      @Part("match_end_date") RequestBody match_end_date,
+                                      @Part("release_date") RequestBody release_date, @Part("level") RequestBody level);
+
     @POST("huddle/uploadteamimage.php")
     @Multipart
     Observable<ResponseBody> uploadTeamimage(@Part("team_id") RequestBody requestBody, @Part("index") RequestBody index,

@@ -51,6 +51,7 @@
     <string name="add_team_title">标题 描述一下核心</string>
     <string name="add_team">添加组队</string>
     <string name="publish">确认发布</string>
+    <string name="search_hint">请输入要查询的内容</string>
 
     <string-array name="sex_name">
         <item>男</item>

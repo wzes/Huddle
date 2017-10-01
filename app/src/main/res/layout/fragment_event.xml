@@ -1,27 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" 
     android:layout_width="match_parent" 
     android:layout_height="match_parent">
-    <android.support.v7.widget.Toolbar 
-        android:id="@+id/toolbar" 
-        android:background="@color/colorPrimary" 
-        android:layout_width="match_parent" 
-        android:layout_height="wrap_content">
-        <LinearLayout 
-            android:layout_width="match_parent" 
-            android:layout_height="wrap_content">
-            <SearchView 
-                android:layout_gravity="center_vertical" 
-                android:id="@+id/event_searchview" 
-                android:background="@drawable/searchviewbackground" 
-                android:fitsSystemWindows="true" 
-                android:layout_width="match_parent" 
-                android:layout_height="35dp" 
-                android:layout_marginEnd="@dimen/activity_horizontal_margin" />
-        </LinearLayout>
-    </android.support.v7.widget.Toolbar>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="scroll"
+        android:id="@+id/event_search_layout"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/gallery_dark_gray"
+            android:gravity="center_vertical"
+            android:paddingStart="35dp"
+            android:textSize="18sp"
+            android:text="@string/search_hint"
+            android:background="@drawable/searchviewbackground"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_search_black_24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="25dp"/>
+    </FrameLayout>
+    <!--<android.support.v7.widget.Toolbar -->
+        <!--android:id="@+id/toolbar" -->
+        <!--android:background="@color/colorPrimary" -->
+        <!--android:layout_width="match_parent" -->
+        <!--android:layout_height="wrap_content">-->
+        <!--<LinearLayout -->
+            <!--android:layout_width="match_parent" -->
+            <!--android:layout_height="wrap_content">-->
+            <!--<SearchView -->
+                <!--android:layout_gravity="center_vertical" -->
+                <!--android:id="@+id/event_searchview" -->
+                <!--android:background="@drawable/searchviewbackground" -->
+                <!--android:fitsSystemWindows="true" -->
+                <!--android:layout_width="match_parent" -->
+                <!--android:layout_height="35dp" -->
+                <!--android:layout_marginEnd="@dimen/activity_horizontal_margin" />-->
+        <!--</LinearLayout>-->
+    <!--</android.support.v7.widget.Toolbar>-->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

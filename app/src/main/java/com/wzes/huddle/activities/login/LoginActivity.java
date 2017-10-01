@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
+import com.wzes.huddle.app.DemoCache;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.User;
 import com.wzes.huddle.homepage.MainActivity;
@@ -56,7 +58,6 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         AppManager.getAppManager().addActivity(this);
-
         /*
          * request for database if local not username
          */

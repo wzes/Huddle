@@ -34,8 +34,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class ChatFragment extends Fragment {
-    private static ChatFragment chatFragment;
-    private static ChatAdapter chatAdapter;
+    public static ChatFragment chatFragment;
+    private ChatAdapter chatAdapter;
     private List<ChatList> list;
     private ChatReceiver chatReceiver;
     @BindView(R.id.chat_recyclerView) RecyclerView recyclerView;
@@ -91,7 +91,7 @@ public class ChatFragment extends Fragment {
         }
     }
 
-    private ChatFragment(){
+    public ChatFragment(){
     }
 
     public static ChatFragment newInstance() {
@@ -168,7 +168,7 @@ public class ChatFragment extends Fragment {
                     public void onComplete() {
                         refreshLayout.setRefreshing(false);
                         chatAdapter = new ChatAdapter(ChatFragment.this, list);
-                        recyclerView.setAdapter(ChatFragment.chatAdapter);
+                        recyclerView.setAdapter(chatAdapter);
                         recyclerView.setHasFixedSize(true);
                         recyclerView.setLayoutManager(new LinearLayoutManager(ChatFragment.this.getActivity()));
                     }

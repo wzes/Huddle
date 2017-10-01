@@ -29,7 +29,7 @@ public class TeamRecFragment extends Fragment {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private TeamInfoAdapter teamInfoAdapter;
-    private static TeamRecFragment fragment;
+    public static TeamRecFragment fragment;
 
     
     private TeamRecFragment(){

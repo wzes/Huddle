@@ -28,7 +28,7 @@ public class TeamHotFragment extends Fragment {
     private RecyclerView recyclerView;
     private SwipeRefreshLayout refreshLayout;
     private TeamInfoAdapter teamInfoAdapter;
-    private static TeamHotFragment fragment;
+    public static TeamHotFragment fragment;
 
 
     private TeamHotFragment(){

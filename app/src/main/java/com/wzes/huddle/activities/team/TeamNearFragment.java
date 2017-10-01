@@ -17,10 +17,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.TeamInfoAdapter;
+import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Team;
 import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.util.MyLog;
@@ -67,6 +69,12 @@ public class TeamNearFragment extends Fragment implements EasyPermissions.Permis
 
     @AfterPermissionGranted(LOCATION_PERM)
     public void initLocation() {
+        if(!TextUtils.isEmpty(Preferences.getLatitude())){
+            latitude = Preferences.getLatitude();
+            longitude = Preferences.getLongitude();
+            return;
+        }
+
         if (!hasLocationPermission()) {
             EasyPermissions.requestPermissions(this, getString(R.string.internet_permission),
                     LOCATION_PERM, LOCATION);
@@ -74,13 +82,14 @@ public class TeamNearFragment extends Fragment implements EasyPermissions.Permis
         LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         assert locationManager != null;
         List<String> locationList = locationManager.getProviders(true);
-        String provider = "";
+        String provider;
         if (locationList.contains(LocationManager.GPS_PROVIDER)) {
             provider = LocationManager.GPS_PROVIDER;
         } else if (locationList.contains(LocationManager.NETWORK_PROVIDER)) {
             provider = LocationManager.NETWORK_PROVIDER;
         } else {
-            MyLog.i("没有可用的定位服务");
+            MyLog.i("没有服务");
+            return;
         }
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -95,43 +104,51 @@ public class TeamNearFragment extends Fragment implements EasyPermissions.Permis
             return;
         }
         Location location = locationManager.getLastKnownLocation(provider);
+
         if (location != null) {
             latitude = String.valueOf(location.getLatitude());
             longitude = String.valueOf(location.getLongitude());
+            Preferences.saveLatitude(latitude);
+            Preferences.saveLongitude(longitude);
         }else{
             MyLog.i("aa无法获取定位");
         }
-        LocationListener locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                latitude = String.valueOf(location.getLatitude());
-                longitude = String.valueOf(location.getLongitude());
+        new Thread(() -> {
+            LocationListener locationListener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location1) {
+                    latitude = String.valueOf(location1.getLatitude());
+                    longitude = String.valueOf(location1.getLongitude());
+                }
+
+                @Override
+                public void onStatusChanged(String provider1, int status, Bundle extras) {
+
+                }
+
+                @Override
+                public void onProviderEnabled(String provider1) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(String provider1) {
+
+                }
+            };
+
+            /**
+             * 第一个参数是提供定位的方式
+             * 第二个参数是多少秒刷新
+             * 第三个参数是移动多少距离
+             * 第四个参数是监听器
+             */
+            try{
+                locationManager.requestLocationUpdates(provider, 5000, 1, locationListener);
+            }catch (Exception e){
+                MyLog.e(e.getMessage());
             }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
-
-        /**
-         * 第一个参数是提供定位的方式
-         * 第二个参数是多少秒刷新
-         * 第三个参数是移动多少距离
-         * 第四个参数是监听器
-         */
-        locationManager.requestLocationUpdates(provider, 5000, 1, locationListener);
-
+        }).start();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
