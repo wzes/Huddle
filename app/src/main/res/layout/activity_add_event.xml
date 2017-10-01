@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp">
         <ImageButton
-            android:id="@+id/add_team_back_btn"
+            android:id="@+id/add_event_back_btn"
             android:background="@drawable/ic_navigate_before_white_24dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -78,12 +78,14 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="8dp">
                 <TextView
+                    android:id="@+id/add_event_enrool_start_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="报名开始时间"
                     android:textSize="18sp"
                     android:drawableLeft="@drawable/ic_access_time_black_24dp"/>
                 <TextView
+                    android:id="@+id/add_event_enrool_end_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="报名结束时间"
@@ -100,12 +102,14 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="8dp">
                 <TextView
+                    android:id="@+id/add_event_match_start_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="活动开始时间"
                     android:textSize="18sp"
                     android:drawableLeft="@drawable/ic_access_time_black_24dp"/>
                 <TextView
+                    android:id="@+id/add_event_match_end_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="活动结束时间"
@@ -122,12 +126,14 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="8dp">
                 <TextView
+                    android:id="@+id/add_event_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="活动类型"
                     android:textSize="18sp"
                     android:drawableLeft="@drawable/ic_filter_list_black_24dp"/>
                 <TextView
+                    android:id="@+id/add_event_level"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="活动级别"
@@ -145,12 +151,14 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp">
                 <TextView
+                    android:id="@+id/add_event_add_iamge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="添加海报"
                     android:textSize="18sp"
                     android:drawableLeft="@drawable/ic_add_black_24dp"/>
                 <ImageView
+                    android:id="@+id/add_event_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin" />
