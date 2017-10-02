@@ -21,6 +21,7 @@ import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.service.RetrofitService;
+import com.wzes.huddle.util.DateUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -103,9 +104,11 @@ public class EventInfoActivity extends AppCompatActivity implements OnClickListe
                     public void onComplete() {
                         Glide.with(getApplicationContext()).load(EventInfoActivity.myEvent.getImage()).into(imageView);
                         collapsing.setTitle(EventInfoActivity.myEvent.getTitle() + "(" + EventInfoActivity.myEvent.getLevel() + ")");
-                        signTxt.setText("报名时间 " + EventInfoActivity.myEvent.getEnrool_start_date() + " - " + EventInfoActivity.myEvent.getEnrool_end_date());
-                        riceTxt.setText("比赛时间 " + EventInfoActivity.myEvent.getMatch_start_date() + " - " + EventInfoActivity.myEvent.getMatch_end_date());
-                        contentTxt.setText(EventInfoActivity.myEvent.getContent());
+                        signTxt.setText("报名时间 " + DateUtils.getDateTime(myEvent.getEnrool_start_date())
+                                + " - " +  DateUtils.getDateTime(myEvent.getEnrool_end_date()));
+                        riceTxt.setText("比赛时间 " +  DateUtils.getDateTime(myEvent.getMatch_start_date())
+                                + " - " + DateUtils.getDateTime(myEvent.getMatch_end_date()));
+                        contentTxt.setText(myEvent.getContent());
                         imageView.setOnClickListener(EventInfoActivity.this);
                     }
                 });

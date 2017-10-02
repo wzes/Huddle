@@ -1,5 +1,6 @@
 package com.wzes.huddle.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView.Adapter;
@@ -25,7 +26,7 @@ import java.util.List;
 public class UserEventAdapter extends Adapter<ViewHolder> {
     private static final int TYPE_HEADER = 2;
     private static final int TYPE_NORMAL = 0;
-    private UserEventFragment context;
+    private Context context;
     private LayoutInflater inflater;
     private List<Event> list;
     private OnRecyclerViewOnClickListener listener;
@@ -58,20 +59,20 @@ public class UserEventAdapter extends Adapter<ViewHolder> {
         }
 
         public void onClick(View view) {
-            Intent intent = new Intent(UserEventAdapter.this.context.getContext(), EventInfoActivity.class);
+            Intent intent = new Intent(context, EventInfoActivity.class);
             intent.putExtra("event_id", UserEventAdapter.this.list.get(getLayoutPosition()).getEvent_id() + "");
             UserEventAdapter.this.context.startActivity(intent);
         }
     }
 
-    public UserEventAdapter(@NonNull UserEventFragment context, @NonNull List<Event> list) {
+    public UserEventAdapter(@NonNull Context context, @NonNull List<Event> list) {
         this.context = context;
-        this.inflater = LayoutInflater.from(context.getContext());
+        this.inflater = LayoutInflater.from(context);
         this.list = list;
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new NormalViewHolder(this.inflater.inflate(R.layout.event_item_normal, parent, false), this.listener);
+        return new NormalViewHolder(inflater.inflate(R.layout.event_item_normal, parent, false), this.listener);
     }
 
     public void onBindViewHolder(ViewHolder holder, int position) {

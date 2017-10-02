@@ -15,6 +15,10 @@ import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
 import com.wzes.huddle.activities.follow.BeFollowActivity;
 import com.wzes.huddle.activities.follow.FollowActivity;
+import com.wzes.huddle.activities.follow.FollowTeamAndEventActivity;
+import com.wzes.huddle.activities.groupteam.GroupTeamActivity;
+import com.wzes.huddle.activities.myevent.MyEventActivity;
+import com.wzes.huddle.activities.signteam.SignTeamActivity;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Follow;
 import com.wzes.huddle.bean.User;
@@ -144,6 +148,9 @@ public class MyFragment extends Fragment implements OnClickListener {
             case R.id.my_info_layout:
                 startActivity(new Intent(getContext(), MyInfoActivity.class));
                 break;
+            case R.id.my_all_follw_layout:
+                startActivity(new Intent(getContext(), FollowTeamAndEventActivity.class));
+                break;
             case R.id.my_set_layout:
                 startActivity(new Intent(getContext(), SettingActivity.class));
                 break;
@@ -152,6 +159,15 @@ public class MyFragment extends Fragment implements OnClickListener {
                 break;
             case R.id.my_beFollow_layout:
                 startActivity(new Intent(getContext(), BeFollowActivity.class));
+                break;
+            case R.id.my_event_layout:
+                startActivity(new Intent(getContext(), MyEventActivity.class));
+                break;
+            case R.id.my_sign_layout:
+                startActivity(new Intent(getContext(), SignTeamActivity.class));
+                break;
+            case R.id.my_team_layout:
+                startActivity(new Intent(getContext(), GroupTeamActivity.class));
                 break;
             default:
                 break;

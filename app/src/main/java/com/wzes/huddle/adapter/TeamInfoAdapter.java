@@ -1,5 +1,6 @@
 package com.wzes.huddle.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -32,7 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TeamInfoAdapter extends Adapter<ViewHolder> {
 
-    private Fragment context;
+    private Context context;
     private LayoutInflater inflater;
     private List<Team> list;
 
@@ -60,22 +61,22 @@ public class TeamInfoAdapter extends Adapter<ViewHolder> {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.team_item_img_image:
-                    Intent uIntent = new Intent(TeamInfoAdapter.this.context.getContext(), UserInfoActivity.class);
+                    Intent uIntent = new Intent(context, UserInfoActivity.class);
                     uIntent.putExtra("user_id", TeamInfoAdapter.this.list.get(getLayoutPosition()).getUser_id());
                     TeamInfoAdapter.this.context.startActivity(uIntent);
                     return;
                 case R.id.team_item_img_name:
-                    Intent nIntent = new Intent(TeamInfoAdapter.this.context.getContext(), UserInfoActivity.class);
+                    Intent nIntent = new Intent(context, UserInfoActivity.class);
                     nIntent.putExtra("user_id", TeamInfoAdapter.this.list.get(getLayoutPosition()).getUser_id());
                     context.startActivity(nIntent);
                     return;
                 case R.id.team_item_img_location:
-                    Intent mIntent = new Intent(context.getContext(), TeamInfoActivity.class);
+                    Intent mIntent = new Intent(context, TeamInfoActivity.class);
                     mIntent.putExtra("team_id", list.get(getLayoutPosition()).getTeam_id());
                     context.startActivity(mIntent);
                     return;
                 default:
-                    Intent intent = new Intent(context.getContext(), TeamInfoActivity.class);
+                    Intent intent = new Intent(context, TeamInfoActivity.class);
                     intent.putExtra("team_id", list.get(getLayoutPosition()).getTeam_id() + "");
                     context.startActivity(intent);
                     return;
@@ -83,9 +84,9 @@ public class TeamInfoAdapter extends Adapter<ViewHolder> {
         }
     }
 
-    public TeamInfoAdapter(@NonNull Fragment context, @NonNull List<Team> list) {
+    public TeamInfoAdapter(@NonNull Context context, @NonNull List<Team> list) {
         this.context = context;
-        this.inflater = LayoutInflater.from(context.getContext());
+        this.inflater = LayoutInflater.from(context);
         this.list = list;
     }
 
@@ -117,7 +118,7 @@ public class TeamInfoAdapter extends Adapter<ViewHolder> {
                 imageInfo.add(info);
             }
         }
-        ((MyViewHolder) holder).teamItemImages.setAdapter(new NineGridViewClickAdapter(context.getContext(), imageInfo));
+        ((MyViewHolder) holder).teamItemImages.setAdapter(new NineGridViewClickAdapter(context, imageInfo));
 
     }
 

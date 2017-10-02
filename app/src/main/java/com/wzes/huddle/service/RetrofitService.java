@@ -43,6 +43,20 @@ public interface RetrofitService {
     @GET("huddle/events.php")
     Observable<List<Event>> getUserEventList(@Query("user_id") String user_id);
 
+
+    @GET("huddle/followevents.php")
+    Observable<List<Event>> getUserFollowEventList(@Query("user_id") String user_id);
+
+    @GET("huddle/followteams.php")
+    Observable<List<Team>> getUserFollowTeamList(@Query("user_id") String user_id);
+
+    @GET("huddle/signteams.php")
+    Observable<List<Team>> getUserSignTeamList(@Query("user_id") String user_id);
+
+    @GET("huddle/groupteams.php")
+    Observable<List<Team>> getUserGroupTeamList(@Query("user_id") String user_id);
+
+
     @GET("huddle/team.php")
     Observable<Team> getTeam(@Query("team_id") String str);
 

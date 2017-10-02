@@ -55,7 +55,7 @@ public class TeamHotFragment extends Fragment {
             refreshLayout.setRefreshing(true);
             new Thread(this::initData).start();
         } else {
-            teamInfoAdapter = new TeamInfoAdapter(this, list);
+            teamInfoAdapter = new TeamInfoAdapter(getContext(), list);
             recyclerView.setAdapter(teamInfoAdapter);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -88,7 +88,7 @@ public class TeamHotFragment extends Fragment {
                         if(!(list.size() > 0 && list.get(0) != null)){
                             list = new ArrayList<>();
                         }
-                        teamInfoAdapter = new TeamInfoAdapter(TeamHotFragment.this, TeamHotFragment.list);
+                        teamInfoAdapter = new TeamInfoAdapter(getContext(), TeamHotFragment.list);
                         recyclerView.setAdapter(teamInfoAdapter);
                         refreshLayout.setRefreshing(false);
                     }
@@ -121,7 +121,7 @@ public class TeamHotFragment extends Fragment {
                             list = new ArrayList<>();
                         }
                         refreshLayout.setRefreshing(false);
-                        teamInfoAdapter = new TeamInfoAdapter(TeamHotFragment.this, TeamHotFragment.list);
+                        teamInfoAdapter = new TeamInfoAdapter(getContext(), TeamHotFragment.list);
                         recyclerView.setAdapter(teamInfoAdapter);
                         recyclerView.setHasFixedSize(true);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

@@ -1,4 +1,4 @@
-package com.wzes.huddle.activities.userdetail;
+package com.wzes.huddle.activities.follow;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,7 +21,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class UserEventFragment extends Fragment {
+public class FollowEventFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private List<Event> list;
@@ -30,8 +30,8 @@ public class UserEventFragment extends Fragment {
     private RecyclerView recyclerView;
 
 
-    public static UserEventFragment newInstance(String param1, String param2) {
-        UserEventFragment fragment = new UserEventFragment();
+    public static FollowEventFragment newInstance(String param1, String param2) {
+        FollowEventFragment fragment = new FollowEventFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -55,7 +55,7 @@ public class UserEventFragment extends Fragment {
     }
 
     public void initData() {
-       MyRetrofit.getGsonRetrofit().getUserEventList(mParam2)
+       MyRetrofit.getGsonRetrofit().getUserFollowEventList(mParam2)
                .subscribeOn(Schedulers.io())
                .observeOn(AndroidSchedulers.mainThread())
                .subscribe(new Observer<List<Event>>() {

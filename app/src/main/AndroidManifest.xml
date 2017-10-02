@@ -84,7 +84,11 @@
         <activity android:name=".activities.add.AddTeamActivity" />
         <activity android:name=".activities.add.AddEventActivity" />
         <activity android:name=".activities.follow.FollowActivity" />
-        <activity android:name=".activities.follow.BeFollowActivity"></activity>
+        <activity android:name=".activities.follow.BeFollowActivity" />
+        <activity android:name=".activities.signteam.SignTeamActivity" />
+        <activity android:name=".activities.groupteam.GroupTeamActivity" />
+        <activity android:name=".activities.myevent.MyEventActivity" />
+        <activity android:name=".activities.follow.FollowTeamAndEventActivity"></activity>
     </application>
 
 </manifest>

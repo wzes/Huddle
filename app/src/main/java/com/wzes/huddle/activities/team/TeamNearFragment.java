@@ -161,7 +161,7 @@ public class TeamNearFragment extends Fragment implements EasyPermissions.Permis
             refreshLayout.setRefreshing(true);
             new Thread(this::initData).start();
         } else {
-            teamInfoAdapter = new TeamInfoAdapter(this, list);
+            teamInfoAdapter = new TeamInfoAdapter(getContext(), list);
             recyclerView.setAdapter(teamInfoAdapter);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -192,7 +192,7 @@ public class TeamNearFragment extends Fragment implements EasyPermissions.Permis
 
                         @Override
                         public void onComplete() {
-                            teamInfoAdapter = new TeamInfoAdapter(TeamNearFragment.this, TeamNearFragment.list);
+                            teamInfoAdapter = new TeamInfoAdapter(getContext(), TeamNearFragment.list);
                             recyclerView.setAdapter(teamInfoAdapter);
                             refreshLayout.setRefreshing(false);
                         }
@@ -222,7 +222,7 @@ public class TeamNearFragment extends Fragment implements EasyPermissions.Permis
                             if(!(list.size() > 0 && list.get(0) != null)){
                                 list = new ArrayList<>();
                             }
-                            teamInfoAdapter = new TeamInfoAdapter(TeamNearFragment.this, TeamNearFragment.list);
+                            teamInfoAdapter = new TeamInfoAdapter(getContext(), TeamNearFragment.list);
                             recyclerView.setAdapter(teamInfoAdapter);
                             refreshLayout.setRefreshing(false);
                         }
@@ -265,7 +265,7 @@ public class TeamNearFragment extends Fragment implements EasyPermissions.Permis
                             if(!(list.size() > 0 && list.get(0) != null)){
                                 list = new ArrayList<>();
                             }
-                            teamInfoAdapter = new TeamInfoAdapter(TeamNearFragment.this, TeamNearFragment.list);
+                            teamInfoAdapter = new TeamInfoAdapter(getContext(), TeamNearFragment.list);
                             recyclerView.setAdapter(teamInfoAdapter);
                             refreshLayout.setRefreshing(false);
                         }
@@ -293,7 +293,7 @@ public class TeamNearFragment extends Fragment implements EasyPermissions.Permis
                         @Override
                         public void onComplete() {
                             refreshLayout.setRefreshing(false);
-                            teamInfoAdapter = new TeamInfoAdapter(TeamNearFragment.this, TeamNearFragment.list);
+                            teamInfoAdapter = new TeamInfoAdapter(getContext(), TeamNearFragment.list);
                             recyclerView.setAdapter(teamInfoAdapter);
                             recyclerView.setHasFixedSize(true);
                             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

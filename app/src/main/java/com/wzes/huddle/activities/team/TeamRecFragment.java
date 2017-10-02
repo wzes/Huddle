@@ -57,7 +57,7 @@ public class TeamRecFragment extends Fragment {
             refreshLayout.setRefreshing(true);
             new Thread(this::initData).start();
         } else {
-            teamInfoAdapter = new TeamInfoAdapter(this, list);
+            teamInfoAdapter = new TeamInfoAdapter(getContext(), list);
             recyclerView.setAdapter(teamInfoAdapter);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -90,7 +90,7 @@ public class TeamRecFragment extends Fragment {
                         if(!(list.size() > 0 && list.get(0) != null)){
                             list = new ArrayList<>();
                         }
-                        teamInfoAdapter = new TeamInfoAdapter(TeamRecFragment.this, TeamRecFragment.list);
+                        teamInfoAdapter = new TeamInfoAdapter(getContext(), TeamRecFragment.list);
                         recyclerView.setAdapter(teamInfoAdapter);
                         refreshLayout.setRefreshing(false);
                     }
@@ -123,7 +123,7 @@ public class TeamRecFragment extends Fragment {
                             list = new ArrayList<>();
                         }
                         refreshLayout.setRefreshing(false);
-                        teamInfoAdapter = new TeamInfoAdapter(TeamRecFragment.this, TeamRecFragment.list);
+                        teamInfoAdapter = new TeamInfoAdapter(getContext(), TeamRecFragment.list);
                         recyclerView.setAdapter(teamInfoAdapter);
                         recyclerView.setHasFixedSize(true);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

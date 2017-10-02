@@ -1,4 +1,4 @@
-package com.wzes.huddle.activities.userdetail;
+package com.wzes.huddle.activities.follow;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.wzes.huddle.R;
 import com.wzes.huddle.adapter.TeamInfoAdapter;
-import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Team;
 import com.wzes.huddle.service.MyRetrofit;
 
@@ -22,7 +21,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class UserTeamFragment extends Fragment {
+public class FollowTeamFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private List<Team> list;
@@ -32,8 +31,8 @@ public class UserTeamFragment extends Fragment {
 
 
 
-    public static UserTeamFragment newInstance(String param1, String param2) {
-        UserTeamFragment fragment = new UserTeamFragment();
+    public static FollowTeamFragment newInstance(String param1, String param2) {
+        FollowTeamFragment fragment = new FollowTeamFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,7 +56,7 @@ public class UserTeamFragment extends Fragment {
     }
 
     public void initData() {
-        MyRetrofit.getGsonRetrofit().getUserTeamList(mParam2)
+        MyRetrofit.getGsonRetrofit().getUserFollowTeamList(mParam2)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Team>>() {
