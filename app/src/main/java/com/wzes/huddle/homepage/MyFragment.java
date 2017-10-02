@@ -13,7 +13,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
+import com.wzes.huddle.activities.follow.BeFollowActivity;
+import com.wzes.huddle.activities.follow.FollowActivity;
 import com.wzes.huddle.app.Preferences;
+import com.wzes.huddle.bean.Follow;
 import com.wzes.huddle.bean.User;
 import com.wzes.huddle.activities.myinfo.MyInfoActivity;
 import com.wzes.huddle.service.MyRetrofit;
@@ -143,6 +146,12 @@ public class MyFragment extends Fragment implements OnClickListener {
                 break;
             case R.id.my_set_layout:
                 startActivity(new Intent(getContext(), SettingActivity.class));
+                break;
+            case R.id.my_follow_layout:
+                startActivity(new Intent(getContext(), FollowActivity.class));
+                break;
+            case R.id.my_beFollow_layout:
+                startActivity(new Intent(getContext(), BeFollowActivity.class));
                 break;
             default:
                 break;

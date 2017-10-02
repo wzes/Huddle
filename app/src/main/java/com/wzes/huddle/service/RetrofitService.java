@@ -2,6 +2,7 @@ package com.wzes.huddle.service;
 
 import com.wzes.huddle.bean.ChatList;
 import com.wzes.huddle.bean.Event;
+import com.wzes.huddle.bean.Follow;
 import com.wzes.huddle.bean.Message;
 import com.wzes.huddle.bean.Team;
 import com.wzes.huddle.bean.User;
@@ -39,6 +40,9 @@ public interface RetrofitService {
     @GET("huddle/messages.php")
     Observable<List<Message>> getMessageListByID(@Query("from_id") String str, @Query("to_id") String str2);
 
+    @GET("huddle/events.php")
+    Observable<List<Event>> getUserEventList(@Query("user_id") String user_id);
+
     @GET("huddle/team.php")
     Observable<Team> getTeam(@Query("team_id") String str);
 
@@ -63,6 +67,11 @@ public interface RetrofitService {
     @GET("huddle/users.php")
     Observable<List<User>> getUsersByTeamID(@Query("team_id") String str);
 
+    @GET("huddle/followusers.php")
+    Observable<List<Follow>> getFollowUsers(@Query("user_id") String user_id);
+
+    @GET("huddle/befollowusers.php")
+    Observable<List<Follow>> getBeFollowUsers(@Query("user_id") String user_id);
 
     @POST("huddle/addteam.php")
     @Multipart

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.request.RequestOptions;
 import com.wzes.huddle.R;
 import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.activities.eventdetail.EventInfoActivity;
@@ -74,8 +76,14 @@ public class UserEventAdapter extends Adapter<ViewHolder> {
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder instanceof NormalViewHolder) {
-            Event item = this.list.get(position);
-            Glide.with(this.context).load(item.getImage()).into(((NormalViewHolder) holder).Img);
+            Event item = list.get(position);
+
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .priority(Priority.HIGH);
+            Glide.with(this.context)
+                    .load(item.getImage())
+                    .apply(options).into(((NormalViewHolder) holder).Img);
             ((NormalViewHolder) holder).Title.setText(item.getTitle());
             ((NormalViewHolder) holder).Sign.setText("报名时间 " + DateUtils.getYearTime(item.getEnrool_start_date()) +
                     " - " + DateUtils.getYearTime(item.getEnrool_end_date()));

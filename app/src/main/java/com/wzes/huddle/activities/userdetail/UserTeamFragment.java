@@ -57,7 +57,7 @@ public class UserTeamFragment extends Fragment {
     }
 
     public void initData() {
-        MyRetrofit.getGsonRetrofit().getUserTeamList(Preferences.getUserAccount())
+        MyRetrofit.getGsonRetrofit().getUserTeamList(mParam2)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<Team>>() {

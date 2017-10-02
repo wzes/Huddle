@@ -55,7 +55,7 @@ public class UserEventFragment extends Fragment {
     }
 
     public void initData() {
-       MyRetrofit.getGsonRetrofit().getEventList()
+       MyRetrofit.getGsonRetrofit().getUserEventList(mParam2)
                .subscribeOn(Schedulers.io())
                .observeOn(AndroidSchedulers.mainThread())
                .subscribe(new Observer<List<Event>>() {

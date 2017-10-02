@@ -50,10 +50,12 @@ public class UserInfoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         AppManager.getAppManager().addActivity(this);
         user_id = getIntent().getStringExtra("user_id");
-        this.viewPager.setAdapter(new UserAdapter(getSupportFragmentManager(), this, UserEventFragment.newInstance("UserEventFragment", "1"), UserTeamFragment.newInstance("UserTeamFragment", "2")));
-        this.tabLayout.setupWithViewPager(this.viewPager);
-        this.backBtn.setOnClickListener(view -> finish());
-        this.moreBtn.setOnClickListener(view -> {
+        viewPager.setAdapter(new UserAdapter(getSupportFragmentManager(), this,
+                UserEventFragment.newInstance("UserEventFragment", user_id),
+                UserTeamFragment.newInstance("UserTeamFragment", user_id)));
+        tabLayout.setupWithViewPager(this.viewPager);
+        backBtn.setOnClickListener(view -> finish());
+        moreBtn.setOnClickListener(view -> {
             BottomSheetDialog dialog = new BottomSheetDialog(UserInfoActivity.this);
             dialog.setContentView(LayoutInflater.from(UserInfoActivity.this).inflate(R.layout.user_info_bottom_sheet_dialog, null));
             dialog.show();

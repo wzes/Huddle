@@ -27,7 +27,7 @@ android {
         sourceCompatibility 1.8
         targetCompatibility 1.8
     }
-    lintOptions{
+    lintOptions {
         checkReleaseBuilds false
         abortOnError false
     }
@@ -67,5 +67,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
     compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'br.com.simplepass:loading-button-android:1.8.1'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     compile files('libs/BaiduLBS_Android.jar')
 }

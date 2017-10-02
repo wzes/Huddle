@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wzes.huddle">
+
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -41,8 +42,10 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="m205ShTgM7qZCNYZtGgO61xqTc4Guj86" />
 
-        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
-        </service>
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
 
         <activity
             android:name=".homepage.MainActivity"
@@ -79,7 +82,9 @@
         <!-- <activity android:name="com.yalantis.ucrop.UCropActivity" android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/> -->
         <activity android:name=".activities.setting.SetActivity" />
         <activity android:name=".activities.add.AddTeamActivity" />
-        <activity android:name=".activities.add.AddEventActivity"/>
+        <activity android:name=".activities.add.AddEventActivity" />
+        <activity android:name=".activities.follow.FollowActivity" />
+        <activity android:name=".activities.follow.BeFollowActivity"></activity>
     </application>
 
 </manifest>
