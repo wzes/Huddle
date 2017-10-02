@@ -27,7 +27,7 @@ public class DateUtils {
      */
 
     public static String getDateTime(long timestamp){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         return simpleDateFormat.format(timestamp);
     }
 
@@ -38,7 +38,7 @@ public class DateUtils {
      */
 
     public static String getYearTime(long timestamp){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
         return simpleDateFormat.format(timestamp);
     }
 

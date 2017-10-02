@@ -13,10 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.OptionsPickerView;
+import com.bigkoo.pickerview.TimePickerView;
 import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.service.MyRetrofit;
+import com.wzes.huddle.util.DateUtils;
 import com.wzes.huddle.util.GalleryGlideImageLoader;
 import com.wzes.huddle.util.MyLog;
 import com.yancy.gallerypick.config.GalleryConfig;
@@ -26,6 +29,7 @@ import com.yancy.gallerypick.inter.IHandlerCallBack;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
@@ -93,16 +97,71 @@ public class AddEventActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.add_event_enrool_start_date:
+                //时间选择器
+                TimePickerView addEventEnroolStartTime = new TimePickerView.Builder(this, (date, v) -> { //选中事件回调
+                    addEventEnroolStartDate.setText(DateUtils.getDateTime(date.getTime()));
+                }).build();
+                addEventEnroolStartTime.setDate(Calendar.getInstance()); //注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
+                addEventEnroolStartTime.show();
                 break;
             case R.id.add_event_enrool_end_date:
+                TimePickerView addEventEnroolEndTime = new TimePickerView.Builder(this, (date, v) -> { //选中事件回调
+                    addEventEnroolEndDate.setText(DateUtils.getDateTime(date.getTime()));
+                }).build();
+                addEventEnroolEndTime.setDate(Calendar.getInstance()); //注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
+                addEventEnroolEndTime.show();
                 break;
             case R.id.add_event_match_start_date:
+                TimePickerView  addEventMatchStartTime = new TimePickerView.Builder(this, (date, v) -> { //选中事件回调
+                    addEventMatchStartDate.setText(DateUtils.getDateTime(date.getTime()));
+                }).build();
+                addEventMatchStartTime.setDate(Calendar.getInstance()); //注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
+                addEventMatchStartTime.show();
                 break;
             case R.id.add_event_match_end_date:
+                TimePickerView addEventMatchEndTime = new TimePickerView.Builder(this, (date, v) -> { //选中事件回调
+                    addEventMatchEndDate.setText(DateUtils.getDateTime(date.getTime()));
+                }).build();
+                addEventMatchEndTime.setDate(Calendar.getInstance()); //注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
+                addEventMatchEndTime.show();
                 break;
             case R.id.add_event_type:
+                ArrayList<String> cOptionsItems = new ArrayList<>();
+                cOptionsItems.add("健身锻炼");
+                cOptionsItems.add("出行拼车");
+                cOptionsItems.add("励志计划");
+                cOptionsItems.add("周末骑行");
+                cOptionsItems.add("学术竞赛");
+                cOptionsItems.add("数学建模");
+                cOptionsItems.add("数学竞赛");
+                cOptionsItems.add("物理竞赛");
+                cOptionsItems.add("约图书馆");
+                cOptionsItems.add("组团出游");
+                cOptionsItems.add("组团跑步");
+                cOptionsItems.add("英语竞赛");
+                cOptionsItems.add("购物拼单");
+                cOptionsItems.add("跑马拉松");
+                OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, (option1, option2, option3, v) -> {
+                    String tx = cOptionsItems.get(option1);
+                    addEventType.setText(tx);
+                }).build();
+                pvOptions.setPicker(cOptionsItems);
+                pvOptions.show();
                 break;
             case R.id.add_event_level:
+                ArrayList<String> lOptionsItems = new ArrayList<>();
+                lOptionsItems.add("国家级");
+                lOptionsItems.add("省级");
+                lOptionsItems.add("市级");
+                lOptionsItems.add("校级");
+                lOptionsItems.add("自由");
+                lOptionsItems.add("国际级");
+                OptionsPickerView lOptions = new OptionsPickerView.Builder(this, (option1,option2, option3, v) -> {
+                    String tx = lOptionsItems.get(option1);
+                    addEventLevel.setText(tx);
+                }).build();
+                lOptions.setPicker(lOptionsItems);
+                lOptions.show();
                 break;
             case R.id.add_event_image:
                 openGallery();
