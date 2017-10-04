@@ -99,28 +99,28 @@ public class AddEventActivity extends AppCompatActivity {
             case R.id.add_event_enrool_start_date:
                 //时间选择器
                 TimePickerView addEventEnroolStartTime = new TimePickerView.Builder(this, (date, v) -> { //选中事件回调
-                    addEventEnroolStartDate.setText(DateUtils.getDateTime(date.getTime()));
+                    addEventEnroolStartDate.setText(DateUtils.getYearTime(date.getTime()));
                 }).build();
                 addEventEnroolStartTime.setDate(Calendar.getInstance()); //注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
                 addEventEnroolStartTime.show();
                 break;
             case R.id.add_event_enrool_end_date:
                 TimePickerView addEventEnroolEndTime = new TimePickerView.Builder(this, (date, v) -> { //选中事件回调
-                    addEventEnroolEndDate.setText(DateUtils.getDateTime(date.getTime()));
+                    addEventEnroolEndDate.setText(DateUtils.getYearTime(date.getTime()));
                 }).build();
                 addEventEnroolEndTime.setDate(Calendar.getInstance()); //注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
                 addEventEnroolEndTime.show();
                 break;
             case R.id.add_event_match_start_date:
                 TimePickerView  addEventMatchStartTime = new TimePickerView.Builder(this, (date, v) -> { //选中事件回调
-                    addEventMatchStartDate.setText(DateUtils.getDateTime(date.getTime()));
+                    addEventMatchStartDate.setText(DateUtils.getYearTime(date.getTime()));
                 }).build();
                 addEventMatchStartTime.setDate(Calendar.getInstance()); //注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
                 addEventMatchStartTime.show();
                 break;
             case R.id.add_event_match_end_date:
                 TimePickerView addEventMatchEndTime = new TimePickerView.Builder(this, (date, v) -> { //选中事件回调
-                    addEventMatchEndDate.setText(DateUtils.getDateTime(date.getTime()));
+                    addEventMatchEndDate.setText(DateUtils.getYearTime(date.getTime()));
                 }).build();
                 addEventMatchEndTime.setDate(Calendar.getInstance()); //注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
                 addEventMatchEndTime.show();

@@ -25,6 +25,16 @@ public interface RetrofitService {
     @GET("huddle/addeventview.php")
     Observable<ResponseBody> addEventView(@Query("event_id") String str, @Query("user_id") String str2);
 
+    @GET("huddle/addteamview.php")
+    Observable<ResponseBody> addTeamView(@Query("team_id") String str, @Query("user_id") String str2);
+
+    @GET("huddle/addteamsign.php")
+    Observable<ResponseBody> addTeamSign(@Query("team_id") String team_id, @Query("user_id") String user_id,
+                                         @Query("timestamp") String timestamp);
+
+    @GET("huddle/addteamfollow.php")
+    Observable<ResponseBody> addTeamFollow(@Query("team_id") String str, @Query("user_id") String str2);
+
     @GET("huddle/messagelist.php")
     Observable<List<ChatList>> getChatListByID(@Query("user_id") String str);
 
@@ -55,7 +65,6 @@ public interface RetrofitService {
 
     @GET("huddle/groupteams.php")
     Observable<List<Team>> getUserGroupTeamList(@Query("user_id") String user_id);
-
 
     @GET("huddle/team.php")
     Observable<Team> getTeam(@Query("team_id") String str);

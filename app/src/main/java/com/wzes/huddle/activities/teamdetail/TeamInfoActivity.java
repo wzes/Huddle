@@ -42,6 +42,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 public class TeamInfoActivity extends AppCompatActivity {
     @BindView(R.id.team_info_banner) Banner banner;
@@ -81,6 +83,32 @@ public class TeamInfoActivity extends AppCompatActivity {
             team_id = "1";
         }
         ButterKnife.bind(this);
+
+
+        MyRetrofit.getNormalRetrofit().addTeamView(team_id, Preferences.getUserAccount())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull ResponseBody team) {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
         MyRetrofit.getGsonRetrofit().getTeam(team_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -103,7 +131,7 @@ public class TeamInfoActivity extends AppCompatActivity {
                     @Override
                     public void onComplete() {
                         collapsing.setTitle(myTeam.getTitle());
-                        final List<String> images = new ArrayList();
+                        final List<String> images = new ArrayList<>();
                         for (Image img : myTeam.getImages()) {
                             images.add(img.getImage());
                         }
@@ -140,11 +168,7 @@ public class TeamInfoActivity extends AppCompatActivity {
                             list = myTeam.getTeamusers();
                         }
                         peopleTxt.setText(String.format("组员%d人已报名(还差%d人)", list.size(), (myTeam.getJoin_acount() - list.size() - 1)));
-//                        try{
-//                            list.get(0).getImage();
-//                        }catch (Exception e){
-//                            list = new ArrayList<>();
-//                        }
+
                         teamInfoUserAdapter = new TeamInfoUserAdapter(TeamInfoActivity.this, list);
                         recyclerView.setHasFixedSize(true);
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(TeamInfoActivity.this);
@@ -159,17 +183,71 @@ public class TeamInfoActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        signBtn.setOnClickListener(view -> Toast.makeText(this, "报名成功", 0).show());
+        signBtn.setOnClickListener(view -> MyRetrofit.getNormalRetrofit().addTeamSign(team_id,
+                Preferences.getUserAccount(), String.valueOf(System.currentTimeMillis()))
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<ResponseBody>() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(@NonNull ResponseBody team) {
+
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                Toast.makeText(TeamInfoActivity.this, "报名成功", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+        );
+
+        saveBtn.setOnClickListener(view -> MyRetrofit.getNormalRetrofit().addTeamFollow(team_id, Preferences.getUserAccount())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull ResponseBody team) {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
+
         talkBtn.setOnClickListener(view -> {
             if (myTeam.getUser_id().equals(Preferences.getUserAccount())) {
-                Toast.makeText(this, "不能和自己聊天哦！", 0).show();
+                Toast.makeText(this, "不能和自己聊天哦！", Toast.LENGTH_SHORT).show();
                 return;
             }
             Intent intent1 = new Intent(this, ChatActivity.class);
             intent1.putExtra("to_id", myTeam.getUser_id());
             intent1.putExtra("to_name", myTeam.getName());
             startActivity(intent1);
+            finish();
         });
+
+
     }
 
     @Override

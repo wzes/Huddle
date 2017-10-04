@@ -13,22 +13,23 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
+import com.wzes.huddle.activities.ManageActivity;
 import com.wzes.huddle.activities.follow.BeFollowActivity;
 import com.wzes.huddle.activities.follow.FollowActivity;
 import com.wzes.huddle.activities.follow.FollowTeamAndEventActivity;
 import com.wzes.huddle.activities.groupteam.GroupTeamActivity;
 import com.wzes.huddle.activities.myevent.MyEventActivity;
+import com.wzes.huddle.activities.myinfo.MyInfoActivity;
+import com.wzes.huddle.activities.setting.SettingActivity;
 import com.wzes.huddle.activities.signteam.SignTeamActivity;
 import com.wzes.huddle.app.Preferences;
-import com.wzes.huddle.bean.Follow;
 import com.wzes.huddle.bean.User;
-import com.wzes.huddle.activities.myinfo.MyInfoActivity;
 import com.wzes.huddle.service.MyRetrofit;
-import com.wzes.huddle.activities.setting.SettingActivity;
 import com.wzes.huddle.util.AppManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -40,27 +41,49 @@ public class MyFragment extends Fragment implements OnClickListener {
 
     public static User currentUser;
     public static boolean update = true;
-    @BindView(R.id.my_beFollow_text) TextView myBeFollowText;
-    @BindView(R.id.my_beFollow_layout) LinearLayout myBeFollowLayout;
-    @BindView(R.id.my_follow_text) TextView myFollowText;
-    @BindView(R.id.my_follow_layout) LinearLayout myFollowLayout;
-    @BindView(R.id.my_sign_text) TextView mySignText;
-    @BindView(R.id.my_sign_layout) LinearLayout mySignLayout;
-    @BindView(R.id.my_team_text) TextView myTeamText;
-    @BindView(R.id.my_team_layout) LinearLayout myTeamLayout;
-    @BindView(R.id.my_event_text) TextView myEventText;
-    @BindView(R.id.my_event_layout) LinearLayout myEventLayout;
-    @BindView(R.id.my_all_follow_text) TextView myAllFollowText;
-    @BindView(R.id.my_all_follw_layout) LinearLayout myAllFollwLayout;
-    @BindView(R.id.my_message_layout) LinearLayout myMessageLayout;
-    @BindView(R.id.my_set_layout) LinearLayout mySetLayout;
-    @BindView(R.id.my_feedback_layout) LinearLayout myFeedbackLayout;
-    @BindView(R.id.my_image) ImageView myImage;
-    @BindView(R.id.my_name_text) TextView myNameText;
-    @BindView(R.id.my_major_text) TextView myMajorText;
-    @BindView(R.id.my_motto_text) TextView myMottoText;
-    @BindView(R.id.my_info_layout) LinearLayout myInfoLayout;
+    @BindView(R.id.my_beFollow_text)
+    TextView myBeFollowText;
+    @BindView(R.id.my_beFollow_layout)
+    LinearLayout myBeFollowLayout;
+    @BindView(R.id.my_follow_text)
+    TextView myFollowText;
+    @BindView(R.id.my_follow_layout)
+    LinearLayout myFollowLayout;
+    @BindView(R.id.my_sign_text)
+    TextView mySignText;
+    @BindView(R.id.my_sign_layout)
+    LinearLayout mySignLayout;
+    @BindView(R.id.my_team_text)
+    TextView myTeamText;
+    @BindView(R.id.my_team_layout)
+    LinearLayout myTeamLayout;
+    @BindView(R.id.my_event_text)
+    TextView myEventText;
+    @BindView(R.id.my_event_layout)
+    LinearLayout myEventLayout;
+    @BindView(R.id.my_all_follow_text)
+    TextView myAllFollowText;
+    @BindView(R.id.my_all_follw_layout)
+    LinearLayout myAllFollwLayout;
+    @BindView(R.id.my_message_layout)
+    LinearLayout myMessageLayout;
+    @BindView(R.id.my_set_layout)
+    LinearLayout mySetLayout;
+    @BindView(R.id.my_feedback_layout)
+    LinearLayout myFeedbackLayout;
+    @BindView(R.id.my_image)
+    ImageView myImage;
+    @BindView(R.id.my_name_text)
+    TextView myNameText;
+    @BindView(R.id.my_major_text)
+    TextView myMajorText;
+    @BindView(R.id.my_motto_text)
+    TextView myMottoText;
+    @BindView(R.id.my_info_layout)
+    LinearLayout myInfoLayout;
     Unbinder unbinder;
+    @BindView(R.id.my_manager_layout)
+    LinearLayout myManagerLayout;
 
     public static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
@@ -178,5 +201,10 @@ public class MyFragment extends Fragment implements OnClickListener {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.my_manager_layout)
+    public void onViewClicked() {
+        startActivity(new Intent(getContext(), ManageActivity.class));
     }
 }

@@ -13,8 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
 import com.wzes.huddle.app.Preferences;
@@ -23,6 +22,8 @@ import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.service.RetrofitService;
 import com.wzes.huddle.util.DateUtils;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -33,16 +34,31 @@ import okhttp3.ResponseBody;
 
 public class EventInfoActivity extends AppCompatActivity implements OnClickListener {
     private static Event myEvent;
+    @BindView(R.id.event_read_category)
+    TextView eventReadCategory;
+    @BindView(R.id.event_read_organizer)
+    TextView eventReadOrganizer;
+    @BindView(R.id.event_read_follow_people)
+    TextView eventReadFollowPeople;
+    @BindView(R.id.event_read_view_people)
+    TextView eventReadViewPeople;
     private RetrofitService Gsonservice;
     private RetrofitService Normalservice;
-    @BindView(R.id.event_read_collapsing) CollapsingToolbarLayout collapsing;
-    @BindView(R.id.event_read_content) TextView contentTxt;
-    @BindView(R.id.event_read_create) FloatingActionButton createTeam;
+    @BindView(R.id.event_read_collapsing)
+    CollapsingToolbarLayout collapsing;
+    @BindView(R.id.event_read_content)
+    TextView contentTxt;
+    @BindView(R.id.event_read_create)
+    FloatingActionButton createTeam;
     private String event_id;
-    @BindView(R.id.event_read_image) ImageView imageView;
-    @BindView(R.id.event_read_riceTime) TextView riceTxt;
-    @BindView(R.id.event_read_signTime) TextView signTxt;
-    @BindView(R.id.event_read_toolbar) Toolbar toolBar;
+    @BindView(R.id.event_read_image)
+    ImageView imageView;
+    @BindView(R.id.event_read_riceTime)
+    TextView riceTxt;
+    @BindView(R.id.event_read_signTime)
+    TextView signTxt;
+    @BindView(R.id.event_read_toolbar)
+    Toolbar toolBar;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +71,11 @@ public class EventInfoActivity extends AppCompatActivity implements OnClickListe
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        this.createTeam.setOnClickListener(this);
-        this.Normalservice = MyRetrofit.getNormalRetrofit();
-        this.Gsonservice = MyRetrofit.getGsonRetrofit();
-        Observable<Event> observable = this.Gsonservice.getEventById(this.event_id);
-        this.Normalservice.addEventView(this.event_id, Preferences.getUserAccount())
+        createTeam.setOnClickListener(this);
+        Normalservice = MyRetrofit.getNormalRetrofit();
+        Gsonservice = MyRetrofit.getGsonRetrofit();
+        Observable<Event> observable = Gsonservice.getEventById(event_id);
+        Normalservice.addEventView(this.event_id, Preferences.getUserAccount())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ResponseBody>() {
@@ -104,12 +120,18 @@ public class EventInfoActivity extends AppCompatActivity implements OnClickListe
                     public void onComplete() {
                         Glide.with(getApplicationContext()).load(EventInfoActivity.myEvent.getImage()).into(imageView);
                         collapsing.setTitle(EventInfoActivity.myEvent.getTitle() + "(" + EventInfoActivity.myEvent.getLevel() + ")");
-                        signTxt.setText("报名时间 " + DateUtils.getDateTime(myEvent.getEnrool_start_date())
-                                + " - " +  DateUtils.getDateTime(myEvent.getEnrool_end_date()));
-                        riceTxt.setText("比赛时间 " +  DateUtils.getDateTime(myEvent.getMatch_start_date())
-                                + " - " + DateUtils.getDateTime(myEvent.getMatch_end_date()));
-                        contentTxt.setText(myEvent.getContent());
+                        signTxt.setText("——" + DateUtils.getEventDateTime(myEvent.getEnrool_start_date())
+                                + " - " + DateUtils.getEventDateTime(myEvent.getEnrool_end_date()));
+                        riceTxt.setText("——" + DateUtils.getEventDateTime(myEvent.getMatch_start_date())
+                                + " - " + DateUtils.getEventDateTime(myEvent.getMatch_end_date()));
+                        contentTxt.setText("——" + myEvent.getContent());
                         imageView.setOnClickListener(EventInfoActivity.this);
+
+                        eventReadCategory.setText("——" + myEvent.getEvent_type());
+                        eventReadFollowPeople.setText(myEvent.getFollow_account() + "人关注");
+                        eventReadOrganizer.setText("——" + myEvent.getOrganizer());
+                        eventReadViewPeople.setText(myEvent.getPage_view() + "人浏览");
+
                     }
                 });
     }

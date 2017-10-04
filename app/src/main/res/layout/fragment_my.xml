@@ -33,7 +33,7 @@
             <LinearLayout 
                 android:orientation="vertical" 
                 android:layout_width="match_parent" 
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <View 
                     android:background="@color/divider" 
@@ -324,6 +324,45 @@
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
                 <LinearLayout
+                    android:id="@+id/my_manager_layout"
+                    android:background="@drawable/ripple_chat_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp">
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/ic_settings_input_svideo_black_24dp" />
+                            <TextView
+                                android:textSize="18dp"
+                                android:textColor="#ff555555"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="我的管理" />
+                        </LinearLayout>
+                        <ImageButton
+                            android:gravity="center_vertical"
+                            android:background="@drawable/ic_keyboard_arrow_right_black_24dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true" />
+                    </RelativeLayout>
+                </LinearLayout>
+                <View
+                    android:background="@color/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+                <LinearLayout
                     android:id="@+id/my_message_layout"
                     android:background="@drawable/ripple_chat_background"
                     android:layout_width="match_parent"
@@ -362,6 +401,7 @@
                     android:background="@color/divider"
                     android:layout_width="match_parent"
                     android:layout_height="10dp" />
+
                 <LinearLayout
                     android:id="@+id/my_set_layout"
                     android:background="@drawable/ripple_chat_background"

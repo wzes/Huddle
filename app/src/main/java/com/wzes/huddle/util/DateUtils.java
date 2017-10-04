@@ -36,6 +36,15 @@ public class DateUtils {
      * @param timestamp
      * @return
      */
+    public static String getEventDateTime(long timestamp){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        return simpleDateFormat.format(timestamp);
+    }
+    /**
+     *
+     * @param timestamp
+     * @return
+     */
 
     public static String getYearTime(long timestamp){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
