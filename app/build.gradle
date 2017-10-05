@@ -80,5 +80,6 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     compile 'com.afollestad.material-dialogs:core:0.9.4.7'
     compile 'com.contrarywind:Android-PickerView:3.2.6'
+    compile 'com.github.arimorty:floatingsearchview:2.1.1'
     compile files('libs/BaiduLBS_Android.jar')
 }

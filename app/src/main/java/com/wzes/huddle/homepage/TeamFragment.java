@@ -1,5 +1,6 @@
 package com.wzes.huddle.homepage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -7,22 +8,29 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.wzes.huddle.R;
-import com.wzes.huddle.adapter.TeamAdapter;
+import com.wzes.huddle.activities.search.SearchTeamActivity;
 import com.wzes.huddle.activities.team.TeamHotFragment;
 import com.wzes.huddle.activities.team.TeamNearFragment;
 import com.wzes.huddle.activities.team.TeamNewFragment;
 import com.wzes.huddle.activities.team.TeamRecFragment;
+import com.wzes.huddle.adapter.TeamAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class TeamFragment extends Fragment {
-    @BindView(R.id.team_tabs) TabLayout teamTabs;
-    @BindView(R.id.team_pager) ViewPager teamPager;
+    @BindView(R.id.team_tabs)
+    TabLayout teamTabs;
+    @BindView(R.id.team_pager)
+    ViewPager teamPager;
     Unbinder unbinder;
+    @BindView(R.id.team_search_layout)
+    FrameLayout teamSearchLayout;
     private TeamAdapter teamAdapter;
     private TeamHotFragment teamHotFragment;
     private TeamNearFragment teamNearFragment;
@@ -65,5 +73,10 @@ public class TeamFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.team_search_layout)
+    public void onViewClicked() {
+        startActivity(new Intent(getContext(), SearchTeamActivity.class));
     }
 }

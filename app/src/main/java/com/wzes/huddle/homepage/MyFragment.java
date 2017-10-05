@@ -13,11 +13,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
-import com.wzes.huddle.activities.ManageActivity;
+import com.wzes.huddle.activities.manage.ManageActivity;
 import com.wzes.huddle.activities.follow.BeFollowActivity;
 import com.wzes.huddle.activities.follow.FollowActivity;
 import com.wzes.huddle.activities.follow.FollowTeamAndEventActivity;
-import com.wzes.huddle.activities.groupteam.GroupTeamActivity;
+import com.wzes.huddle.activities.myteam.MyTeamActivity;
 import com.wzes.huddle.activities.myevent.MyEventActivity;
 import com.wzes.huddle.activities.myinfo.MyInfoActivity;
 import com.wzes.huddle.activities.setting.SettingActivity;
@@ -157,7 +157,7 @@ public class MyFragment extends Fragment implements OnClickListener {
             myBeFollowText.setText(String.valueOf(currentUser.getBefollow_account()));
             myFollowText.setText(String.valueOf(currentUser.getFollow_account()));
             mySignText.setText(String.valueOf(currentUser.getTeam_sign_account()));
-            myTeamText.setText(String.valueOf(currentUser.getTeam_group_account()));
+            myTeamText.setText(String.valueOf(currentUser.getTeam_account()));
             myEventText.setText(String.valueOf(currentUser.getEvent_account()));
             myAllFollowText.setText(String.valueOf(currentUser.getFollow_event_account()
                     + currentUser.getFollow_team_account()));
@@ -190,7 +190,7 @@ public class MyFragment extends Fragment implements OnClickListener {
                 startActivity(new Intent(getContext(), SignTeamActivity.class));
                 break;
             case R.id.my_team_layout:
-                startActivity(new Intent(getContext(), GroupTeamActivity.class));
+                startActivity(new Intent(getContext(), MyTeamActivity.class));
                 break;
             default:
                 break;

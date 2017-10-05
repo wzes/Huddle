@@ -31,6 +31,7 @@ public class Team {
     private int team_id;
     private String title;
     public String user_id;
+    private int user_follow;
 
     public String getDistance() {
         return distance;
@@ -176,5 +177,13 @@ public class Team {
 
     public void setImages(List<Image> images) {
         this.images = images;
+    }
+
+    public int getUser_follow() {
+        return user_follow;
+    }
+
+    public void setUser_follow(int user_follow) {
+        this.user_follow = user_follow;
     }
 }

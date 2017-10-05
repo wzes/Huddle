@@ -337,11 +337,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <ImageView
-                                android:layout_width="24dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="24dp"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginRight="8dp"
-                                android:src="@drawable/ic_settings_input_svideo_black_24dp" />
+                                android:src="@drawable/ic_lock_black_24dp" />
                             <TextView
                                 android:textSize="18dp"
                                 android:textColor="#ff555555"

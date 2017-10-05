@@ -1,5 +1,6 @@
 package com.wzes.huddle.activities.teamdetail;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -128,6 +129,7 @@ public class TeamInfoActivity extends AppCompatActivity {
 
                     }
 
+                    @SuppressLint("DefaultLocale")
                     @Override
                     public void onComplete() {
                         collapsing.setTitle(myTeam.getTitle());
@@ -135,6 +137,7 @@ public class TeamInfoActivity extends AppCompatActivity {
                         for (Image img : myTeam.getImages()) {
                             images.add(img.getImage());
                         }
+                        followTxt.setText(String.format("%d粉丝", myTeam.getUser_follow()));
                         Glide.with(TeamInfoActivity.this).load(myTeam.getImage()).into(circleImageView);
                         infoTxt.setText(myTeam.getInfo());
                         banner.setImages(images).setDelayTime(m_AppUI.MSG_APP_GPS).setIndicatorGravity(6).setImageLoader(new GlideImageLoader()).start();
@@ -209,7 +212,31 @@ public class TeamInfoActivity extends AppCompatActivity {
                             }
                         })
         );
+        followBtn.setOnClickListener(view-> MyRetrofit.getNormalRetrofit().addUserFollow(Preferences.getUserAccount(),
+                myTeam.getUser_id())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(@NonNull ResponseBody team) {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Toast.makeText(TeamInfoActivity.this, "关注成功！", Toast.LENGTH_SHORT).show();
+                    }
+                }));
         saveBtn.setOnClickListener(view -> MyRetrofit.getNormalRetrofit().addTeamFollow(team_id, Preferences.getUserAccount())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -231,7 +258,7 @@ public class TeamInfoActivity extends AppCompatActivity {
 
                     @Override
                     public void onComplete() {
-
+                        Toast.makeText(TeamInfoActivity.this, "关注成功！", Toast.LENGTH_SHORT).show();
                     }
                 }));
 

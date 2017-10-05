@@ -22,6 +22,7 @@ import com.wzes.huddle.util.AppManager;
 import com.wzes.huddle.util.MyLog;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -149,6 +150,10 @@ public class ChatFragment extends Fragment {
 
                    @Override
                    public void onComplete() {
+
+                       if(!(list.size() > 0 && list.get(0) != null)){
+                           list = new ArrayList<>();
+                       }
                        refreshLayout.setRefreshing(false);
                        chatAdapter = new ChatAdapter(ChatFragment.this, list);
                        recyclerView.setHasFixedSize(true);

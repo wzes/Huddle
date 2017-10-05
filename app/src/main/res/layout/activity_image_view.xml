@@ -11,8 +11,9 @@
         android:layout_height="match_parent" />
     <ImageButton
         android:id="@+id/image_loader_back"
-        android:background="@drawable/ic_navigate_before_white_24dp"
-        android:layout_width="30dp"
-        android:layout_height="34dp"
-        android:layout_margin="8dp" />
+        android:background="@drawable/ic_arrow_white_24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"/>
 </FrameLayout>

@@ -13,6 +13,7 @@ import com.wzes.huddle.adapter.UserEventAdapter;
 import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.service.MyRetrofit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -76,6 +77,9 @@ public class FollowEventFragment extends Fragment {
 
                    @Override
                    public void onComplete() {
+                       if(!(list.size() > 0 && list.get(0) != null)){
+                           list = new ArrayList<>();
+                       }
                        recyclerView.setAdapter(new UserEventAdapter(getContext(), list));
                        recyclerView.setHasFixedSize(true);
                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

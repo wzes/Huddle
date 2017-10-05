@@ -16,4 +16,7 @@
     <dimen name="primary_margin_half">8dp</dimen>
 
     <dimen name="body_text_size">16sp</dimen>
+
+    <dimen name="title_size">22sp</dimen>
+    <dimen name="search_view_inset">5sp</dimen>
 </resources>

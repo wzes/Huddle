@@ -86,12 +86,12 @@
         <activity android:name=".activities.follow.FollowActivity" />
         <activity android:name=".activities.follow.BeFollowActivity" />
         <activity android:name=".activities.signteam.SignTeamActivity" />
-        <activity android:name=".activities.groupteam.GroupTeamActivity" />
+        <activity android:name=".activities.myteam.MyTeamActivity" />
         <activity android:name=".activities.myevent.MyEventActivity" />
         <activity android:name=".activities.follow.FollowTeamAndEventActivity" />
         <activity android:name=".activities.search.SearchTeamActivity" />
         <activity android:name=".activities.search.SearchEventActivity" />
-        <activity android:name=".activities.ManageActivity"></activity>
+        <activity android:name=".activities.manage.ManageActivity"></activity>
     </application>
 
 </manifest>

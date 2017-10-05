@@ -12,6 +12,7 @@ import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Event;
 import com.wzes.huddle.service.MyRetrofit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -62,6 +63,9 @@ public class MyEventActivity extends AppCompatActivity {
 
                     @Override
                     public void onComplete() {
+                        if(!(list.size() > 0 && list.get(0) != null)){
+                            list = new ArrayList<>();
+                        }
                         myEventRecycler.setAdapter(new UserEventAdapter(getApplicationContext(), list));
                         myEventRecycler.setHasFixedSize(true);
                         myEventRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

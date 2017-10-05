@@ -77,6 +77,7 @@ public class User {
     private int team_group_account;
     private int team_sign_account;
     private int event_account;
+    private int team_account;
     private int follow_event_account;
     private int follow_team_account;
 
@@ -167,5 +168,13 @@ public class User {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public int getTeam_account() {
+        return team_account;
+    }
+
+    public void setTeam_account(int team_account) {
+        this.team_account = team_account;
     }
 }

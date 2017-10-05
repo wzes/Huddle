@@ -6,6 +6,8 @@ import com.wzes.huddle.bean.Follow;
 import com.wzes.huddle.bean.Message;
 import com.wzes.huddle.bean.Team;
 import com.wzes.huddle.bean.User;
+import com.wzes.huddle.bean.UserTeam;
+
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -19,6 +21,10 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface RetrofitService {
+
+    @GET("huddle/adduserfollow.php")
+    Observable<ResponseBody> addUserFollow(@Query("user_id") String user_id, @Query("follow_id") String follow_id);
+
     @GET("huddle/addeventfollow.php")
     Observable<ResponseBody> addEventFollow(@Query("event_id") String str, @Query("user_id") String str2);
 
@@ -62,6 +68,12 @@ public interface RetrofitService {
 
     @GET("huddle/signteams.php")
     Observable<List<Team>> getUserSignTeamList(@Query("user_id") String user_id);
+
+    @GET("huddle/signusers.php")
+    Observable<List<UserTeam>> getSignUserList(@Query("user_id") String user_id);
+
+    @GET("huddle/groupusers.php")
+    Observable<List<UserTeam>> getGroupUserList(@Query("user_id") String user_id);
 
     @GET("huddle/groupteams.php")
     Observable<List<Team>> getUserGroupTeamList(@Query("user_id") String user_id);

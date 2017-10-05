@@ -219,7 +219,7 @@
                             android:orientation="vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="10dp">
                             <Button
@@ -229,7 +229,7 @@
                                 android:layout_width="60dp"
                                 android:layout_height="24dp"
                                 android:text="关注"
-                                android:drawableRight="@drawable/ic_favorite_border_black_24dp" />
+                                android:drawableRight="@drawable/ic_favorite_24dp" />
                             <TextView
                                 android:layout_gravity="center_horizontal"
                                 android:id="@+id/team_info_user_follow"
@@ -303,7 +303,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="收藏" />
+                    android:text="关注" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"

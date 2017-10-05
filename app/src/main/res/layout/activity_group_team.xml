@@ -6,24 +6,27 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".activities.groupteam.GroupTeamActivity">
-    <RelativeLayout
+    tools:context=".activities.myteam.MyTeamActivity">
+    <LinearLayout
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="55dp">
         <ImageButton
             android:id="@+id/group_team_back"
-            android:background="@drawable/ic_navigate_before_white_24dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true" />
+            android:background="@drawable/ic_arrow_white_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_gravity="center_vertical" />
         <TextView android:textSize="24sp"
-            android:textColor="#ffffffff"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的组队"
-            android:layout_centerInParent="true" />
-    </RelativeLayout>
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

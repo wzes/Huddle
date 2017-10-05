@@ -52,6 +52,8 @@
     <string name="add_team">添加组队</string>
     <string name="publish">确认发布</string>
     <string name="search_hint">请输入要查询的内容</string>
+    <string name="action_voice_rec">action_voice_rec</string>
+    <string name="action_change_colors">action_change_colors</string>
 
     <string-array name="sex_name">
         <item>男</item>
