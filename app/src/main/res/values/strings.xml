@@ -39,11 +39,11 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
-    <string name="favorite">Favorite</string>
-    <string name="unfavorite">Unfavorite</string>
-    <string name="action_copy_link">Copy link</string>
-    <string name="action_open_in_browser">Open with system browser</string>
-    <string name="action_share">Share</string>
+    <string name="favorite">关注</string>
+    <string name="unfavorite">取消关注</string>
+    <string name="action_copy_link">复制文本</string>
+    <string name="action_open_in_browser">在浏览打开</string>
+    <string name="action_share">分享</string>
     <string name="share_to">Share to</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="share_error">Share failed</string>
@@ -64,5 +64,9 @@
         <item>1</item>
         <item>0</item>
     </string-array>
+
+    <string name="title_activity_wellcome">WellcomeActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

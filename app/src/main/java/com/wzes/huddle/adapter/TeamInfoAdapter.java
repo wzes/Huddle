@@ -26,6 +26,7 @@ import com.wzes.huddle.activities.userdetail.UserInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,6 +102,11 @@ public class TeamInfoAdapter extends Adapter<ViewHolder> {
         ((MyViewHolder) holder).teamItemImgName.setText(item.getName());
         ((MyViewHolder) holder).teamItemImgStatus.setText(item.getStatus());
         TextView textView = ((MyViewHolder) holder).teamItemImgContent;
+        if(item.getDistance() != null && !item.getDistance().equals("")){
+            ((MyViewHolder) holder).teamItemImgLocation.setText(item.getLocationname() + " " + item.getDistance()+"m");
+        }else{
+            ((MyViewHolder) holder).teamItemImgLocation.setText(item.getLocationname());
+        }
         if (item.getContent().trim().length() > 40) {
             charSequence = item.getContent().substring(0, 40) + "...";
         } else {

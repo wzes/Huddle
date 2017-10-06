@@ -177,7 +177,6 @@ public class AddEventActivity extends AppCompatActivity {
 
     // 动画
     private void animateButton(final CircularProgressButton circularProgressButton) {
-        circularProgressButton.startAnimation();
         String user_id = Preferences.getUserAccount();
         String content = addEventContent.getText().toString();
         String title = addEventTitle.getText().toString();
@@ -194,6 +193,7 @@ public class AddEventActivity extends AppCompatActivity {
                 && !TextUtils.isEmpty(enrool_end_date) && !TextUtils.isEmpty(macth_start_date)
                 && !TextUtils.isEmpty(macth_end_date)
                 && !TextUtils.isEmpty(event_type) && !TextUtils.isEmpty(level)) {
+            circularProgressButton.startAnimation();
             RequestBody rUser_id = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), user_id);
             RequestBody rContent = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), content);
             RequestBody rTitle = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), title);

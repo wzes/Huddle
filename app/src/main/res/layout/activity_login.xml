@@ -153,14 +153,14 @@
                             android:layout_gravity="center_horizontal"
                             android:layout_width="50dp"
                             android:layout_height="50dp" 
-                            android:src="@drawable/tongji"/>
+                            android:src="@drawable/mobile_phone"/>
                         <TextView
                             android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"
                             android:paddingTop="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="同济身份登录" />
+                            android:text="手机号登录" />
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="vertical"

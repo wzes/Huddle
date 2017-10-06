@@ -13,15 +13,19 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="OverflowButtonStyle" parent="@android:style/Widget.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_add_black_24dp</item>
     </style>
+
     <style name="OverflowMenuStyle" parent="@style/Widget.AppCompat.Light.PopupMenu.Overflow">
         <item name="overlapAnchor">false</item>
     </style>
+
     <style name="EventActivityTheme" parent="@style/BaseAppTheme">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
     <style name="GalleryBaseTheme" parent="@style/Theme.AppCompat.Light.NoActionBar" />
 
     <style name="ImageViewTheme" parent="@style/BaseAppTheme">
@@ -41,6 +45,18 @@
         <item name="android:textColorSecondary">#ffffffff</item>
         <item name="android:actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
         <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="BaseAppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="android:Widget.Holo.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
     </style>
 
 </resources>

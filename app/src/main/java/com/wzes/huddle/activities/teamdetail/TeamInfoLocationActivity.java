@@ -30,12 +30,12 @@ public class TeamInfoLocationActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SDKInitializer.initialize(getApplicationContext());
         AppManager.getAppManager().addActivity(this);
         Intent intent = getIntent();
         this.title = intent.getStringExtra("title");
         this.latitude = intent.getStringExtra("latitude");
         this.longtitude = intent.getStringExtra("longitude");
-        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_team_info_location);
         ButterKnife.bind(this);
         this.titleTxt.setText(this.title);

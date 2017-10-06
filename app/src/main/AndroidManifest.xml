@@ -54,13 +54,7 @@
         <activity
             android:name=".activities.login.LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity android:name=".activities.register.RegisterActivity" />
         <activity android:name=".activities.myinfo.MyInfoActivity" />
         <activity android:name=".activities.myinfo.MyInfoSettingActivity" />
@@ -91,7 +85,14 @@
         <activity android:name=".activities.follow.FollowTeamAndEventActivity" />
         <activity android:name=".activities.search.SearchTeamActivity" />
         <activity android:name=".activities.search.SearchEventActivity" />
-        <activity android:name=".activities.manage.ManageActivity"></activity>
+        <activity android:name=".activities.manage.ManageActivity" />
+        <activity android:name=".activities.wellcome.WellComActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

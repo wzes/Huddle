@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.bigkoo.pickerview.OptionsPickerView;
@@ -101,7 +102,7 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
 
     public LocationClient mLocationClient = null;
 
-    public BDAbstractLocationListener myListener = null;
+    public BDLocationListener myListener = null;
 
 
     private TeamAddImageAdapter teamAddImageAdapter;
@@ -242,7 +243,8 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
                 if (hasStoragePermission()) {
                     openGallery();
                 } else {
-                    Toast.makeText(this, "您禁止了读权限", Toast.LENGTH_SHORT).show();
+                    EasyPermissions.requestPermissions(this, getString(R.string.internet_permission),
+                            STORAGE_PERM,  Manifest.permission.READ_EXTERNAL_STORAGE);
                 }
 
             }
@@ -264,7 +266,6 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
     // 动画
     private void animateButton(final CircularProgressButton circularProgressButton) {
         images = list.size() - 1;
-        circularProgressButton.startAnimation();
         String user_id = Preferences.getUserAccount();
         String content = teamContent.getText().toString();
         String title = teamTitle.getText().toString();
@@ -276,6 +277,7 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
         if (!TextUtils.isEmpty(user_id) && !TextUtils.isEmpty(content) && !TextUtils.isEmpty(title)
                 && !TextUtils.isEmpty(release_date) && !TextUtils.isEmpty(start_date)
                 && !TextUtils.isEmpty(category) && !TextUtils.isEmpty(level)) {
+            circularProgressButton.startAnimation();
             RequestBody rUser_id = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), user_id);
             RequestBody rContent = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), content);
             RequestBody rTitle = RequestBody.create(MediaType.parse(HttpHeaders.Values.MULTIPART_FORM_DATA), title);
@@ -412,7 +414,7 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
 
     @AfterPermissionGranted(LOCATION_PERM)
     private void locationTask() {
-        String perm = Manifest.permission.INTERNET;
+        String perm = Manifest.permission.ACCESS_FINE_LOCATION;
         if (hasLocationPermission()) {
             initLocation();
         } else {
@@ -547,7 +549,7 @@ public class AddTeamActivity extends AppCompatActivity implements EasyPermission
     }
 
 
-    public class MyLocationListener extends BDAbstractLocationListener {
+    public class MyLocationListener implements BDLocationListener {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
