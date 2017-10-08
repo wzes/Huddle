@@ -29,7 +29,8 @@
                     <RelativeLayout 
                         android:layout_width="match_parent" 
                         android:layout_height="wrap_content">
-                        <Button 
+                        <Button
+                            android:id="@+id/login_register"
                             android:textSize="24sp" 
                             android:textColor="@color/white" 
                             android:gravity="center" 
@@ -125,6 +126,7 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp">
                     <LinearLayout
+                        android:id="@+id/login_wechat_layout"
                         android:orientation="vertical"
                         android:paddingTop="@dimen/activity_horizontal_margin"
                         android:layout_width="0dp"
@@ -144,6 +146,7 @@
                             android:text="微信登录" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/login_phone_layout"
                         android:orientation="vertical"
                         android:paddingTop="@dimen/activity_horizontal_margin"
                         android:layout_width="0dp"
@@ -163,6 +166,7 @@
                             android:text="手机号登录" />
                     </LinearLayout>
                     <LinearLayout
+                        android:id="@+id/login_qq_layout"
                         android:orientation="vertical"
                         android:paddingTop="@dimen/activity_horizontal_margin"
                         android:layout_width="0dp"

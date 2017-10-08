@@ -11,25 +11,24 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
-import com.wzes.huddle.app.DemoCache;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.User;
 import com.wzes.huddle.homepage.MainActivity;
 import com.wzes.huddle.service.Identity;
 import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.util.AppManager;
-import com.wzes.huddle.util.MyLog;
 import com.wzes.huddle.util.NetworkUtils;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -43,14 +42,26 @@ import static com.wzes.huddle.homepage.MyFragment.currentUser;
 
 public class LoginActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
-    @BindView(R.id.login_image) CircleImageView mUserImage;
-    @BindView(R.id.login_sign) Button signInBtn;
-    @BindView(R.id.login_username) EditText mUsernameView;
-    @BindView(R.id.login_password) EditText mPasswordView;
+    @BindView(R.id.login_image)
+    CircleImageView mUserImage;
+    @BindView(R.id.login_sign)
+    Button signInBtn;
+    @BindView(R.id.login_username)
+    EditText mUsernameView;
+    @BindView(R.id.login_password)
+    EditText mPasswordView;
 
     private static final String[] INTERNET =
             {Manifest.permission.INTERNET};
     private static final int INTERNET_PERM = 123;
+    @BindView(R.id.login_register)
+    Button loginRegister;
+    @BindView(R.id.login_wechat_layout)
+    LinearLayout loginWechatLayout;
+    @BindView(R.id.login_phone_layout)
+    LinearLayout loginPhoneLayout;
+    @BindView(R.id.login_qq_layout)
+    LinearLayout loginQqLayout;
     private UserLoginTask mAuthTask = null;
     private User lastUser = null;
 
@@ -62,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
         /*
          * request for database if local not username
          */
-        if(Preferences.getUserAccount() != null){
+        if (Preferences.getUserAccount() != null) {
             if (currentUser == null) {
                 MyRetrofit.getGsonRetrofit()
                         .getUserByUername(Preferences.getUserAccount())
@@ -91,14 +102,13 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
             //show defalut image and enter the main
             startActivity(new Intent(this, MainActivity.class));
             finish();
-        }
-        else if(Preferences.getLastUserAccount() != null) {
-            if(NetworkUtils.isConnected(this)){
+        } else if (Preferences.getLastUserAccount() != null) {
+            if (NetworkUtils.isConnected(this)) {
                 MyRetrofit.getGsonRetrofit()
                         .getUserByUername(Preferences.getLastUserAccount())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<User>(){
+                        .subscribe(new Observer<User>() {
                             public void onComplete() {
                                 Glide.with(LoginActivity.this)
                                         .load(lastUser.getImage())
@@ -118,7 +128,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
                                 lastUser = user;
                             }
                         });
-            }else{
+            } else {
                 Toast.makeText(this, "网络不太好 ^_^", Toast.LENGTH_SHORT).show();
             }
         }
@@ -139,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
             String password = mPasswordView.getText().toString();
             boolean cancel = false;
             View focusView = null;
-            if (TextUtils.isEmpty(password) || !isPasswordValid(password)){
+            if (TextUtils.isEmpty(password) || !isPasswordValid(password)) {
                 mPasswordView.setError(getString(R.string.error_invalid_password));
                 focusView = mPasswordView;
                 cancel = true;
@@ -160,9 +170,9 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
             /*
              * network is not good !
              */
-            if(!NetworkUtils.isConnected(this)){
+            if (!NetworkUtils.isConnected(this)) {
                 Toast.makeText(this, "网络不太好 ^_^", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 signInBtn.setText("正在登录...");
                 mAuthTask = new UserLoginTask(username, password);
                 mAuthTask.execute((Void) null);
@@ -179,7 +189,23 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
         return true;
     }
 
-
+    @OnClick({R.id.login_register, R.id.login_wechat_layout, R.id.login_phone_layout, R.id.login_qq_layout})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.login_register:
+                Toast.makeText(this, "请使用测试账号1552730 密码111111", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.login_wechat_layout:
+                Toast.makeText(this, "该功能还没开发，敬请期待", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.login_phone_layout:
+                Toast.makeText(this, "该功能还没开发，敬请期待", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.login_qq_layout:
+                Toast.makeText(this, "该功能还没开发，敬请期待", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
 
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
@@ -193,19 +219,19 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
 
         protected Boolean doInBackground(Void... params) {
             try {
-                if (!Identity.Login(username,password)) {
-                    return Boolean.valueOf(false);
+                if (!Identity.Login(username, password)) {
+                    return Boolean.FALSE;
                 }
                 Preferences.saveUserAccount(username);
-                return Boolean.valueOf(true);
+                return Boolean.TRUE;
             } catch (Exception e) {
-                return Boolean.valueOf(false);
+                return Boolean.FALSE;
             }
         }
 
         protected void onPostExecute(Boolean success) {
             mAuthTask = null;
-            if (success.booleanValue()) {
+            if (success) {
                 Preferences.saveUserAccount(username);
                 Preferences.saveLastUserAccount(username);
                 currentUser = null;
@@ -261,6 +287,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
             new AppSettingsDialog.Builder(this).build().show();
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
