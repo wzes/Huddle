@@ -63,6 +63,7 @@ public class TeamFragment extends Fragment {
                 TeamHotFragment.newInstance(),
                 TeamNearFragment.newInstance());
         teamPager.setAdapter(teamAdapter);
+
         teamTabs.setupWithViewPager(teamPager);
         setHasOptionsMenu(true);
         unbinder = ButterKnife.bind(this, view);
