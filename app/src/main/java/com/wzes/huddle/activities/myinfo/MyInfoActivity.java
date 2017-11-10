@@ -73,7 +73,7 @@ public class MyInfoActivity extends AppCompatActivity implements OnClickListener
             File file = new File(path);
             Part body = Part.createFormData("image", file.getName(), RequestBody.create(MediaType.parse("image/jpeg"), file));
             RequestBody user_id = RequestBody.create(MediaType.parse(Values.MULTIPART_FORM_DATA), Preferences.getUserAccount());
-            MyRetrofit.getNormalRetrofit().upLoad(user_id, body)
+            MyRetrofit.getNormalRetrofit().uploaduserImage(user_id, body)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<ResponseBody>() {
