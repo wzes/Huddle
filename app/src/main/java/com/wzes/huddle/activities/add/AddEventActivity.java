@@ -312,9 +312,11 @@ public class AddEventActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onError(@NonNull Throwable e) {
+                                        MyLog.e(e.getMessage());
                                         addEventSendBtn.doneLoadingAnimation(
                                                 ContextCompat.getColor(AddEventActivity.this, R.color.colorPrimaryDark),
                                                 BitmapFactory.decodeResource(getResources(), R.drawable.ic_done_white_48dp));
+                                        Toast.makeText(AddEventActivity.this, "服务器挂了～", Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override

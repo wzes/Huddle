@@ -8,13 +8,19 @@
     <LinearLayout
         android:orientation="horizontal" 
         android:layout_width="match_parent" 
-        android:layout_height="wrap_content" 
+        android:layout_height="wrap_content"
         android:layout_margin="8dp">
-        <ImageView
-            android:id="@+id/event_item_image" 
-            android:layout_width="110dp"
-            android:layout_height="match_parent"
-            android:background="@color/divider" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/event_item_image"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_centerInParent="true"
+                android:background="@color/divider" />
+        </RelativeLayout>
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -48,13 +54,13 @@
                 android:id="@+id/event_item_host"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:text="主办方 同济大学软件学院" />
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="3dp">
                 <TextView
                     android:textSize="11dp"
                     android:id="@+id/event_item_view"
