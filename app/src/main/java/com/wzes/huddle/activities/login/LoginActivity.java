@@ -104,6 +104,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
             finish();
         } else if (Preferences.getLastUserAccount() != null) {
             if (NetworkUtils.isConnected(this)) {
+                Toast.makeText(this, "可以使用同济统一身份认证登录～～", Toast.LENGTH_SHORT).show();
                 MyRetrofit.getGsonRetrofit()
                         .getUserByUername(Preferences.getLastUserAccount())
                         .subscribeOn(Schedulers.io())
