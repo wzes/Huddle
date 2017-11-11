@@ -3,9 +3,11 @@ package com.wzes.huddle.activities.login;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,14 +18,17 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
+import com.wzes.huddle.activities.add.AddEventActivity;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.User;
 import com.wzes.huddle.homepage.MainActivity;
 import com.wzes.huddle.service.Identity;
 import com.wzes.huddle.service.MyRetrofit;
 import com.wzes.huddle.util.AppManager;
+import com.wzes.huddle.util.MyLog;
 import com.wzes.huddle.util.NetworkUtils;
 
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,6 +39,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -223,6 +229,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
                 if (!Identity.Login(username, password)) {
                     return Boolean.FALSE;
                 }
+                addUser(username, password);
                 Preferences.saveUserAccount(username);
                 return Boolean.TRUE;
             } catch (Exception e) {
@@ -249,6 +256,39 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
             mAuthTask = null;
             signInBtn.setText("立即登录");
         }
+    }
+
+
+    public void addUser(String user_id, String password) {
+        MyRetrofit.getNormalRetrofit().addUser(user_id, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull ResponseBody responseBody) {
+                        try {
+                            MyLog.i(responseBody.string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        MyLog.e(e.getMessage());
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @AfterPermissionGranted(INTERNET_PERM)

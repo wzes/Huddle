@@ -22,6 +22,9 @@ import retrofit2.http.Query;
 
 public interface RetrofitService {
 
+    @GET("huddle/adduser.php")
+    Observable<ResponseBody> addUser(@Query("user_id") String user_id, @Query("password") String password);
+
     @GET("huddle/adduserfollow.php")
     Observable<ResponseBody> addUserFollow(@Query("user_id") String user_id, @Query("follow_id") String follow_id);
 
