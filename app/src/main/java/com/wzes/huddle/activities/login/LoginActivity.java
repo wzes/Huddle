@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -200,7 +201,7 @@ public class LoginActivity extends AppCompatActivity implements EasyPermissions.
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_register:
-                Toast.makeText(this, "请使用测试账号1552730 密码111111", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "可以使用同济统一身份认证登录～～", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.login_wechat_layout:
                 Toast.makeText(this, "该功能还没开发，敬请期待", Toast.LENGTH_SHORT).show();

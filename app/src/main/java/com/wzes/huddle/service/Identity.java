@@ -1,6 +1,5 @@
 package com.wzes.huddle.service;
 
-import android.util.Log;
 import com.google.gson.Gson;
 import com.wzes.huddle.bean.User;
 import okhttp3.FormBody;
@@ -11,7 +10,8 @@ public class Identity {
     private static final OkHttpClient client = new OkHttpClient();
 
     public static boolean Login(String username, String password) {
-        if (getUser(username).getPassword().equals(password)) {
+        User user = getUser(username);
+        if (user != null && user.getPassword() != null && user.getPassword().equals(password)) {
             return true;
         }
         return isTongjiUser(username, password);
@@ -19,13 +19,13 @@ public class Identity {
 
     public static User getUser(String user_id) {
         try {
-            String result = client.newCall(new Builder().url("http://59.110.136.134/huddle/user.php?user_id=" + user_id).get().build()).execute().body().string();
+            String result = client.newCall(new Builder().url("http://59.110.136.134:88/huddle/user.php?user_id=" + user_id).get().build()).execute().body().string();
             if (result == null || result.equals("null")) {
-                return null;
+                return new User();
             }
             return new Gson().fromJson(result, User.class);
         } catch (Exception e) {
-            return null;
+            return new User();
         }
     }
 
@@ -37,7 +37,7 @@ public class Identity {
                 return true;
             }
         } catch (Exception e) {
-            Log.i("TTTT", "isTongjiUser: " + e.toString());
+            e.printStackTrace();
         }
         return false;
     }

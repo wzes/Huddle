@@ -1,5 +1,7 @@
 package com.wzes.huddle;
 
+import com.wzes.huddle.service.Identity;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -13,5 +15,8 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
+
+        boolean tongjiUser = Identity.Login("1552730", "427053");
+        assertEquals(true, tongjiUser);
     }
 }

@@ -146,4 +146,7 @@ public interface RetrofitService {
     @POST("huddle/uploadeventimage.php")
     @Multipart
     Observable<ResponseBody> uploadEventimage(@Part("event_id") RequestBody requestBody, @Part MultipartBody.Part part);
+
+
+
 }

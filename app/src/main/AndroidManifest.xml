@@ -23,9 +23,9 @@
     <application
         android:name=".app.BaseApplication"
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/logo"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/BaseAppTheme">
         <provider
@@ -54,7 +54,7 @@
         <activity
             android:name=".activities.login.LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"/>
         <activity android:name=".activities.register.RegisterActivity" />
         <activity android:name=".activities.myinfo.MyInfoActivity" />
         <activity android:name=".activities.myinfo.MyInfoSettingActivity" />

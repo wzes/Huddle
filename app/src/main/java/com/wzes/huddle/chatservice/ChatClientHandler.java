@@ -32,7 +32,7 @@ public class ChatClientHandler extends SimpleChannelInboundHandler<String> {
             uIntent.setAction("com.wzes.huddle.user");
             uIntent.putExtra("msg", arg1);
             DemoCache.getContext().sendBroadcast(uIntent);
-            sendNotification();
+
         } catch (Exception e) {
 
         }

@@ -46,7 +46,7 @@
                     android:id="@+id/login_image" 
                     android:layout_width="100dp" 
                     android:layout_height="100dp" 
-                    android:src="@drawable/user" />
+                    android:src="@drawable/logo" />
                 <android.support.design.widget.TextInputLayout 
                     android:textColorHint="@color/white" 
                     android:layout_width="match_parent" 
