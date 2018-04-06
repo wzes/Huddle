@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,16 +67,18 @@ public class UserEventFragment extends Fragment {
 
                    @Override
                    public void onNext(@NonNull List<Event> events) {
+                       Log.e("TAG", " :events " + mParam2);
                        list = events;
                    }
 
                    @Override
                    public void onError(@NonNull Throwable e) {
-
+                       Log.e("TAG", " :Throwable " + mParam2);
                    }
 
                    @Override
                    public void onComplete() {
+                       Log.e("TAG", " :Start " + list.size());
                        recyclerView.setAdapter(new UserEventAdapter(getContext(), list));
                        recyclerView.setHasFixedSize(true);
                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

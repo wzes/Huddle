@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.baidu.mapapi.UIMsg.m_AppUI;
 import com.bumptech.glide.Glide;
 import com.wzes.huddle.R;
+import com.wzes.huddle.activities.userdetail.UserInfoActivity;
 import com.wzes.huddle.adapter.TeamInfoUserAdapter;
 import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.Image;
@@ -26,7 +27,6 @@ import com.wzes.huddle.bean.teamuser;
 import com.wzes.huddle.chatservice.ChatActivity;
 import com.wzes.huddle.imageloader.ImageViewActivity;
 import com.wzes.huddle.service.MyRetrofit;
-import com.wzes.huddle.activities.userdetail.UserInfoActivity;
 import com.wzes.huddle.util.AppManager;
 import com.wzes.huddle.util.DateUtils;
 import com.wzes.huddle.util.GlideImageLoader;
@@ -43,31 +43,53 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 public class TeamInfoActivity extends AppCompatActivity {
-    @BindView(R.id.team_info_banner) Banner banner;
-    @BindView(R.id.team_info_category) TextView categoryTxt;
-    @BindView(R.id.team_info_user_img) CircleImageView circleImageView;
-    @BindView(R.id.team_info_collapsing) CollapsingToolbarLayout collapsing;
-    @BindView(R.id.team_info_content) TextView contentTxt;
-    @BindView(R.id.team_info_follow) Button followBtn;
-    @BindView(R.id.team_info_user_follow) TextView followTxt;
-    @BindView(R.id.team_info_user_info) TextView infoTxt;
-    @BindView(R.id.team_info_locationname) TextView locationTxt;
-    @BindView(R.id.team_info_user_major) TextView majorTxt;
-    @BindView(R.id.team_info_title) TextView teamInfoTitle;
-    @BindView(R.id.team_info_location_detail) TextView teamInfoLocationDetail;
-    @BindView(R.id.team_info_user_name) TextView nameTxt;
-    @BindView(R.id.team_info_people) TextView peopleTxt;
-    @BindView(R.id.team_info_user_recyclerView) RecyclerView recyclerView;
-    @BindView(R.id.team_info_user_save) LinearLayout saveBtn;
-    @BindView(R.id.team_info_user_sign) LinearLayout signBtn;
-    @BindView(R.id.team_info_user_talk) LinearLayout talkBtn;
-    @BindView(R.id.team_info_start_time) TextView timeTxt;
-    @BindView(R.id.team_info_toolbar) Toolbar toolBar;
-    @BindView(R.id.team_info_user_layout) LinearLayout userBtn;
+    @BindView(R.id.team_info_banner)
+    Banner banner;
+    @BindView(R.id.team_info_category)
+    TextView categoryTxt;
+    @BindView(R.id.team_info_user_img)
+    CircleImageView circleImageView;
+    @BindView(R.id.team_info_collapsing)
+    CollapsingToolbarLayout collapsing;
+    @BindView(R.id.team_info_content)
+    TextView contentTxt;
+    @BindView(R.id.team_info_follow)
+    Button followBtn;
+    @BindView(R.id.team_info_user_follow)
+    TextView followTxt;
+    @BindView(R.id.team_info_user_info)
+    TextView infoTxt;
+    @BindView(R.id.team_info_locationname)
+    TextView locationTxt;
+    @BindView(R.id.team_info_user_major)
+    TextView majorTxt;
+    @BindView(R.id.team_info_title)
+    TextView teamInfoTitle;
+    @BindView(R.id.team_info_location_detail)
+    TextView teamInfoLocationDetail;
+    @BindView(R.id.team_info_user_name)
+    TextView nameTxt;
+    @BindView(R.id.team_info_people)
+    TextView peopleTxt;
+    @BindView(R.id.team_info_user_recyclerView)
+    RecyclerView recyclerView;
+    @BindView(R.id.team_info_user_save)
+    LinearLayout saveBtn;
+    @BindView(R.id.team_info_user_sign)
+    LinearLayout signBtn;
+    @BindView(R.id.team_info_user_talk)
+    LinearLayout talkBtn;
+    @BindView(R.id.team_info_start_time)
+    TextView timeTxt;
+    @BindView(R.id.team_info_toolbar)
+    Toolbar toolBar;
+    @BindView(R.id.team_info_user_layout)
+    LinearLayout userBtn;
+    @BindView(R.id.team_info_user_sign_txt)
+    TextView teamInfoUserSignTxt;
 
 
     private Team myTeam;
@@ -165,9 +187,9 @@ public class TeamInfoActivity extends AppCompatActivity {
                             startActivity(nIntent);
                         });
 
-                        if(myTeam.getTeamusers().get(0) == null){
+                        if (myTeam.getTeamusers().get(0) == null) {
                             list = new ArrayList<>();
-                        }else{
+                        } else {
                             list = myTeam.getTeamusers();
                         }
                         peopleTxt.setText(String.format("组员%d人已报名(还差%d人)", list.size(), (myTeam.getJoin_acount() - list.size() - 1)));
@@ -188,31 +210,32 @@ public class TeamInfoActivity extends AppCompatActivity {
         }
         signBtn.setOnClickListener(view -> MyRetrofit.getNormalRetrofit().addTeamSign(team_id,
                 Preferences.getUserAccount(), String.valueOf(System.currentTimeMillis()))
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<ResponseBody>() {
-                            @Override
-                            public void onSubscribe(@NonNull Disposable d) {
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
 
-                            }
+                    }
 
-                            @Override
-                            public void onNext(@NonNull ResponseBody team) {
+                    @Override
+                    public void onNext(@NonNull ResponseBody team) {
 
-                            }
+                    }
 
-                            @Override
-                            public void onError(@NonNull Throwable e) {
+                    @Override
+                    public void onError(@NonNull Throwable e) {
 
-                            }
+                    }
 
-                            @Override
-                            public void onComplete() {
-                                Toast.makeText(TeamInfoActivity.this, "报名成功", Toast.LENGTH_SHORT).show();
-                            }
-                        })
+                    @Override
+                    public void onComplete() {
+                        teamInfoUserSignTxt.setText("已报名");
+                        Toast.makeText(TeamInfoActivity.this, "报名成功", Toast.LENGTH_SHORT).show();
+                    }
+                })
         );
-        followBtn.setOnClickListener(view-> MyRetrofit.getNormalRetrofit().addUserFollow(Preferences.getUserAccount(),
+        followBtn.setOnClickListener(view -> MyRetrofit.getNormalRetrofit().addUserFollow(Preferences.getUserAccount(),
                 myTeam.getUser_id())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -279,7 +302,7 @@ public class TeamInfoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;

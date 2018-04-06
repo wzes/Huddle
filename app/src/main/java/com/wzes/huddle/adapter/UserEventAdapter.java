@@ -78,22 +78,23 @@ public class UserEventAdapter extends Adapter<ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder instanceof NormalViewHolder) {
             Event item = list.get(position);
-
-            RequestOptions options = new RequestOptions()
-                    .centerCrop()
-                    .priority(Priority.HIGH);
-            Glide.with(this.context)
-                    .load(item.getImage())
-                    .apply(options).into(((NormalViewHolder) holder).Img);
-            ((NormalViewHolder) holder).Title.setText(item.getTitle());
-            ((NormalViewHolder) holder).Sign.setText("报名时间 " + DateUtils.getYearTime(item.getEnrool_start_date()) +
-                    " - " + DateUtils.getYearTime(item.getEnrool_end_date()));
-            ((NormalViewHolder) holder).Rice.setText("开始时间 " + DateUtils.getYearTime(item.getMatch_start_date()) + " - "
-                    + DateUtils.getYearTime(item.getMatch_end_date()));
-            ((NormalViewHolder) holder).Host.setText("主办方 " + item.getOrganizer());
-            ((NormalViewHolder) holder).View.setText(item.getPage_view() + " 浏览");
-            ((NormalViewHolder) holder).Follow.setText(item.getFollow_account() + " 关注");
-            ((NormalViewHolder) holder).Level.setText(item.getLevel() + "");
+            if (item != null) {
+                RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .priority(Priority.HIGH);
+                Glide.with(this.context)
+                        .load(item.getImage())
+                        .apply(options).into(((NormalViewHolder) holder).Img);
+                ((NormalViewHolder) holder).Title.setText(item.getTitle());
+                ((NormalViewHolder) holder).Sign.setText("报名时间 " + DateUtils.getYearTime(item.getEnrool_start_date()) +
+                        " - " + DateUtils.getYearTime(item.getEnrool_end_date()));
+                ((NormalViewHolder) holder).Rice.setText("开始时间 " + DateUtils.getYearTime(item.getMatch_start_date()) + " - "
+                        + DateUtils.getYearTime(item.getMatch_end_date()));
+                ((NormalViewHolder) holder).Host.setText("主办方 " + item.getOrganizer());
+                ((NormalViewHolder) holder).View.setText(item.getPage_view() + " 浏览");
+                ((NormalViewHolder) holder).Follow.setText(item.getFollow_account() + " 关注");
+                ((NormalViewHolder) holder).Level.setText(item.getLevel() + "");
+            }
         }
     }
 

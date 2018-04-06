@@ -317,6 +317,7 @@
                     android:textColor="@color/black"
                     android:layout_width="match_parent" 
                     android:layout_height="match_parent"
+                    android:id="@+id/team_info_user_sign_txt"
                     android:text="立即报名" />
             </LinearLayout>
         </LinearLayout>

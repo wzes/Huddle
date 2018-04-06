@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,10 @@ import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.wzes.huddle.R;
 import com.wzes.huddle.activities.follow.FollowActivity;
+import com.wzes.huddle.activities.teamdetail.TeamInfoActivity;
 import com.wzes.huddle.activities.userdetail.UserInfoActivity;
 import com.wzes.huddle.adapter.ManageAdapter;
+import com.wzes.huddle.app.Preferences;
 import com.wzes.huddle.bean.UserTeam;
 import com.wzes.huddle.service.MyRetrofit;
 
@@ -32,6 +35,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 
 public class SignFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -121,7 +125,7 @@ public class SignFragment extends Fragment {
     OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
         @Override
         public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
-            Toast.makeText(getContext(), "左滑通过", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "滑动删除", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -130,6 +134,32 @@ public class SignFragment extends Fragment {
 
         @Override
         public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
+            Log.e("TAG", list.get(pos).getTeam_id() + " " + list.get(pos).getUser_id() );
+            MyRetrofit.getNormalRetrofit().addTeamGroup(list.get(pos).getTeam_id(),
+                    list.get(pos).getUser_id(), String.valueOf(System.currentTimeMillis()))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<ResponseBody>() {
+                        @Override
+                        public void onSubscribe(@NonNull Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(@NonNull ResponseBody team) {
+
+                        }
+
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            Toast.makeText(getContext(), "已成功处理", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
 
         @Override

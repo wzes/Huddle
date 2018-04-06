@@ -37,6 +37,10 @@ public interface RetrofitService {
     @GET("huddle/addteamview.php")
     Observable<ResponseBody> addTeamView(@Query("team_id") String str, @Query("user_id") String str2);
 
+    @GET("huddle/addteamgroup.php")
+    Observable<ResponseBody> addTeamGroup(@Query("team_id") String team_id, @Query("user_id") String user_id,
+                                         @Query("timestamp") String timestamp);
+
     @GET("huddle/addteamsign.php")
     Observable<ResponseBody> addTeamSign(@Query("team_id") String team_id, @Query("user_id") String user_id,
                                          @Query("timestamp") String timestamp);
