@@ -777,7 +777,8 @@ public class PinchImageView extends ImageView  {
      *
      * 在onTouchEvent末尾被执行.
      */
-    private GestureDetector mGestureDetector = new GestureDetector(PinchImageView.this.getContext(), new GestureDetector.SimpleOnGestureListener() {
+    private GestureDetector mGestureDetector = new GestureDetector(PinchImageView.this.getContext(),
+            new GestureDetector.SimpleOnGestureListener() {
 
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             //只有在单指模式结束之后才允许执行fling
